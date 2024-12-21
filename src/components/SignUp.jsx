@@ -1,10 +1,10 @@
+import { Modal } from '@mantine/core'
 
-
-const SignUp = () => {
+const SignUp = ({ opened, close }) => {
   return (
-    <div>
+    <Modal opened={opened} onClose={close} title="Sign Up">
 
-    </div>
+    </Modal>
   )
 }
 

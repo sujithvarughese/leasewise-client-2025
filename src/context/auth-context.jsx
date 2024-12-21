@@ -7,7 +7,7 @@ const initialState = {
   unauthorizedAlertShown: false,
 }
 const authReducer = (state, action) => {
-  if (action.type === "SIGN_IN_USER") {
+  if (action.type === "LOG_IN_USER") {
     return {
       ...state,
       account: action.payload.account,
@@ -23,7 +23,7 @@ const authReducer = (state, action) => {
       user: action.payload.user
     }
   }
-  if (action.type === "SIGN_OUT_USER") {
+  if (action.type === "LOG_OUT_USER") {
     return {
       ...initialState,
     }
@@ -45,14 +45,14 @@ const AuthProvider = ({ children }) => {
 
   const [state, dispatch] = useReducer(authReducer, initialState)
 
-  const signInUser = (data) => {
-    dispatch({ type: "SIGN_IN_USER", payload: data })
+  const logInUser = (data) => {
+    dispatch({ type: "LOG_IN_USER", payload: data })
   }
   const signUpUser = () => {
     dispatch({ type: "SIGN_UP_USER" })
   }
-  const signOutUser = () => {
-    dispatch({ type: "SIGN_OUT_USER" })
+  const logOutUser = () => {
+    dispatch({ type: "LOG_OUT_USER" })
   }
 
   const showUnauthorizedAlert = (duration = 5000) => {
@@ -70,9 +70,9 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={{
       ...state,
-      signInUser,
+      logInUser,
       signUpUser,
-      signOutUser,
+      logOutUser,
       showUnauthorizedAlert,
       closeUnauthorizedAlert
     }}>

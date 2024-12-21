@@ -15,6 +15,13 @@ const RouterSwitcher = () => {
       errorElement: <NotFound />,
     }
   ])
+
+  const managementRouter = createBrowserRouter([
+    {
+
+    }
+  ])
+
   const { user, role } = useAuthProvider()
 
 

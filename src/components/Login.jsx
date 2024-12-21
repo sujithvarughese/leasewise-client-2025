@@ -2,8 +2,18 @@ import { Paper } from '@mantine/core'
 import { useEffect, useState } from 'react'
 import { Button, Code, Text, TextInput } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
+import { useNavigate } from 'react-router-dom'
+import useSubmit from '../hooks/useSubmit.js'
+import { useAuthProvider } from '../context/auth-context.jsx'
+import { useDisclosure } from '@mantine/hooks'
 
-const Login = () => {
+const Login = ({ open }) => {
+
+  const { logInUser } = useAuthProvider()
+  const { response, error, loading, submitForm } = useSubmit()
+  const navigate = useNavigate()
+  const [submittedValues, setSubmittedValues] = useState(null);
+
   const form = useForm({
     mode: 'uncontrolled',
     initialValues: { email: '', password: '' },
@@ -13,14 +23,35 @@ const Login = () => {
     },
   });
 
-  const [submittedValues, setSubmittedValues] = useState(null);
+  const handleSubmit = async () => {
+    try {
+      await submitForm({
+        method: "post",
+        url: "/auth/login",
+        requestConfig: submittedValues
+      })
+    } catch (e) {
+      console.log(e)
+      console.log(error)
+    } finally {
+      form.reset()
+    }
+  }
 
   useEffect(() => {
     console.log(submittedValues)
+    handleSubmit()
   }, [submittedValues])
 
+  useEffect(() => {
+    if (response) {
+      logInUser(response.data)
+      navigate("/")
+    }
+  }, [response])
+
   return (
-    <Paper>
+    <Paper shadow="lg" radius="md" p="lg">
       <form onSubmit={form.onSubmit(setSubmittedValues)}>
         <TextInput
           {...form.getInputProps('email')}
@@ -40,13 +71,12 @@ const Login = () => {
           Submit
         </Button>
 
-        <Text mt="md">Form values:</Text>
-        <Code block>{JSON.stringify(form.values, null, 2)}</Code>
 
-        <Text mt="md">Submitted values:</Text>
-        <Code block>{submittedValues ? JSON.stringify(submittedValues, null, 2) : '–'}</Code>
       </form>
 
+      <Button mt="md" onClick={open}>
+        Create new Account
+      </Button>
     </Paper>
   )
 }
