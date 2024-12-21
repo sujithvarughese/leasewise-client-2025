@@ -38,7 +38,7 @@ const Login = ({ open }) => {
   }
 
   useEffect(() => {
-    console.log(submittedValues)
+    if (!submittedValues) return
     handleSubmit()
   }, [submittedValues])
 

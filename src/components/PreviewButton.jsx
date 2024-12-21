@@ -38,6 +38,7 @@ const PreviewButton = () => {
       variant="gradient"
       gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
       onClick={handleSubmit}
+      loading={loading}
     >
       Preview Site
     </Button>

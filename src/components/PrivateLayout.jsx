@@ -5,15 +5,11 @@ import Header from './Header.jsx'
 import Navbar from './Navbar.jsx'
 import { useDisclosure } from '@mantine/hooks'
 import { AppShell } from '@mantine/core'
-import RouterSwitcher from './RouterSwitcher.jsx'
 
 const PrivateLayout = () => {
 
   const { user, role } = useAuthProvider()
   const [opened, { toggle }] = useDisclosure();
-  console.log(user)
-  console.log(role)
-
 
   return (
     <AppShell
