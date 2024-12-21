@@ -5,45 +5,44 @@ import Landing from '../pages/Landing.jsx'
 import NotFound from '../pages/NotFound.jsx'
 import DashboardAdmin from '../pages/admin/DashboardAdmin.jsx'
 import DashboardTenant from '../pages/tenant/DashboardTenant.jsx'
+import PrivateLayout from './PrivateLayout.jsx'
 
 
 const RouterSwitcher = () => {
-  const publicRouter = createBrowserRouter([
-    {
-      path: "/",
-      element: <Landing />,
-      errorElement: <NotFound />,
-    }
-  ])
 
-  const managementRouter = createBrowserRouter([
+  const adminRouter = createBrowserRouter([
     {
       path: "/",
-      element: <DashboardAdmin />,
+      element: <PrivateLayout />,
       errorElement: <NotFound />,
+      children: [
+        { index: true, element: <DashboardAdmin /> },
+      ]
     }
   ])
 
   const tenantRouter = createBrowserRouter([
     {
       path: "/",
-      element: <DashboardTenant />,
+      element: <PrivateLayout />,
       errorElement: <NotFound />,
+      children: [
+        { index: true, element: <DashboardTenant /> },
+      ]
     }
   ])
 
   const { user, role } = useAuthProvider()
 
 
-  if (!!user && role === "admin") {
-    return <RouterProvider router={managementRouter} />
+  if (!!user && role === "management") {
+    return <RouterProvider router={adminRouter} />
   }
 
   if (!!user && role === "tenant") {
     return <RouterProvider router={tenantRouter} />
   }
 
-  return <RouterProvider router={publicRouter} />
 }
 
 export default RouterSwitcher

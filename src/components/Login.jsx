@@ -11,7 +11,6 @@ const Login = ({ open }) => {
 
   const { logInUser } = useAuthProvider()
   const { response, error, loading, submitForm } = useSubmit()
-  const navigate = useNavigate()
   const [submittedValues, setSubmittedValues] = useState(null);
 
   const form = useForm({
@@ -46,7 +45,6 @@ const Login = ({ open }) => {
   useEffect(() => {
     if (response) {
       logInUser(response.data)
-      navigate("/")
     }
   }, [response])
 

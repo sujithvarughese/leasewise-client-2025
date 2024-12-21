@@ -13,7 +13,6 @@ const PreviewButton = () => {
 
   const { logInUser } = useAuthProvider()
   const { response, error, loading, submitForm } = useSubmit()
-  const navigate = useNavigate()
 
   const handleSubmit = async () => {
     try {
@@ -31,7 +30,6 @@ const PreviewButton = () => {
   useEffect(() => {
     if (response) {
       logInUser(response.data)
-      navigate("/")
     }
   }, [response])
 

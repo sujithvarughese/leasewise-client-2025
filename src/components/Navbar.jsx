@@ -15,7 +15,7 @@ const managementLinks = [
   {
     name: "Dashboard",
     icon: <RiDashboardFill />,
-    url: "/admin"
+    url: "/"
   },
   {
     name: "Units",
@@ -40,7 +40,7 @@ const tenantLinks = [
   {
     name: "Dashboard",
     icon: <RiDashboardFill />,
-    url: "/tenant"
+    url: "/"
   },
   {
     name: "Messages",
