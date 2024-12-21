@@ -11,8 +11,8 @@ const Header = ({ opened, toggle }) => {
         <Burger
           opened={opened}
           onClick={toggle}
-          hiddenFrom="md"
-          size="md"
+          hiddenFrom="sm"
+          size="sm"
         />
         <Box>
           <Image src={logo} alt="logo" height={50}/>
