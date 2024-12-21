@@ -1,5 +1,5 @@
 
-import { AppShellNavbar, Box, Button, Flex, List } from '@mantine/core'
+import { AppShellNavbar, Box, Button, Flex, List, NavLink } from '@mantine/core'
 import { PiBuildingApartmentFill } from "react-icons/pi";
 import { RiDashboardFill, RiMailAiFill } from "react-icons/ri";
 import { FaMoneyBillTrendUp } from "react-icons/fa6";
@@ -12,11 +12,11 @@ const Navbar = () => {
   const { role} = useAuthProvider()
   const [links, setLinks] = useState([])
   const navigate = useNavigate()
-  const [heading, setHeading] = useState("Dashboard")
+  const [active, setActive] = useState(0);
 
-  const setHeadingAndNavigate = (name, url) => {
-    setHeading(name)
-    navigate(url)
+  const setActiveAndNavigate = (index) => {
+    setActive(index)
+    navigate(links[index].url)
   }
   useEffect(() => {
     if (role === "management") {
@@ -26,16 +26,22 @@ const Navbar = () => {
     }
   }, [role])
 
+  console.log(role)
+
   return (
     <AppShellNavbar>
       <List component="nav">
 
         <Flex direction="column">
 
-          {links.map(link =>
-          <Button key={link} onClick={() => setHeadingAndNavigate(link.name, link.url)}>
-            <List.Item icon={link.icon}>{link.name}</List.Item>
-          </Button>
+          {links.map((link, index) =>
+          <NavLink
+            key={index}
+            active={index === active}
+            onClick={() => setActiveAndNavigate(index)}
+            label={link.name}
+            leftSection={link.icon}
+          />
           )}
 
         </Flex>
