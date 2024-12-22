@@ -1,7 +1,7 @@
 import { useAuthProvider } from '../context/auth-context.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import NotFound from '../pages/NotFound.jsx'
-import DashboardAdmin from '../pages/admin/DashboardAdmin.jsx'
+import DashboardAdmin, { dashboardLoader } from '../pages/admin/DashboardAdmin.jsx'
 import DashboardTenant from '../pages/tenant/DashboardTenant.jsx'
 import PrivateLayout from './PrivateLayout.jsx'
 import Units from '../pages/Units.jsx'
@@ -17,7 +17,7 @@ const RouterSwitcher = () => {
       element: <PrivateLayout />,
       errorElement: <NotFound />,
       children: [
-        { index: true, element: <DashboardAdmin /> },
+        { index: true, element: <DashboardAdmin />, loader: dashboardLoader  },
         { path: "/units", element: <Units /> },
         { path: "/accounting", element: <Accounting /> },
         { path: "/messages", element: <Messages /> },
