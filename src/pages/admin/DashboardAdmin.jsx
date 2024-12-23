@@ -1,9 +1,12 @@
 import { axiosDB } from '../../utilities/axios.js'
-import { Box, Container, Grid } from '@mantine/core'
+import { Box } from '@mantine/core'
 import { useLoaderData } from 'react-router-dom'
 import NewsSection from '../../components/NewsSection.jsx'
 import Research from '../../components/Research.jsx'
-
+import PieChartExpenses from '../../components/dashboard/PieChartExpenses.jsx'
+import '@mantine/charts/styles.css';
+import Deposits from '../../components/dashboard/Deposits.jsx'
+import RecentExpenses from '../../components/dashboard/RecentExpenses.jsx'
 const DashboardAdmin = () => {
 
   const { expenses, incomes, mortgages, filteredArticles } = useLoaderData()
@@ -13,19 +16,10 @@ const DashboardAdmin = () => {
       <NewsSection articles={filteredArticles}/>
 
       <Research />
+      <PieChartExpenses expenses={expenses}/>
+      <Deposits incomes={incomes} expenses={expenses}/>
+      <RecentExpenses expenses={expenses}/>
 
-
-      {/*<Grid item xs={12} md={8} lg={9} height={240}>
-              <PieChartExpenses expenses={expenses}/>
-            </Grid>
-
-            <Grid item xs={12} md={4} lg={3}>
-              <Deposits incomes={incomes} expenses={expenses}/>
-            </Grid>
-
-            <Grid item xs={12}>
-              <RecentExpenses expenses={expenses}/>
-            </Grid>*/}
     </Box>
   )
 }

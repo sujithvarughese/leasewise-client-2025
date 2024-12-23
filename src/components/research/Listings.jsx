@@ -33,23 +33,20 @@ const Listings = () => {
 
   return (
     <Box>
-      <Box paddingBottom={3}>
-        <form onSubmit={handleSubmit}>
-          <Flex justify="center" align="center" gap={3}>
-            <Text variant="h5">Search MLS Listings: </Text>
-            <TextInput
-              type="text"
-              name="zipCode"
-              value={zipCode}
-              label="Zip Code"
-              variant="outlined"
-              onChange={(e) => setZipCode(e.target.value)}
-            />
-            <Button loading={loading} type="submit">Submit</Button>
-            {listings && <Button rightSection={<MdExpandMore />} onClick={toggle}></Button>}
-          </Flex>
-        </form>
-      </Box>
+      <form onSubmit={handleSubmit}>
+        <Text>Search MLS Listings: </Text>
+        <Flex justify="center" align="center" gap={3}>
+          <TextInput
+            type="text"
+            name="zipCode"
+            value={zipCode}
+            placeholder="Zip Code"
+            onChange={(e) => setZipCode(e.target.value)}
+          />
+          <Button loading={loading} type="submit">Submit</Button>
+          {listings && <Button rightSection={<MdExpandMore />} onClick={toggle}></Button>}
+        </Flex>
+      </form>
 
       {listings &&
       <Collapse in={opened}>
@@ -61,8 +58,6 @@ const Listings = () => {
       </Collapse>
       }
     </Box>
-
-
   )
 }
 
