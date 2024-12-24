@@ -15,8 +15,11 @@ const DashboardAdmin = () => {
     <Flex direction="column" gap={24}>
       <NewsSection articles={filteredArticles}/>
       <Research />
-      <PieChartExpenses expenses={expenses}/>
-      <Deposits incomes={incomes} expenses={expenses}/>
+      <Flex justify="space-between" align="flex-start">
+        <PieChartExpenses expenses={expenses}/>
+        <Deposits incomes={incomes} expenses={expenses}/>
+      </Flex>
+
       <RecentExpenses expenses={expenses}/>
     </Flex>
   )
