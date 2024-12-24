@@ -101,9 +101,6 @@ const Accounting = () => {
           </Box>
         </Container>
       </Box>
-
-
-
     </Box>
 
   );
@@ -115,7 +112,6 @@ export const accountingLoader = async () => {
     const responseUnits = await axiosDB("/units")
     const { finances } = responseFinances.data
     const { units } = responseUnits.data
-    console.log(finances)
     return { finances, units }
   } catch (error) {
     console.log(error);

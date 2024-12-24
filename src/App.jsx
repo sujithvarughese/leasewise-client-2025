@@ -5,7 +5,6 @@ import Landing from './pages/Landing.jsx'
 const App = () => {
 
   const { user } = useAuthProvider()
-  console.log(user)
 
   return (
     <>

@@ -26,8 +26,6 @@ const Navbar = () => {
     }
   }, [role])
 
-  console.log(role)
-
   return (
     <AppShellNavbar>
       <List component="nav">
