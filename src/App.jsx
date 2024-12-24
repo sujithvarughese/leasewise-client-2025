@@ -1,4 +1,4 @@
-import RouterSwitcher from './components/RouterSwitcher.jsx'
+import RouterSwitcher from './navigation/RouterSwitcher.jsx'
 import { useAuthProvider } from './context/auth-context.jsx'
 import Landing from './pages/Landing.jsx'
 

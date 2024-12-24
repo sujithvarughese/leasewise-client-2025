@@ -1,7 +1,7 @@
 
-import Fmr from '../components/research/Fmr.jsx'
-import { convertToUSD } from '../utilities/financeCalculations.js'
-import Listings from '../components/research/Listings.jsx'
+import Fmr from './Fmr.jsx'
+import { convertToUSD } from '../../utilities/financeCalculations.js'
+import Listings from './Listings.jsx'
 import { Box, Paper, Tabs } from '@mantine/core'
 import { useState } from 'react'
 

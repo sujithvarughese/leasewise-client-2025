@@ -2,7 +2,7 @@ import { axiosDB } from '../../utilities/axios.js'
 import { Box } from '@mantine/core'
 import { useLoaderData } from 'react-router-dom'
 import NewsSection from '../../components/NewsSection.jsx'
-import Research from '../../components/Research.jsx'
+import Research from '../../components/research/Research.jsx'
 import PieChartExpenses from '../../components/dashboard/PieChartExpenses.jsx'
 import '@mantine/charts/styles.css';
 import Deposits from '../../components/dashboard/Deposits.jsx'

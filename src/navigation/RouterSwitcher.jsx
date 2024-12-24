@@ -4,9 +4,10 @@ import NotFound from '../pages/NotFound.jsx'
 import DashboardAdmin, { dashboardLoader } from '../pages/admin/DashboardAdmin.jsx'
 import DashboardTenant from '../pages/tenant/DashboardTenant.jsx'
 import PrivateLayout from './PrivateLayout.jsx'
-import Units from '../pages/Units.jsx'
-import Accounting from '../pages/Accounting.jsx'
-import Messages from '../pages/Messages.jsx'
+import Units, { unitsLoader } from '../pages/Units.jsx'
+import Accounting, { accountingLoader } from '../pages/Accounting.jsx'
+import Messages, { messagesLoader } from '../pages/Messages.jsx'
+import Unit, { unitLoader } from '../pages/Unit.jsx'
 
 
 const RouterSwitcher = () => {
@@ -18,9 +19,10 @@ const RouterSwitcher = () => {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <DashboardAdmin />, loader: dashboardLoader  },
-        { path: "/units", element: <Units /> },
-        { path: "/accounting", element: <Accounting /> },
-        { path: "/messages", element: <Messages /> },
+        { path: "/units", element: <Units />, loader: unitsLoader },
+        { path: "/unit/:id", element: <Unit />, loader: unitLoader },
+        { path: "/accounting", element: <Accounting />, loader: accountingLoader },
+        { path: "/messages", element: <Messages />, loader: messagesLoader },
       ]
     }
   ])
