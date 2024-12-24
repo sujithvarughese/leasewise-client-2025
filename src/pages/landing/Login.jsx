@@ -65,7 +65,7 @@ const Login = ({ open }) => {
             size="lg"
             radius="md"
           />
-          <Button type="submit" size="md">
+          <Button type="submit" size="md" loading={loading}>
             Log In
           </Button>
         </Flex>
