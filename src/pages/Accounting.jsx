@@ -11,7 +11,6 @@ const Accounting = () => {
 
   // finances = array of each unit's financial data
   const { finances, units } = useLoaderData()
-  console.log(units)
   // allow users to view summary per month or year
   const [selectedTerm, setSelectedTerm] = useState(1)
 
@@ -20,6 +19,7 @@ const Accounting = () => {
     const unit = units.find(unitInArray => unitInArray._id === finance.unit)
     return {
       unitID: finance.unit,
+      _id: finance.unit,
       financeID: finance._id,
       mortgage: finance.mortgage,
       propertyTax: finance.annualPropertyTax/12,
@@ -32,6 +32,9 @@ const Accounting = () => {
       city: unit.city,
       state: unit.state,
       zip: unit.zip,
+      image: unit.image,
+      bedrooms: unit.bedrooms,
+      bathrooms: unit.bathrooms,
       tenant: unit.tenant,
       user: unit.user
     }
@@ -43,69 +46,59 @@ const Accounting = () => {
     setUnitFinances(updatedList)
   }
 
-
   return (
     <Box sx={{ display: 'flex' }}>
       <Box
-        component="main"
-        sx={{
-          backgroundColor: (theme) =>
-            theme.palette.mode === 'light'
-              ? theme.palette.grey[100]
-              : theme.palette.grey[900],
+        style={{
           flexGrow: 1,
           height: '100vh',
           overflow: 'auto',
         }}
       >
         <Container sx={{ mt: 4, mb: 4 }}>
-
           <Box>
-              <NativeSelect name="term"
-                      label="Term"
-                      value={setSelectedTerm.label}
-                      sx={{ minWidth: 120 }}
-                      onChange={(e) => setSelectedTerm(e.target.value)}
-
-              >
-                <option value={1}>Monthly</option>
-                <option value={12}>Annual</option>
-              </NativeSelect>
+            <NativeSelect
+              name="term"
+              label="Term"
+              value={setSelectedTerm.label}
+              sx={{ minWidth: 120 }}
+              onChange={(e) => setSelectedTerm(e.target.value)}
+            >
+              <option value={1}>Monthly</option>
+              <option value={12}>Annual</option>
+            </NativeSelect>
           </Box>
 
+          <Table aria-label="simple-table">
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>Address</Table.Th>
+                <Table.Th sx={{ display: { xs: "none", md: "revert" }}}>Mortgage</Table.Th>
+                <Table.Th sx={{ display: { xs: "none", md: "revert" }}}>Tax</Table.Th>
+                <Table.Th sx={{ display: { xs: "none", md: "revert" }}}>Insurance</Table.Th>
+                <Table.Th sx={{ display: { xs: "none", md: "revert" }}}>HOA</Table.Th>
+                <Table.Th sx={{ display: { md: "none" }}}>Expenses</Table.Th>
+                <Table.Th>Rent</Table.Th>
+              </Table.Tr>
+            </Table.Thead>
 
+            <Table.Tbody>
+              {
+                unitFinances.map(unitFinance =>
+                  <FinancesTotalUnitValues
+                    key={unitFinance.financeID}
+                    unitFinance={unitFinance}
+                    selectedTerm={selectedTerm}
+                    removeUnit={removeUnit}
+                  />)
+              }
+              <FinancesTotalCalculated unitFinances={unitFinances} selectedTerm={selectedTerm}/>
+            </Table.Tbody>
+          </Table>
 
-
-            <Table aria-label="simple-table">
-              <Table.Thead>
-                <Table.Tr>
-                  <Table.Th>Address</Table.Th>
-                  <Table.Th sx={{ display: { xs: "none", md: "revert" }}}>Mortgage</Table.Th>
-                  <Table.Th sx={{ display: { xs: "none", md: "revert" }}}>Tax</Table.Th>
-                  <Table.Th sx={{ display: { xs: "none", md: "revert" }}}>Insurance</Table.Th>
-                  <Table.Th sx={{ display: { xs: "none", md: "revert" }}}>HOA</Table.Th>
-                  <Table.Th sx={{ display: { md: "none" }}}>Expenses</Table.Th>
-                  <Table.Th>Rent</Table.Th>
-                </Table.Tr>
-              </Table.Thead>
-
-              <Table.Tbody>
-                {
-                  unitFinances.map(unitFinance =>
-                    <FinancesTotalUnitValues
-                      key={unitFinance.financeID}
-                      unitFinance={unitFinance}
-                      selectedTerm={selectedTerm}
-                      removeUnit={removeUnit}
-                    />)
-                }
-                <FinancesTotalCalculated unitFinances={unitFinances} selectedTerm={selectedTerm}/>
-              </Table.Tbody>
-            </Table>
-
-            <Box p={3}>
-              <Text variant="h6">Total Profit: {convertToUSD(totalProfit(unitFinances, selectedTerm))}</Text>
-            </Box>
+          <Box p={3}>
+            <Text>Total Profit: {convertToUSD(totalProfit(unitFinances, selectedTerm))}</Text>
+          </Box>
         </Container>
       </Box>
 

@@ -14,7 +14,7 @@ import { Box, Button, Flex, Image, Text } from '@mantine/core'
 const Unit = () => {
 
   const { state: unit } = useLocation()
-
+  console.log(unit)
   const { expenses, incomes, mortgages } = useLoaderData()
   const { showUnauthorizedAlert } = useAuthProvider()
 
