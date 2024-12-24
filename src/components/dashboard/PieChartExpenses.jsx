@@ -19,20 +19,18 @@ const PieChartExpenses = ({ expenses }) => {
     })
     return Object.values(expensesObj)
   }
-
   const [data, setData] = useState(createData())
-  console.log(data)
+
   return (
-    <Box>
+    <Box w="100%">
       <Title>Expenses</Title>
       {data &&
-        <Flex>
+        <Flex justify="space-between">
           <PieChart
             labelsType="percent"
             withLabels
             withTooltip
             tooltipDataSource="segment"
-            size={240}
             data={data}/>
           <Box>
             {data.map(category =>
@@ -44,11 +42,7 @@ const PieChartExpenses = ({ expenses }) => {
           </Box>
 
         </Flex>
-
-
       }
-
-
     </Box>
 
   )

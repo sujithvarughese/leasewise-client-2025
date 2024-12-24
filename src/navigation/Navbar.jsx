@@ -2,7 +2,7 @@
 import { AppShellNavbar, Box, Button, Flex, List, NavLink } from '@mantine/core'
 import { PiBuildingApartmentFill } from "react-icons/pi";
 import { RiDashboardFill, RiMailAiFill } from "react-icons/ri";
-import { FaMoneyBillTrendUp } from "react-icons/fa6";
+import { FaMoneyBillTrendUp, FaGlobe } from "react-icons/fa6";
 import { useEffect, useState } from 'react'
 import { useAuthProvider } from '../context/auth-context.jsx'
 import { useNavigate } from 'react-router-dom'
@@ -54,6 +54,11 @@ const managementLinks = [
     name: "Dashboard",
     icon: <RiDashboardFill />,
     url: "/"
+  },
+  {
+    name: "Research",
+    icon: <FaGlobe />,
+    url: "/research"
   },
   {
     name: "Units",

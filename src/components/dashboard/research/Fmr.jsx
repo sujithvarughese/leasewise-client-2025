@@ -1,4 +1,4 @@
-import { axiosHUD } from "../../utilities/axios.js";
+import { axiosHUD } from "../../../utilities/axios.js";
 import { useState } from "react";
 import { Box, Container, Flex, NativeSelect, Table, Text, Title } from '@mantine/core'
 

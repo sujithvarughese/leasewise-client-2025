@@ -19,6 +19,8 @@ const PrivateLayout = () => {
         breakpoint: 'sm',
         collapsed: { mobile: !opened },
       }}
+      maw="1280px"
+      m="auto"
       padding="md"
       disabled={user === null}
     >

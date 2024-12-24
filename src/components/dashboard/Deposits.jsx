@@ -1,6 +1,6 @@
 import { convertToUSD } from '../../utilities/financeCalculations.js'
 import { useState } from 'react'
-import { Box, Button, Text, Title } from '@mantine/core'
+import { Box, Button, Flex, Text, Title } from '@mantine/core'
 
 
 const Deposits = ({ incomes, expenses }) => {
@@ -12,14 +12,10 @@ const Deposits = ({ incomes, expenses }) => {
   const [viewBalance, setViewBalance] = useState(false)
 
   return (
-    <Box>
+    <Flex direction="column" align={{ base: "flex-start", xs: "flex-end" }}>
       <Title>Recent Rent Income</Title>
-      <Text>
-        {convertToUSD(incomes[incomes.length - 1].amount)}
-      </Text>
-      <Text>
-        on {incomes[incomes.length - 1].datePaid.substring(0, 10)}
-      </Text>
+      <Text>{convertToUSD(incomes[incomes.length - 1].amount)}</Text>
+      <Text>on {incomes[incomes.length - 1].datePaid.substring(0, 10)}</Text>
 
       <Box>
         {viewBalance && <Text>{convertToUSD(calculateProfit)}</Text>}
@@ -27,7 +23,7 @@ const Deposits = ({ incomes, expenses }) => {
           { viewBalance ? "Hide" : "View"} balance
         </Button>
       </Box>
-    </Box>
+    </Flex>
   );
 }
 

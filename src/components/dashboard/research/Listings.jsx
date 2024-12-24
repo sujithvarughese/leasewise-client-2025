@@ -1,6 +1,6 @@
 
 import { useEffect, useState } from 'react'
-import useSubmit from '../../hooks/useSubmit.js'
+import useSubmit from '../../../hooks/useSubmit.js'
 import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import ListingCover from './ListingCover.jsx'
 
@@ -18,7 +18,6 @@ const Listings = () => {
 
 
   const handleSubmit = () => {
-    console.log(zipCode)
     submitForm({ method: "POST", url: "/research/listings", requestConfig: { zipCode }})
   }
 
@@ -26,7 +25,9 @@ const Listings = () => {
     if (response) {
       const updatedHomes = response.homes.filter(home => !!home.address)
       setListings(updatedHomes)
-      toggle()
+      if (!opened) {
+        toggle()
+      }
     }
   }, [response])
 

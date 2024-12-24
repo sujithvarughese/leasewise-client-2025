@@ -12,9 +12,9 @@ const RecentExpenses = ({ expenses }) => {
         <Table.Thead>
           <Table.Tr>
             <Table.Th>Date</Table.Th>
-            <Table.Th>Name</Table.Th>
+            <Table.Th>Category</Table.Th>
             <Table.Th>Pay To</Table.Th>
-            <Table.Th>Payment Method</Table.Th>
+            <Table.Th display={{ base: "none", sm: "initial" }}>Payment Method</Table.Th>
             <Table.Th>Payment Amount</Table.Th>
           </Table.Tr>
         </Table.Thead>
@@ -24,7 +24,7 @@ const RecentExpenses = ({ expenses }) => {
               <Table.Td>{expense.dateDue?.substring(0, 10) || expense.datePaid?.substring(0, 10)}</Table.Td>
               <Table.Td>{expense.category[0].toUpperCase() + expense.category.substring(1)}</Table.Td>
               <Table.Td>{expense.companyName}</Table.Td>
-              <Table.Td>{expense.paymentMethod}</Table.Td>
+              <Table.Td display={{ base: "none", sm: "initial" }}>{expense.paymentMethod}</Table.Td>
               <Table.Td align="right">{convertToUSD(expense.amount)}</Table.Td>
             </Table.Tr>
           ))}

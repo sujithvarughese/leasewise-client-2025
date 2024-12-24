@@ -8,6 +8,7 @@ import Units, { unitsLoader } from '../pages/Units.jsx'
 import Accounting, { accountingLoader } from '../pages/Accounting.jsx'
 import Messages, { messagesLoader } from '../pages/Messages.jsx'
 import Unit, { unitLoader } from '../pages/Unit.jsx'
+import Research from '../pages/Research.jsx'
 
 
 const RouterSwitcher = () => {
@@ -19,6 +20,7 @@ const RouterSwitcher = () => {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <DashboardAdmin />, loader: dashboardLoader  },
+        { path: "/research", element: <Research /> },
         { path: "/units", element: <Units />, loader: unitsLoader },
         { path: "/unit/:id", element: <Unit />, loader: unitLoader },
         { path: "/accounting", element: <Accounting />, loader: accountingLoader },
