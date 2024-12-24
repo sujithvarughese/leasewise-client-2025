@@ -56,11 +56,11 @@ const Units = () => {
 
           {listMode ?
             <Flex direction="column">
-              {queriedUnits?.map(unit => <UnitCoverListMode key={unit._id} {...unit} />)}
+              {queriedUnits?.map(unit => <UnitCoverListMode key={unit._id} unit={unit} />)}
             </Flex>
             :
             <Flex wrap="wrap" justify="center" gap={6}>
-              {queriedUnits?.map(unit => <UnitCoverGalleryMode key={unit._id} {...unit} />)}
+              {queriedUnits?.map(unit => <UnitCoverGalleryMode key={unit._id} unit={unit} />)}
             </Flex>
           }
 

@@ -3,26 +3,27 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Box, Button, Card, Image, Text } from '@mantine/core'
 
-const UnitCoverGalleryMode = ({
-  _id,
-  houseNumber,
-  street,
-  city,
-  apartmentNumber,
-  state,
-  zip,
-  image,
-  bedrooms,
-  bathrooms,
-  tenant,
-  user
-}) => {
+const UnitCoverGalleryMode = ({ unit }) => {
 
-  const [isHovering, setIsHovering] = useState(false)
+  const {
+    _id,
+    houseNumber,
+    street,
+    city,
+    apartmentNumber,
+    state,
+    zip,
+    image,
+    bedrooms,
+    bathrooms,
+    tenant,
+    user
+  } = unit
+
 
   const navigate = useNavigate()
   const navigateToUnit = () => {
-    navigate(`/unit/${_id}`, { state: _id })
+    navigate(`/unit/${_id}`, { state: unit })
   }
 
   return (

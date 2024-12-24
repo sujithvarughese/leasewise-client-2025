@@ -1,6 +1,6 @@
 
 
-import { useLocation } from 'react-router-dom'
+import { useLoaderData, useLocation } from 'react-router-dom'
 import { axiosDB } from '../utilities/axios.js'
 import CreateExpenseForm from '../components/forms/CreateExpenseForm.jsx'
 import CreateIncomeForm from '../components/forms/CreateIncomeForm.jsx'
@@ -13,15 +13,14 @@ import { Box, Button, Flex, Image, Text } from '@mantine/core'
 
 const Unit = () => {
 
-  const { state: id } = useLocation()
+  const { state: unit } = useLocation()
 
-  const { units, expenses, incomes, mortgages } = useManagementProvider()
+  const { expenses, incomes, mortgages } = useLoaderData()
   const { showUnauthorizedAlert } = useAuthProvider()
 
-  const unitDetails = units?.find(unit => unit._id === id)
-  const unitExpenses = expenses?.filter(expense => expense.unit === id)
-  const unitIncomes = incomes?.filter(income => income.unit === id)
-  const unitMortgages = mortgages?.filter(mortgage => mortgage.unit === id)
+  const unitExpenses = expenses?.filter(expense => expense.unit === unit._id)
+  const unitIncomes = incomes?.filter(income => income.unit === unit._id)
+  const unitMortgages = mortgages?.filter(mortgage => mortgage.unit === unit._id)
 
   const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false)
   const [showCreateIncomeForm, setShowCreateIncomeForm] = useState(false)
@@ -31,30 +30,30 @@ const Unit = () => {
 
   return (
     <Box>
-      <Image src={unitDetails?.image} alt="image" />
+      <Image src={unit?.image} alt="image" />
 
       <Box justifyContent="center" alignItems="center" margin={3}>
         <Box justifyContent="space-around">
           <Box>
-            <Text variant="h5">{unitDetails?.houseNumber} {unitDetails?.street} {unitDetails?.apartmentNumber}</Text>
-            <Text variant="h6">{unitDetails?.city}, {unitDetails?.state} {unitDetails?.zip}</Text>
+            <Text variant="h5">{unit?.houseNumber} {unit?.street} {unit?.apartmentNumber}</Text>
+            <Text variant="h6">{unit?.city}, {unit?.state} {unit?.zip}</Text>
           </Box>
           <Box>
-            <Text>{unitDetails?.bedrooms} bd / {unitDetails?.bathrooms}ba</Text>
+            <Text>{unit?.bedrooms} bd / {unit?.bathrooms}ba</Text>
           </Box>
         </Box>
         <br/>
         <Box justifyContent="space-around">
           <Box>
-            <Text variant="body2">{unitDetails?.tenant?.lastName}, {unitDetails?.tenant?.firstName}</Text>
-            <Text variant="body2">{unitDetails?.tenant?.email}</Text>
+            <Text variant="body2">{unit?.tenant?.lastName}, {unit?.tenant?.firstName}</Text>
+            <Text variant="body2">{unit?.tenant?.email}</Text>
           </Box>
-          <Text variant="body2">Rent: ${unitDetails?.tenant?.rent}</Text>
+          <Text variant="body2">Rent: ${unit?.tenant?.rent}</Text>
         </Box>
       </Box>
 
       <Button variant="contained" onClick={() => showUnauthorizedAlert()}>Edit Unit</Button>
-      {showEditUnitForm && <EditUnitForm id={id} open={showEditUnitForm} onClose={() => setShowEditUnitForm(false)}/>}
+      {showEditUnitForm && <EditUnitForm id={unit._id} open={showEditUnitForm} onClose={() => setShowEditUnitForm(false)}/>}
 
 
       <UnitTabs unitIncomes={unitIncomes} unitExpenses={unitExpenses} unitMortgages={unitMortgages}/>
@@ -62,11 +61,11 @@ const Unit = () => {
 
       <Flex sx={{ display: "flex", flexDirection: { xs: "column", sm: "row"}, gap: 2, justifyContent: "space-around", my: 3}}>
         <Button variant="contained" onClick={() => setShowCreateMortgageForm(!showCreateMortgageForm)}>Create Mortgage</Button>
-        {showCreateMortgageForm && <CreateMortgageForm id={id} open={showCreateMortgageForm} onClose={() => setShowCreateMortgageForm(false)}/>}
+        {showCreateMortgageForm && <CreateMortgageForm id={unit._id} open={showCreateMortgageForm} onClose={() => setShowCreateMortgageForm(false)}/>}
         <Button variant="contained" onClick={() => setShowCreateExpenseForm(!showCreateExpenseForm)}>Create Expense</Button>
-        {showCreateExpenseForm && <CreateExpenseForm id={id} open={showCreateExpenseForm} onClose={() => setShowCreateExpenseForm(false)}/>}
+        {showCreateExpenseForm && <CreateExpenseForm id={unit._id} open={showCreateExpenseForm} onClose={() => setShowCreateExpenseForm(false)}/>}
         <Button variant="contained" onClick={() => setShowCreateIncomeForm(!showCreateIncomeForm)}>Create Income</Button>
-        {showCreateIncomeForm && <CreateIncomeForm id={id} open={showCreateIncomeForm} onClose={() => setShowCreateIncomeForm(false)}/>}
+        {showCreateIncomeForm && <CreateIncomeForm id={unit._id} open={showCreateIncomeForm} onClose={() => setShowCreateIncomeForm(false)}/>}
       </Flex>
 
 

@@ -9,27 +9,27 @@ import { Box, Button, Card, Flex, Grid, Image, Text, UnstyledButton } from '@man
 
 
 
-const UnitCoverListMode = ({
-	_id,
-	houseNumber,
-	street,
-	city,
-	apartmentNumber,
-	state,
-	zip,
-	image,
-	bedrooms,
-	bathrooms,
-	tenant,
-	user
-}) => {
+const UnitCoverListMode = ({ unit }) => {
 
 	// state functions to hide and show forms
-	const [showMessageForm, setShowMessageForm] = useState(false)
+	const {
+		_id,
+		houseNumber,
+		street,
+		city,
+		apartmentNumber,
+		state,
+		zip,
+		image,
+		bedrooms,
+		bathrooms,
+		tenant,
+		user
+	} = unit
 
 	const navigate = useNavigate()
 	const navigateToUnit = () => {
-		navigate(`/unit/${_id}`, { state: _id })
+		navigate(`/unit/${_id}`, { state: unit })
 	}
 	return (
 
