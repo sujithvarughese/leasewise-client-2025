@@ -9,22 +9,21 @@ const NewsSection = ({ articles }) => {
 
   return (
     <Box>
-        <Title order={2}>Latest Real Estate News</Title>
-        <Carousel slideSize="20%"  slideGap="sm" align="start" loop>
-          {articles.map((article, index) =>
-            <Carousel.Slide key={index}>
-              <NewsTile
-                source={article.source.name}
-                title={article.title}
-                url={article.url}
-                urlToImage={article.urlToImage}
-                date={article.publishedAt}
-              />
-            </Carousel.Slide>
+      <Title order={2}>Latest Real Estate News</Title>
+      <Carousel slideSize={{ base: "33%", md: "20%" }} align="start" loop>
+        {articles.map((article, index) =>
+          <Carousel.Slide key={index}>
+            <NewsTile
+              source={article.source.name}
+              title={article.title}
+              url={article.url}
+              urlToImage={article.urlToImage}
+              date={article.publishedAt}
+            />
+          </Carousel.Slide>
 
-          )}
-        </Carousel>
-
+        )}
+      </Carousel>
     </Box>
 
 

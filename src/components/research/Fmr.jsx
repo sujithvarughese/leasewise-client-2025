@@ -1,6 +1,6 @@
 import { axiosHUD } from "../../utilities/axios.js";
 import { useState } from "react";
-import { Box, Container, NativeSelect, Table, Text } from '@mantine/core'
+import { Box, Container, Flex, NativeSelect, Table, Text, Title } from '@mantine/core'
 
 const Fmr = () => {
 
@@ -85,70 +85,69 @@ const Fmr = () => {
 
   return (
     <Box>
-        <Container style={{ textAlign: "center" }}>
-
-          <Text variant="h5">Search for Fair Market Rent Values:</Text>
-          <Box>
+      <Flex direction="column" align="center">
+        <Title order={4}>Search for Fair Market Rent Values:</Title>
+        <Box>
+          <NativeSelect
+            label="State"
+            data={states}
+            onChange={handleChangeStateCode}
+          />
+          {counties.length > 0 &&
             <NativeSelect
-              label="State"
-              data={states}
-              onChange={handleChangeStateCode}
+              label="County"
+              data={counties}
+              onChange={handleChangeCounty}
             />
-
-            {counties.length > 0 &&
-              <NativeSelect
-                label="County"
-                data={counties}
-                onChange={handleChangeCounty}
-              />
-            }
-
-            {fmrByZip?.length > 0 &&
-              <NativeSelect
-                label="Zip"
-                data={fmrByZip.map(zip => zip.zip_code)}
-                onChange={handleSelectZipCode}
-              />
-            }
-          </Box>
-
-
-          {fmrData &&
-              <Table aria-label="simple-table">
-                <Table.Thead>
-                  <Table.Tr>
-                    <Table.Th>
-                      Fair Market Rent Values for {county}
-                      { zip && `: ${zip}`}
-                    </Table.Th>
-                  </Table.Tr>
-                </Table.Thead>
-                <Table.Tbody>
-                  <Table.Tr>
-                    <Table.Td>Efficiency</Table.Td>
-                    <Table.Td>${fmrData["Efficiency"]}</Table.Td>
-                  </Table.Tr>
-                  <Table.Tr>
-                    <Table.Td>One-Bedroom</Table.Td>
-                    <Table.Td>${fmrData["One-Bedroom"]}</Table.Td>
-                  </Table.Tr>
-                  <Table.Tr>
-                    <Table.Td>Two-Bedroom</Table.Td>
-                    <Table.Td>${fmrData["Two-Bedroom"]}</Table.Td>
-                  </Table.Tr>
-                  <Table.Tr>
-                    <Table.Td>Three-Bedroom</Table.Td>
-                    <Table.Td>${fmrData["Three-Bedroom"]}</Table.Td>
-                  </Table.Tr>
-                  <Table.Tr>
-                    <Table.Td>Four-Bedroom</Table.Td>
-                    <Table.Td>${fmrData["Four-Bedroom"]}</Table.Td>
-                  </Table.Tr>
-                </Table.Tbody>
-              </Table>
           }
+          {fmrByZip?.length > 0 &&
+            <NativeSelect
+              label="Zip"
+              data={fmrByZip.map(zip => zip.zip_code)}
+              onChange={handleSelectZipCode}
+            />
+          }
+        </Box>
+      </Flex>
+
+
+      {fmrData &&
+        <Container>
+          <Table aria-label="simple-table">
+            <Table.Thead>
+              <Table.Tr>
+                <Table.Th>
+                  Fair Market Rent Values for {county}
+                  { zip && `: ${zip}`}
+                </Table.Th>
+              </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>
+              <Table.Tr>
+                <Table.Td>Efficiency</Table.Td>
+                <Table.Td>${fmrData["Efficiency"]}</Table.Td>
+              </Table.Tr>
+              <Table.Tr>
+                <Table.Td>One-Bedroom</Table.Td>
+                <Table.Td>${fmrData["One-Bedroom"]}</Table.Td>
+              </Table.Tr>
+              <Table.Tr>
+                <Table.Td>Two-Bedroom</Table.Td>
+                <Table.Td>${fmrData["Two-Bedroom"]}</Table.Td>
+              </Table.Tr>
+              <Table.Tr>
+                <Table.Td>Three-Bedroom</Table.Td>
+                <Table.Td>${fmrData["Three-Bedroom"]}</Table.Td>
+              </Table.Tr>
+              <Table.Tr>
+                <Table.Td>Four-Bedroom</Table.Td>
+                <Table.Td>${fmrData["Four-Bedroom"]}</Table.Td>
+              </Table.Tr>
+            </Table.Tbody>
+          </Table>
         </Container>
 
+      }
     </Box>
 
 

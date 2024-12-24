@@ -8,22 +8,16 @@ const NewsTile = ({ source, title, url, urlToImage, date }) => {
   const year = date.substring(0,4)
 
   return (
-    <Paper>
+    <Paper shadow="xl" m={6} p={6}>
       <Box>
         <Image src={urlToImage} alt="image" height={120}/>
       </Box>
 
       <Box p={1}>
-        <Text>{source}</Text>
-        <Text color="gray">{monthString[month - 1]} {day}, {year}</Text>
+        <Text style={{ fontWeight: 500, whiteSpace: "nowrap",  overflow: "clip",  textOverflow: "ellipsis" }}>{source}</Text>
+        <Text color="gray">{monthString[month - 1]} {day}</Text>
         <Anchor href={url} target="_blank" rel="noreferrer" textAlign="left">
-          <Text
-            sx={{
-              display: '-webkit-box',
-              overflow: 'hidden',
-              WebkitBoxOrient: 'vertical',
-              WebkitLineClamp: 3,
-            }}
+          <Text lineClamp={3}
           >{title}</Text>
         </Anchor>
 

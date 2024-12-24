@@ -1,11 +1,11 @@
 
 import { useEffect, useState } from 'react'
 import useSubmit from '../../hooks/useSubmit.js'
-import { MdExpandMore } from "react-icons/md";
+import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import ListingCover from './ListingCover.jsx'
 
 import { useNavigate } from 'react-router-dom'
-import { Accordion, Box, Button, Collapse, Container, Flex, Text, TextInput, Title } from '@mantine/core'
+import { Accordion, ActionIcon, Box, Button, Collapse, Container, Flex, Text, TextInput, Title } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 
 
@@ -17,8 +17,8 @@ const Listings = () => {
   const [opened, { toggle }] = useDisclosure(false);
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
+  const handleSubmit = () => {
+    console.log(zipCode)
     submitForm({ method: "POST", url: "/research/listings", requestConfig: { zipCode }})
   }
 
@@ -32,21 +32,20 @@ const Listings = () => {
 
 
   return (
-    <Box>
-      <form onSubmit={handleSubmit}>
-        <Text>Search MLS Listings: </Text>
-        <Flex justify="center" align="center" gap={3}>
-          <TextInput
-            type="text"
-            name="zipCode"
-            value={zipCode}
-            placeholder="Zip Code"
-            onChange={(e) => setZipCode(e.target.value)}
-          />
-          <Button loading={loading} type="submit">Submit</Button>
-          {listings && <Button rightSection={<MdExpandMore />} onClick={toggle}></Button>}
-        </Flex>
-      </form>
+    <Flex direction="column" align="center">
+      <Title order={4}>Search MLS Listings: </Title>
+      <Flex justify="center" align="center" gap={3}>
+        <TextInput
+          type="text"
+          name="zipCode"
+          value={zipCode}
+          placeholder="Zip Code"
+          onChange={(e) => setZipCode(e.currentTarget.value)}
+        />
+        <Button loading={loading} onClick={handleSubmit}>Submit</Button>
+
+        {listings && <ActionIcon onClick={toggle}>{opened ? <MdExpandLess /> : <MdExpandMore />}</ActionIcon>}
+      </Flex>
 
       {listings &&
       <Collapse in={opened}>
@@ -57,7 +56,7 @@ const Listings = () => {
         </Flex>
       </Collapse>
       }
-    </Box>
+    </Flex>
   )
 }
 

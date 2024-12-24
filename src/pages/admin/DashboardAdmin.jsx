@@ -1,5 +1,5 @@
 import { axiosDB } from '../../utilities/axios.js'
-import { Box } from '@mantine/core'
+import { Box, Flex } from '@mantine/core'
 import { useLoaderData } from 'react-router-dom'
 import NewsSection from '../../components/NewsSection.jsx'
 import Research from '../../components/research/Research.jsx'
@@ -12,15 +12,13 @@ const DashboardAdmin = () => {
   const { expenses, incomes, mortgages, filteredArticles } = useLoaderData()
 
   return (
-    <Box>
+    <Flex direction="column" gap={24}>
       <NewsSection articles={filteredArticles}/>
-
       <Research />
       <PieChartExpenses expenses={expenses}/>
       <Deposits incomes={incomes} expenses={expenses}/>
       <RecentExpenses expenses={expenses}/>
-
-    </Box>
+    </Flex>
   )
 }
 
