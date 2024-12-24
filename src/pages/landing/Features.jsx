@@ -3,7 +3,7 @@ import mobileFinancesIMG from "../../assets/images/landing/finances.png"
 import constructionIMG from "../../assets/images/landing/construction.png"
 import messagesIMG from "../../assets/images/landing/messages.png"
 import laptopIMG from "../../assets/images/landing/laptop.png"
-import { Container, Flex, Image, Tabs, Text, Title } from '@mantine/core'
+import { Box, Container, Flex, Image, Tabs, Text, Title } from '@mantine/core'
 
 const items = [
   {
@@ -35,32 +35,35 @@ const items = [
 const Features = () => {
 
   return (
-    <Container>
-      <Tabs defaultValue="Expenses" orientation="vertical">
-        <Flex justify="center" align="center">
-          <Tabs.List>
-            <Flex direction="column" justify="space-between" gap={32}>
-              {items.map(item =>
-                <Tabs.Tab key={item.title} value={item.title}>
-                  <Title order={2}>{item.title}</Title>
-                  <Text order={6}>{item.heading}</Text>
-                </Tabs.Tab>
-              )}
-            </Flex>
-          </Tabs.List>
+
+    <Tabs defaultValue="Expenses">
+
+        <Tabs.List justify="center">
+
+            {items.map(item =>
+              <Tabs.Tab key={item.title} value={item.title} p={8}>
+                <Title order={5}>{item.title}</Title>
+                <Text order={6} display={{ base: "none", md: "initial" }}>{item.heading}</Text>
+              </Tabs.Tab>
+            )}
+
+        </Tabs.List>
+
 
           {items.map(item =>
-            <Tabs.Panel key={item.value} value={item.title}>
-              <Flex direction="column" gap={24}>
+            <Tabs.Panel key={item.value} value={item.title} p={12}>
+              <Flex direction="column" gap={24} justify="center" align="center">
                 <Title order={4}>{item.description}</Title>
-                <Image src={item.image} alt="feature image" mih={640} mah={640}/>
+                <Image src={item.image} alt="feature image" mah={720}/>
               </Flex>
             </Tabs.Panel>
           )}
-        </Flex>
 
-      </Tabs>
-    </Container>
+
+
+
+    </Tabs>
+
 
   )
 };

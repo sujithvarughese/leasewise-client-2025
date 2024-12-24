@@ -19,7 +19,7 @@ const Copyright = () => {
 }
 const Footer = () => {
   return (
-    <Flex direction="column" justify="center" align="center">
+    <Flex direction="column" justify="center" align="center" gap={12}>
       <Image
         src={logo}
         style={logoStyle}

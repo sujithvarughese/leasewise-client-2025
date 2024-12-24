@@ -1,11 +1,9 @@
-import { Paper } from '@mantine/core'
+import { Divider, Flex, Paper } from '@mantine/core'
 import { useEffect, useState } from 'react'
-import { Button, Code, Text, TextInput } from '@mantine/core';
+import { Button, TextInput } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
-import { useNavigate } from 'react-router-dom'
-import useSubmit from '../hooks/useSubmit.js'
-import { useAuthProvider } from '../context/auth-context.jsx'
-import { useDisclosure } from '@mantine/hooks'
+import useSubmit from '../../hooks/useSubmit.js'
+import { useAuthProvider } from '../../context/auth-context.jsx'
 
 const Login = ({ open }) => {
 
@@ -17,7 +15,7 @@ const Login = ({ open }) => {
     mode: 'uncontrolled',
     initialValues: { email: '', password: '' },
     validate: {
-      email: isEmail('Invalid email'),
+      email: isEmail('Invalid email address'),
       password: hasLength({ min: 3 }, 'Must be at least 3 characters'),
     },
   });
@@ -49,32 +47,35 @@ const Login = ({ open }) => {
   }, [response])
 
   return (
-    <Paper shadow="lg" radius="md" p="lg">
+    <Paper shadow="lg" radius="md" px="lg" py="xl" w={360}>
       <form onSubmit={form.onSubmit(setSubmittedValues)}>
-        <TextInput
-          {...form.getInputProps('email')}
-          key={form.key('email')}
-          mt="md"
-          label="Email"
-          placeholder="Email"
-        />
-        <TextInput
-          {...form.getInputProps('password')}
-          key={form.key('password')}
-          label="Password"
-          type="password"
-          placeholder="Password"
-        />
-        <Button type="submit" mt="md">
-          Submit
-        </Button>
-
-
+        <Flex direction="column" gap={12}>
+          <TextInput
+            {...form.getInputProps('email')}
+            key={form.key('email')}
+            placeholder="Email"
+            size="lg"
+            radius="md"
+          />
+          <TextInput
+            {...form.getInputProps('password')}
+            key={form.key('password')}
+            type="password"
+            placeholder="Password"
+            size="lg"
+            radius="md"
+          />
+          <Button type="submit" size="md">
+            Log In
+          </Button>
+        </Flex>
       </form>
-
-      <Button mt="md" onClick={open}>
-        Create new Account
-      </Button>
+      <Divider my="sm"/>
+      <Flex justify="center">
+        <Button onClick={open} size="md" color="green.6">
+          Create new Account
+        </Button>
+      </Flex>
     </Paper>
   )
 }

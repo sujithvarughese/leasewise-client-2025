@@ -1,5 +1,5 @@
 import React from 'react'
-import Login from '../components/Login.jsx'
+import Login from './landing/Login.jsx'
 import Hero from './landing/Hero.jsx'
 import { Box, Flex } from '@mantine/core'
 import Magazines from './landing/Magazines.jsx'

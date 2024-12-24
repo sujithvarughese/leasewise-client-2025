@@ -1,36 +1,39 @@
 import { BackgroundImage, Box, Container, Flex, Image, Title } from '@mantine/core'
-import Login from '../../components/Login.jsx'
+import Login from './Login.jsx'
 import bgImage from "../../assets/images/landing/leasewise-landing-bg.png"
 import { useDisclosure } from '@mantine/hooks'
-import SignUp from '../../components/SignUp.jsx'
-import PreviewButton from '../../components/PreviewButton.jsx'
+import CreateAccount from './CreateAccount.jsx'
+import PreviewButton from './PreviewButton.jsx'
 
 const Hero = () => {
 
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <>
-      <BackgroundImage src={bgImage} radius="md" py={128}>
+    <Box h={{ base: "100vh", sm: "80vh" }}>
+      <BackgroundImage src={bgImage} h="100%">
         <Flex
-          justify="space-between"
+          justify={{ base: "space-evenly", md: "space-between" }}
           align="center"
+          h="100%"
           direction={{ base: "column", md: "row" }}
         >
-        <Box m="xl">
-          <Title textWrap="balance" style={{ color: "white" }}>LeaseWise</Title>
-          <Title order={5} textWrap="balance" style={{ color: "white" }}>Make managing rentals simple.</Title>
-          <PreviewButton />
-        </Box>
+        <Flex direction="column" m="xl" align={{ base: "center", md: "flex-start" }}>
+          <Title style={{ color: "white" }}>LeaseWise</Title>
+          <Title order={5} style={{ color: "white" }}>Make managing rentals simple.</Title>
+          <Box my={12}>
+            <PreviewButton />
+          </Box>
 
+        </Flex>
         <Box m="xl">
           <Login open={open}/>
         </Box>
 
         </Flex>
       </BackgroundImage>
-      <SignUp opened={opened} close={close}/>
-    </>
+      <CreateAccount opened={opened} close={close}/>
+    </Box>
   )
 }
 
