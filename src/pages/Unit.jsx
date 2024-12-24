@@ -9,7 +9,7 @@ import { useState } from 'react'
 import UnitTabs from '../components/units/UnitTabs.jsx'
 import EditUnitForm from '../components/forms/EditUnitForm.jsx'
 import { useAuthProvider } from '../context/auth-context.jsx'
-import { Box, Button, Flex, Image, Text } from '@mantine/core'
+import { Box, Button, Flex, Image, Text, Title } from '@mantine/core'
 
 const Unit = () => {
 
@@ -29,47 +29,41 @@ const Unit = () => {
 
 
   return (
-    <Box>
-      <Image src={unit?.image} alt="image" />
+    <Flex direction="column" align="center">
+      <Image src={unit?.image} alt="image" w={480} h={480}/>
 
-      <Box justifyContent="center" alignItems="center" margin={3}>
         <Box justifyContent="space-around">
           <Box>
-            <Text variant="h5">{unit?.houseNumber} {unit?.street} {unit?.apartmentNumber}</Text>
-            <Text variant="h6">{unit?.city}, {unit?.state} {unit?.zip}</Text>
+            <Title>{unit?.houseNumber} {unit?.street} {unit?.apartmentNumber}</Title>
+            <Title order={4}>{unit?.city}, {unit?.state} {unit?.zip}</Title>
           </Box>
-          <Box>
-            <Text>{unit?.bedrooms} bd / {unit?.bathrooms}ba</Text>
-          </Box>
+          <Flex justify="space-between" align="center">
+            <Title order={6}>{unit?.bedrooms} bd / {unit?.bathrooms}ba</Title>
+            <Button variant="contained" onClick={() => showUnauthorizedAlert()}>Edit Unit</Button>
+            {showEditUnitForm && <EditUnitForm id={unit._id} open={showEditUnitForm} onClose={() => setShowEditUnitForm(false)}/>}
+          </Flex>
         </Box>
+
         <br/>
-        <Box justifyContent="space-around">
-          <Box>
-            <Text variant="body2">{unit?.tenant?.lastName}, {unit?.tenant?.firstName}</Text>
-            <Text variant="body2">{unit?.tenant?.email}</Text>
-          </Box>
+
+        <Box>
+          <Text>{unit?.tenant?.lastName}, {unit?.tenant?.firstName}</Text>
+          <Text>{unit?.tenant?.email}</Text>
           <Text variant="body2">Rent: ${unit?.tenant?.rent}</Text>
         </Box>
-      </Box>
 
-      <Button variant="contained" onClick={() => showUnauthorizedAlert()}>Edit Unit</Button>
-      {showEditUnitForm && <EditUnitForm id={unit._id} open={showEditUnitForm} onClose={() => setShowEditUnitForm(false)}/>}
-
-
-      <UnitTabs unitIncomes={unitIncomes} unitExpenses={unitExpenses} unitMortgages={unitMortgages}/>
-
-
-      <Flex sx={{ display: "flex", flexDirection: { xs: "column", sm: "row"}, gap: 2, justifyContent: "space-around", my: 3}}>
-        <Button variant="contained" onClick={() => setShowCreateMortgageForm(!showCreateMortgageForm)}>Create Mortgage</Button>
-        {showCreateMortgageForm && <CreateMortgageForm id={unit._id} open={showCreateMortgageForm} onClose={() => setShowCreateMortgageForm(false)}/>}
-        <Button variant="contained" onClick={() => setShowCreateExpenseForm(!showCreateExpenseForm)}>Create Expense</Button>
-        {showCreateExpenseForm && <CreateExpenseForm id={unit._id} open={showCreateExpenseForm} onClose={() => setShowCreateExpenseForm(false)}/>}
-        <Button variant="contained" onClick={() => setShowCreateIncomeForm(!showCreateIncomeForm)}>Create Income</Button>
-        {showCreateIncomeForm && <CreateIncomeForm id={unit._id} open={showCreateIncomeForm} onClose={() => setShowCreateIncomeForm(false)}/>}
-      </Flex>
-
-
-    </Box>
+      <UnitTabs
+        unitIncomes={unitIncomes}
+        unitExpenses={unitExpenses}
+        unitMortgages={unitMortgages}
+        showCreateIncomeForm={showCreateIncomeForm}
+        toggleShowCreateIncomeForm={() => setShowCreateIncomeForm(true)}
+        showCreateMortgageForm={setShowCreateMortgageForm}
+        toggleShowCreateMortgageForm={() => setShowCreateMortgageForm(true)}
+        showCreateExpenseForm={setShowCreateExpenseForm}
+        toggleShowCreateExpenseForm={() => setShowCreateExpenseForm(true)}
+      />
+    </Flex>
   )
 }
 

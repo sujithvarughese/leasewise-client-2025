@@ -1,7 +1,7 @@
 
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Card, Image, Text } from '@mantine/core'
+import { Box, Button, Card, HoverCard, Image, Text, Title, UnstyledButton } from '@mantine/core'
 
 const UnitCoverGalleryMode = ({ unit }) => {
 
@@ -27,16 +27,20 @@ const UnitCoverGalleryMode = ({ unit }) => {
   }
 
   return (
-      <Card onClick={navigateToUnit}>
-        <Card.Section>
+    <HoverCard>
+      <HoverCard.Target>
+        <UnstyledButton onClick={navigateToUnit}>
           <Image src={image} alt={`${houseNumber} ${street}`} h={200} w={200}/>
-        </Card.Section>
-        <Card.Section>
-          <Text>{houseNumber} {street} {apartmentNumber}</Text>
-          <Text>{city} {state}, {zip}</Text>
-          <Text fontWeight={700}>{tenant?.lastName}, {tenant?.firstName}</Text>
-        </Card.Section>
-      </Card>
+        </UnstyledButton>
+      </HoverCard.Target>
+      <HoverCard.Dropdown>
+        <Title order={5}>{houseNumber} {street} {apartmentNumber}</Title>
+        <Title order={6}>{city} {state}, {zip}</Title>
+        {tenant && <Text fontWeight={700}>Tenant: {tenant?.lastName}, {tenant?.firstName}</Text>}
+      </HoverCard.Dropdown>
+    </HoverCard>
+
+
 
   )
 }

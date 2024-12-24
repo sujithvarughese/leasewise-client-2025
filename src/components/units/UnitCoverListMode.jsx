@@ -5,9 +5,7 @@ import { convertToUSD } from "../../utilities/financeCalculations.js";
 import { BiMessageSquareEdit } from "react-icons/bi"
 import { ImUserPlus } from "react-icons/im";
 import { MdOutgoingMail } from "react-icons/md";
-import { Box, Button, Card, Flex, Grid, Image, Text, UnstyledButton } from '@mantine/core'
-
-
+import { Box, Button, Card, Flex, Grid, Image, Text, Title, UnstyledButton } from '@mantine/core'
 
 const UnitCoverListMode = ({ unit }) => {
 
@@ -33,40 +31,32 @@ const UnitCoverListMode = ({ unit }) => {
 	}
 	return (
 
-			<Flex justify="space-between" align="center"  onClick={navigateToUnit}>
+			<Grid align="center">
 				{/* clicking image or address navigates to FinancesUnit */}
 
+				<Grid.Col span={2}>
 					<UnstyledButton onClick={navigateToUnit}>
-						<Image src={image} alt={`${houseNumber} ${street}`} h={200} w={200}/>
+						<Image src={image} alt={`${houseNumber} ${street}`}/>
 					</UnstyledButton>
+				</Grid.Col>
 
+				<Grid.Col span={6}>
 					<UnstyledButton onClick={navigateToUnit}>
-						<Text whiteSpace="nowrap" overflop="clip" textOverflow="ellipsis">{houseNumber} {street} {apartmentNumber}</Text>
-						<Text>{city}, {state} {zip}</Text>
+						<Title order={4} whiteSpace="nowrap" overflop="clip" textOverflow="ellipsis">{houseNumber} {street} {apartmentNumber}</Title>
+						<Title order={6}>{city}, {state} {zip}</Title>
 					</UnstyledButton>
+				</Grid.Col>
 
 
-					{
-					user &&
-					<Box>
-						<Text fontSize={{ xs: "12px", sm: "16px" }}>{tenant?.lastName}, {tenant?.firstName} </Text>
-						<Text fontSize={{ xs: "12px", sm: "16px" }}>{tenant?.email}</Text>
-						<Text fontSize={{ xs: "12px", sm: "16px" }}>{tenant?.phone}</Text>
-					</Box>
+					{user &&
+					<Grid.Col span={4}>
+						<Text>{tenant?.lastName}, {tenant?.firstName} </Text>
+						<Text>{tenant?.email}</Text>
+						<Text>{tenant?.phone}</Text>
+						<Text>Rent: {convertToUSD(tenant?.rent)}</Text>
+					</Grid.Col>
 					}
-
-				<Box>
-					<Text>
-						{bedrooms}-br / {bathrooms}-bath
-					</Text>
-					{
-						user &&
-						<Text>
-							Rent: {convertToUSD(tenant?.rent)}
-						</Text>
-					}
-				</Box>
-			</Flex>
+			</Grid>
 
 
 	);
