@@ -10,8 +10,8 @@ const Hero = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Box>
-      <BackgroundImage src={bgImage} radius="md">
+    <>
+      <BackgroundImage src={bgImage} radius="md" py={128}>
         <Flex
           justify="space-between"
           align="center"
@@ -30,7 +30,7 @@ const Hero = () => {
         </Flex>
       </BackgroundImage>
       <SignUp opened={opened} close={close}/>
-    </Box>
+    </>
   )
 }
 

@@ -3,7 +3,7 @@ import mobileFinancesIMG from "../../assets/images/landing/finances.png"
 import constructionIMG from "../../assets/images/landing/construction.png"
 import messagesIMG from "../../assets/images/landing/messages.png"
 import laptopIMG from "../../assets/images/landing/laptop.png"
-import { Image, Tabs, Title } from '@mantine/core'
+import { Container, Flex, Image, Tabs, Text, Title } from '@mantine/core'
 
 const items = [
   {
@@ -27,39 +27,41 @@ const items = [
   {
     title: 'Forms',
     heading: "All the forms you need to succeed.",
-    description: 'Access 32 essential rental forms, from welcome letters to rent increase notices. Available for download in PDF format. Let us take care of preparing your leases and application forms so you have time to focus on the important stuff.',
+    description: 'Let us take care of preparing your leases and application forms so you have time to focus on the important stuff.',
     image: laptopIMG,
   },
 ];
 
-
 const Features = () => {
-  const [selectedItemIndex, setSelectedItemIndex] = useState(0);
-
-  const handleItemClick = (index) => {
-    setSelectedItemIndex(index);
-  };
-
-  const selectedFeature = items[selectedItemIndex];
 
   return (
-    <Tabs defaultValue="gallery" orientation="vertical">
-      <Tabs.List>
-        {items.map(item =>
-          <Tabs.Tab key={item.title} value={item.title}>
-            <Title order={2}>{item.title}</Title>
-            <Title order={6}>{item.heading}</Title>
-          </Tabs.Tab>
-        )}
-      </Tabs.List>
+    <Container>
+      <Tabs defaultValue="Expenses" orientation="vertical">
+        <Flex justify="center" align="center">
+          <Tabs.List>
+            <Flex direction="column" justify="space-between" gap={32}>
+              {items.map(item =>
+                <Tabs.Tab key={item.title} value={item.title}>
+                  <Title order={2}>{item.title}</Title>
+                  <Text order={6}>{item.heading}</Text>
+                </Tabs.Tab>
+              )}
+            </Flex>
+          </Tabs.List>
 
-      {items.map(item =>
-        <Tabs.Panel key={item.value} value={item.title}>
-          <Image src={item.image} alt="feature image" height={640}/>
-          <Title order={6}>{item.description}</Title>
-        </Tabs.Panel>
-      )}
-    </Tabs>
+          {items.map(item =>
+            <Tabs.Panel key={item.value} value={item.title}>
+              <Flex direction="column" gap={24}>
+                <Title order={4}>{item.description}</Title>
+                <Image src={item.image} alt="feature image" mih={640} mah={640}/>
+              </Flex>
+            </Tabs.Panel>
+          )}
+        </Flex>
+
+      </Tabs>
+    </Container>
+
   )
 };
 

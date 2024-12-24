@@ -1,17 +1,19 @@
 import React from 'react'
 import Login from '../components/Login.jsx'
 import Hero from './landing/Hero.jsx'
-import { Box } from '@mantine/core'
+import { Box, Flex } from '@mantine/core'
 import Magazines from './landing/Magazines.jsx'
 import Features from './landing/Features.jsx'
+import Footer from './landing/Footer.jsx'
 
 const Landing = () => {
   return (
-    <Box m="auto" maw="1280px">
+    <Flex direction="column" m="auto" gap={72} maw="1280px">
       <Hero />
       <Magazines />
       <Features />
-    </Box>
+      <Footer />
+    </Flex>
   )
 }
 
