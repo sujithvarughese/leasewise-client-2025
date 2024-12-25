@@ -7,12 +7,14 @@ import Features from '../components/landing/Features.jsx'
 import Footer from '../components/landing/Footer.jsx'
 import features from '../components/landing/features.js'
 import FeatureItem from '../components/landing/FeatureItem.jsx'
+import Residences from '../components/landing/Residences.jsx'
 
 const Landing = () => {
   return (
     <Flex direction="column" m="auto" gap={72} maw="1280px">
       <Hero />
       <Magazines />
+      <Residences />
       <Features />
       <Footer />
     </Flex>
