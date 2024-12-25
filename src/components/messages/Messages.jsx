@@ -123,9 +123,14 @@ const Messages = ({ opened, onClose }) => {
           left={16}
           style={{ zIndex: 1000 }}
         >
-          <IoIosArrowBack size="md" />
+          <IoIosArrowBack size="32px" />
         </ActionIcon>}
-      {!expandedConversation && <ActionIcon onClick={() => setShowCreateMessageForm(true)}><IoCreateOutline /></ActionIcon>}
+
+      {!expandedConversation &&
+        <ActionIcon onClick={() => setShowCreateMessageForm(true)} mb={6} size="lg">
+          <IoCreateOutline size="24px" />
+        </ActionIcon>
+      }
 
       {showCreateMessageForm && <NewMessageForm close={()=>setShowCreateMessageForm(false)} addressBook={addressBook} getMessages={getMessages}/>}
 

@@ -7,7 +7,7 @@ const UnauthorizedAlert = () => {
 
   const { unauthorizedAlertShown } = useAuthProvider()
 
-  return <Dialog opened={unauthorizedAlertShown}><Text>Unauthorized</Text></Dialog>
+  return <Dialog shadow="xl" bg="red.7" opened={unauthorizedAlertShown}><Text>Unauthorized</Text></Dialog>
 
 }
 

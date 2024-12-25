@@ -83,8 +83,6 @@ const MessageExpanded = ({
 				</Flex>
 			</Flex>
 
-			<Box>
-
 				{currentConversation?.length > 0 &&
 				<Box>
 					{currentConversation?.map(message =>
@@ -111,7 +109,7 @@ const MessageExpanded = ({
 					currentConversation={currentConversation}
 					setExpandedMessage={setExpandedMessage}
 				/>
-			</Box>
+
 		</Box>
 	);
 };

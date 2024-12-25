@@ -1,6 +1,6 @@
 import { useAuthProvider } from '../../context/auth-context.jsx'
 import { useState } from 'react'
-import { Box, Button, Flex, Paper, Text } from '@mantine/core'
+import { Avatar, Box, Button, Flex, Paper, Text } from '@mantine/core'
 
 
 const MessageContents = ({
@@ -30,24 +30,34 @@ const MessageContents = ({
     }
 
     return (
+      <Box pos="relative">
+        <Text size="xs" inline style={{ textAlign: "center" }}>{dateStr} {time}</Text>
         <Paper
           shadow="lg"
           onMouseEnter={() => setIsHovering(true)}
           onMouseLeave={() => setIsHovering(false)}
           radius="md"
-          my={6}
-          p={6}
+          mx={16}
+          mt={4}
+          mb={16}
+          p={8}
           w="80%"
           bg={`${user.id === senderID ? "dodgerblue" : "lightgray"}`}
           style={{ justifySelf: `${user.id === senderID ? "flex-end" : "flex-start"}` }}
         >
-          <Box>
-            <Text variant="body2">On {`${dateStr} ${time}, ${firstName} ${lastName}`} wrote:</Text>
-            <Box p={2}>
-                <Text variant="subtitle2">{body}</Text>
-            </Box>
-          </Box>
+          <Text p={2}>{body}</Text>
         </Paper>
+        <Avatar
+          name={`${firstName} ${lastName}`}
+          color="initials"
+          size="sm"
+          pos="absolute"
+          left={user.id !== senderID && -12}
+          right={user.id === senderID && -12}
+          bottom={-16}
+        />
+      </Box>
+
 
     );
 };
