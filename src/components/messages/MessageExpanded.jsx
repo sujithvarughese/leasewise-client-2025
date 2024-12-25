@@ -1,23 +1,24 @@
-import MessageActions from './MessageActions.jsx'
 import MessageContents from './MessageContents.jsx'
 import ReplyMessageForm from './ReplyMessageForm.jsx'
 import { axiosDB } from "../../utilities/axios.js";
 import {useEffect, useRef, useState} from "react";
-import { Box, Grid } from '@mantine/core'
+import { ActionIcon, Box, Flex, Grid, Text } from '@mantine/core'
+import { IoIosArrowBack } from "react-icons/io";
+import { TiFlag, TiFlagOutline } from 'react-icons/ti'
+import { IoTrashOutline } from 'react-icons/io5'
+import { useAuthProvider } from '../../context/auth-context.jsx'
 
 const MessageExpanded = ({
 	expandedConversation,
-	messages,
 	toggleFlag,
 	userID,
-	markMessageUnread,
-	showCreateReply,
 	setShowCreateReply,
 	setExpandedMessage,
 	getMessages,
 	closeExpanded
 }) => {
 
+	const { user, showUnauthorizedAlert } = useAuthProvider()
 	const [currentConversation, setCurrentConversation] = useState([])
 	const [otherUser, setOtherUser] = useState(null)
 
@@ -60,35 +61,30 @@ const MessageExpanded = ({
 	}, [expandedConversation])
 
 
-/*
-	useEffect(() => {
-		const previousMessagesArray = []
-		let currentMessage = message
-		previousMessagesArray.push(currentMessage)
-		while (currentMessage.previousMessage) {
-			const previousMessage = messages.find(message => message._id === currentMessage.previousMessage)
-			previousMessagesArray.push(previousMessage)
-			currentMessage = previousMessage
-		}
-		setPreviousMessages(previousMessagesArray)
-
-		if (previousMessagesArray.length > 6) {
-			currentMessageRef.current?.scrollIntoView({ behavior: "smooth", block: "start" })
-		}
-	}, [message])
-
-	*/
-
 	return (
 		<Box>
-			<MessageActions
-				message={expandedConversation}
-				reply={()=>setShowCreateReply(true)}
-				toggleFlag={toggleFlag}
-				markMessageUnread={markMessageUnread}
-				closeExpanded={closeExpanded}
-			/>
+
+			<Flex justify="space-between" align="center" p={1}>
+				<Flex gap={4}>
+					<Text>Subject:</Text>
+					<Text style={{ whiteSpace: "nowrap", overflow: "clip", textOverflow: "ellipsis", fontWeight: 600 }}>
+						{expandedConversation.subject}
+					</Text>
+				</Flex>
+
+				<Flex gap={6}>
+					<ActionIcon onClick={()=>toggleFlag(expandedConversation)} color="yellow">
+						{ expandedConversation.flag ? <TiFlag /> : <TiFlagOutline />}
+					</ActionIcon>
+
+					<ActionIcon onClick={()=>showUnauthorizedAlert()} color="red">
+						<IoTrashOutline />
+					</ActionIcon>
+				</Flex>
+			</Flex>
+
 			<Box>
+
 				{currentConversation?.length > 0 &&
 				<Box>
 					{currentConversation?.map(message =>
@@ -119,16 +115,5 @@ const MessageExpanded = ({
 		</Box>
 	);
 };
-
-const markMessageRead = async (message) => {
-	try {
-		const response = await axiosDB.post("/messages/read", message)
-		const { messages } = response.data
-		// messages = { inbox, outbox }
-		return messages
-	} catch (error) {
-		throw new Error(error)
-	}
-}
 
 export default MessageExpanded;

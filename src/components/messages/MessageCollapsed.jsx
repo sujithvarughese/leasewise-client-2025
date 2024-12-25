@@ -42,7 +42,7 @@ const MessageCollapsed = ({
 				<Text maw="100%" truncate>{body}</Text>
 			</Flex>
 
-			<Flex pos="absolute" right={4} direction="column" align="flex-end">
+			<Flex pos="absolute" right={4} direction="column" align="flex-end" gap={6}>
 				<Text size="14px">{date}</Text>
 				<Text size="14px">{time}</Text>
 			</Flex>

@@ -7,9 +7,10 @@ import { BiMessageSquareEdit } from "react-icons/bi"
 import { TfiControlBackward } from "react-icons/tfi"
 
 import { useAuthProvider } from '../../context/auth-context.jsx'
-import { Box, Button, Container, Drawer, Flex, Grid, Text, Title } from '@mantine/core'
+import { ActionIcon, Box, Button, Container, Drawer, Flex, Grid, Text, Title } from '@mantine/core'
 import NewMessageForm from './NewMessageForm.jsx'
-
+import { IoIosArrowBack } from 'react-icons/io'
+import { IoCreateOutline } from "react-icons/io5";
 
 const Messages = ({ opened, onClose }) => {
   // messages = { inbox, outbox }	// message = { sender: { lastName, firstName, _id }, recipient, subject, body, read, flag, date, previousMessage
@@ -20,7 +21,6 @@ const Messages = ({ opened, onClose }) => {
   const [addressBook, setAddressBook] = useState([])
   const [expandedConversation, setExpandedConversation] = useState(null)
   const [showCreateReply, setShowCreateReply] = useState(false)
-  const [showExpanded, setShowExpanded] = useState(false)
 
   const getMessages = async () => {
     try {
@@ -108,10 +108,28 @@ const Messages = ({ opened, onClose }) => {
   }, [user.isAdmin, user.id]);
 
   return (
-    <Drawer opened={opened} onClose={onClose} position="right">
-      <Title>Messages</Title>
+    <Drawer opened={opened} onClose={onClose} position="right" withCloseButton={false}>
+      <Title pt={36}>Messages</Title>
+
+      {(expandedConversation || showCreateMessageForm) &&
+        <ActionIcon
+          variant="subtle"
+          onClick={() => {
+          setExpandedConversation(null)
+          setShowCreateMessageForm(false)
+          }}
+          pos="absolute"
+          top={16}
+          left={16}
+          style={{ zIndex: 1000 }}
+        >
+          <IoIosArrowBack size="md" />
+        </ActionIcon>}
+      {!expandedConversation && <ActionIcon onClick={() => setShowCreateMessageForm(true)}><IoCreateOutline /></ActionIcon>}
+
       {showCreateMessageForm && <NewMessageForm close={()=>setShowCreateMessageForm(false)} addressBook={addressBook} getMessages={getMessages}/>}
-      {messageHeadNodes.length > 0 && !expandedConversation ? messageHeadNodes.map((message, index) =>
+
+      {messageHeadNodes.length > 0 && !expandedConversation && !showCreateMessageForm && messageHeadNodes.map((message, index) =>
         <MessageCollapsed
           key={message._id}
           messageHead={message}
@@ -122,8 +140,6 @@ const Messages = ({ opened, onClose }) => {
           closeReply={()=>setShowCreateReply(false)}
           bg={index % 2 === 0 ? "gray.3" : ""}
         />)
-        :
-        <Text>No Messages in this Mailbox</Text>
       }
 
       {expandedConversation && !showCreateMessageForm &&
@@ -137,7 +153,7 @@ const Messages = ({ opened, onClose }) => {
           setShowCreateReply={setShowCreateReply}
           getMessages={getMessages}
           setExpandedMessage={setExpandedConversation}
-          closeExpanded={() => setShowExpanded(false)}
+          closeExpanded={() => setExpandedConversation(null)}
         />
       }
 
