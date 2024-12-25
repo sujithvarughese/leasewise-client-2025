@@ -25,7 +25,7 @@ const PieChartExpenses = ({ expenses }) => {
     <Box w="100%">
       <Title>Expenses</Title>
       {data &&
-        <Flex justify="space-between">
+        <Flex>
           <PieChart
             labelsType="percent"
             withLabels
