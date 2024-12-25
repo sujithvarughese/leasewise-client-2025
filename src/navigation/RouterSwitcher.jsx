@@ -6,7 +6,6 @@ import DashboardTenant from '../pages/DashboardTenant.jsx'
 import PrivateLayout from './PrivateLayout.jsx'
 import Units, { unitsLoader } from '../pages/Units.jsx'
 import Accounting, { accountingLoader } from '../pages/Accounting.jsx'
-import Messages, { messagesLoader } from '../pages/Messages.jsx'
 import Unit, { unitLoader } from '../pages/Unit.jsx'
 import Research from '../pages/Research.jsx'
 
@@ -24,7 +23,6 @@ const RouterSwitcher = () => {
         { path: "/units", element: <Units />, loader: unitsLoader },
         { path: "/unit/:id", element: <Unit />, loader: unitLoader },
         { path: "/accounting", element: <Accounting />, loader: accountingLoader },
-        { path: "/messages", element: <Messages />, loader: messagesLoader },
       ]
     }
   ])
@@ -36,7 +34,6 @@ const RouterSwitcher = () => {
       errorElement: <NotFound />,
       children: [
         { index: true, element: <DashboardTenant /> },
-        { path: "/messages", element: <Messages /> },
       ]
     }
   ])

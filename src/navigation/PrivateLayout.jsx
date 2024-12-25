@@ -4,13 +4,15 @@ import { useAuthProvider } from '../context/auth-context.jsx'
 import Header from './Header.jsx'
 import Navbar from './Navbar.jsx'
 import { useDisclosure } from '@mantine/hooks'
-import { AppShell } from '@mantine/core'
+import { AppShell, Drawer } from '@mantine/core'
 import UnauthorizedAlert from '../components/UnauthorizedAlert.jsx'
+import Messages from '../components/messages/Messages.jsx'
 
 const PrivateLayout = () => {
 
   const { user, role, unauthorizedAlertShown } = useAuthProvider()
   const [opened, { toggle }] = useDisclosure();
+  const [messagesOpened, { open: openMessages, close: closeMessages }] = useDisclosure(false);
 
   return (
     <AppShell
@@ -26,11 +28,11 @@ const PrivateLayout = () => {
       disabled={user === null}
     >
 
-      <Header opened={opened} toggle={toggle}/>
+      <Header opened={opened} toggle={toggle} openMessages={openMessages}/>
       <Navbar />
       <AppShell.Main><Outlet /></AppShell.Main>
       {unauthorizedAlertShown &&  <UnauthorizedAlert /> }
-
+      <Messages opened={messagesOpened} onClose={closeMessages} />
     </AppShell>
 
   )

@@ -70,13 +70,6 @@ const managementLinks = [
     icon: <FaMoneyBillTrendUp />,
     url: "/accounting"
   },
-  {
-    name: "Messages",
-    icon: <RiMailAiFill />,
-    url: "/messages"
-  },
-
-
 ]
 
 const tenantLinks = [
@@ -85,11 +78,6 @@ const tenantLinks = [
     icon: <RiDashboardFill />,
     url: "/"
   },
-  {
-    name: "Messages",
-    icon: <RiMailAiFill />,
-    url: "/messages"
-  }
 ]
 
 export default Navbar

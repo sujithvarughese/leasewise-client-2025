@@ -11,7 +11,8 @@ const MessageCollapsed = ({
 	markMessageRead,
 	showExpanded,
 	userID,
-	closeReply
+	closeReply,
+	bg
 }) => {
 
 	const { sender, recipient, subject, body, read, flag } = messageHead
@@ -28,7 +29,7 @@ const MessageCollapsed = ({
 
 	return (
 		// selecting anywhere on collapsed message will open expanded message, and mark as read
-		<Button variant="default" radius="xs" onClick={selectMessage} h={100} w="100%" p={0} justify="space-between">
+		<Button variant="default" bg={bg} radius="xs" onClick={selectMessage} h={100} w="100%" p={0} justify="space-between">
 			{/* icons dynamically render to show flag and read status */}
 			<Box direction="column">
 				{recipient._id === userID && !read && <Avatar variant="transparent" color="blue" size={64} pos="absolute" left={-16} top={0}><GoDotFill /></Avatar>}

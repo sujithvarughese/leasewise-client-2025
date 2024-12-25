@@ -1,22 +1,21 @@
-import { axiosDB } from "../utilities/axios.js";
+import { axiosDB } from "../../utilities/axios.js";
 import { useLoaderData } from "react-router-dom";
-import MessageExpanded from '../components/messages/MessageExpanded.jsx'
-import MessageCollapsed from '../components/messages/MessageCollapsed.jsx'
+import MessageExpanded from './MessageExpanded.jsx'
+import MessageCollapsed from './MessageCollapsed.jsx'
 import { useEffect, useState } from "react";
 import { BiMessageSquareEdit } from "react-icons/bi"
 import { TfiControlBackward } from "react-icons/tfi"
 
-import { useAuthProvider } from '../context/auth-context.jsx'
-import { Box, Button, Container, Flex, Grid, Text } from '@mantine/core'
-import NewMessageForm from '../components/messages/NewMessageForm.jsx'
+import { useAuthProvider } from '../../context/auth-context.jsx'
+import { Box, Button, Container, Drawer, Flex, Grid, Text, Title } from '@mantine/core'
+import NewMessageForm from './NewMessageForm.jsx'
 
 
-const Messages = () => {
+const Messages = ({ opened, onClose }) => {
   // messages = { inbox, outbox }	// message = { sender: { lastName, firstName, _id }, recipient, subject, body, read, flag, date, previousMessage
-  const data = useLoaderData()
   const { user } = useAuthProvider()
 
-  const [messageHeadNodes, setMessageHeadNodes] = useState(data)
+  const [messageHeadNodes, setMessageHeadNodes] = useState([])
   const [showCreateMessageForm, setShowCreateMessageForm] = useState(false)
   const [addressBook, setAddressBook] = useState([])
   const [expandedConversation, setExpandedConversation] = useState(null)
@@ -99,6 +98,7 @@ const Messages = () => {
   useEffect(() => {
     // determine which address book to get based on role (we don't want to give tenant access to other user data)
     // addr book returned from backend as array of objects { text: "lastName, firstName", value: user._id }
+    getMessages()
     if (user.role === "management") {
       getUserList()
     } else {
@@ -108,62 +108,42 @@ const Messages = () => {
   }, [user.isAdmin, user.id]);
 
   return (
-
-    <>
+    <Drawer opened={opened} onClose={onClose} position="right">
+      <Title>Messages</Title>
       {showCreateMessageForm && <NewMessageForm close={()=>setShowCreateMessageForm(false)} addressBook={addressBook} getMessages={getMessages}/>}
-      <Grid w="100%" >
-        <Grid.Col span={{ base: 12, sm: 5, lg: 4 }}>
-          {messageHeadNodes.length > 0 ?
-            messageHeadNodes.map(message =>
-              <Box key={message._id}>
-                <MessageCollapsed
-                  key={message._id}
-                  messageHead={message}
-                  setExpandedConversation={setExpandedConversation}
-                  markMessageRead={markMessageRead}
-                  toggleFlag={toggleFlag}
-                  userID={user.id}
-                  closeReply={()=>setShowCreateReply(false)}
-                />
-              </Box>)
-            :
-            <Text>No Messages in this Mailbox</Text>
-          }
-        </Grid.Col>
+      {messageHeadNodes.length > 0 && !expandedConversation ? messageHeadNodes.map((message, index) =>
+        <MessageCollapsed
+          key={message._id}
+          messageHead={message}
+          setExpandedConversation={setExpandedConversation}
+          markMessageRead={markMessageRead}
+          toggleFlag={toggleFlag}
+          userID={user.id}
+          closeReply={()=>setShowCreateReply(false)}
+          bg={index % 2 === 0 ? "gray.3" : ""}
+        />)
+        :
+        <Text>No Messages in this Mailbox</Text>
+      }
 
-        <Grid.Col span={{ base: 12, sm: 7, lg: 8 }}>
-          {expandedConversation && !showCreateMessageForm ?
-            <MessageExpanded
-              expandedConversation={expandedConversation}
-              messages={messageHeadNodes}
-              toggleFlag={toggleFlag}
-              userID={user.id}
-              markMessageUnread={markMessageUnread}
-              showCreateReply={showCreateReply}
-              setShowCreateReply={setShowCreateReply}
-              getMessages={getMessages}
-              setExpandedMessage={setExpandedConversation}
-              closeExpanded={() => setShowExpanded(false)}
-            />
-            :
-            <Text py={16}>No Message Selected</Text>
-          }
-        </Grid.Col>
-      </Grid>
-    </>
+      {expandedConversation && !showCreateMessageForm &&
+        <MessageExpanded
+          expandedConversation={expandedConversation}
+          messages={messageHeadNodes}
+          toggleFlag={toggleFlag}
+          userID={user.id}
+          markMessageUnread={markMessageUnread}
+          showCreateReply={showCreateReply}
+          setShowCreateReply={setShowCreateReply}
+          getMessages={getMessages}
+          setExpandedMessage={setExpandedConversation}
+          closeExpanded={() => setShowExpanded(false)}
+        />
+      }
+
+
+    </Drawer>
 
   );
 };
-
-export const messagesLoader = async () => {
-  try {
-    // retrieve all messages where sender or recipient matches using req.user info that is stored at login
-    const response = await axiosDB("/messages")
-    const { messages: data } = response.data
-    return data
-  } catch (error) {
-    throw new Error(error)
-  }
-}
-
 export default Messages;
