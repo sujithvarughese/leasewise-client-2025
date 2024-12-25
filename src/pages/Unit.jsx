@@ -62,6 +62,12 @@ const Unit = () => {
         showCreateExpenseForm={setShowCreateExpenseForm}
         toggleShowCreateExpenseForm={() => setShowCreateExpenseForm(true)}
       />
+
+      <>
+        {showCreateMortgageForm && <CreateMortgageForm id={unit._id} open={showCreateMortgageForm} onClose={() => setShowCreateMortgageForm(false)}/>}
+        {showCreateExpenseForm && <CreateExpenseForm id={unit._id} open={showCreateExpenseForm} onClose={() => setShowCreateExpenseForm(false)}/>}
+        {showCreateIncomeForm && <CreateIncomeForm id={unit._id} open={showCreateIncomeForm} onClose={() => setShowCreateIncomeForm(false)}/>}
+      </>
     </Flex>
   )
 }

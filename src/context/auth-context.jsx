@@ -57,7 +57,7 @@ const AuthProvider = ({ children }) => {
 
   const showUnauthorizedAlert = (duration = 5000) => {
     setTimeout(() => {
-      dispatch({ type: "CLOSE_UNAUTHORIZED_ALERT"})
+      closeUnauthorizedAlert()
     }, duration)
     dispatch({ type: "SHOW_UNAUTHORIZED_ALERT" })
   }

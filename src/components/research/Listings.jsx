@@ -34,8 +34,8 @@ const Listings = () => {
 
   return (
     <Flex direction="column" align="center">
-      <Title order={4}>Search MLS Listings: </Title>
-      <Flex justify="center" align="center" gap={3}>
+
+      <Flex justify="center" align="center" gap={3} p={36}>
         <TextInput
           type="text"
           name="zipCode"
@@ -44,18 +44,16 @@ const Listings = () => {
           onChange={(e) => setZipCode(e.currentTarget.value)}
         />
         <Button loading={loading} onClick={handleSubmit}>Submit</Button>
-
-        {listings && <ActionIcon onClick={toggle}>{opened ? <MdExpandLess /> : <MdExpandMore />}</ActionIcon>}
       </Flex>
 
       {listings &&
-      <Collapse in={opened}>
-        <Title>MLS Listings</Title>
+      <Box>
+        <Title order={3}>Search Results: </Title>
         <Flex wrap="wrap" gap={6}>
           {listings?.map((listing, index) =>
             <ListingCover key={index} {...listing}/>)}
         </Flex>
-      </Collapse>
+      </Box>
       }
     </Flex>
   )

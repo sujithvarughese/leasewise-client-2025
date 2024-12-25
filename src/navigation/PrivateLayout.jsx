@@ -5,10 +5,11 @@ import Header from './Header.jsx'
 import Navbar from './Navbar.jsx'
 import { useDisclosure } from '@mantine/hooks'
 import { AppShell } from '@mantine/core'
+import UnauthorizedAlert from '../components/UnauthorizedAlert.jsx'
 
 const PrivateLayout = () => {
 
-  const { user, role } = useAuthProvider()
+  const { user, role, unauthorizedAlertShown } = useAuthProvider()
   const [opened, { toggle }] = useDisclosure();
 
   return (
@@ -28,6 +29,7 @@ const PrivateLayout = () => {
       <Header opened={opened} toggle={toggle}/>
       <Navbar />
       <AppShell.Main><Outlet /></AppShell.Main>
+      {unauthorizedAlertShown &&  <UnauthorizedAlert /> }
 
     </AppShell>
 

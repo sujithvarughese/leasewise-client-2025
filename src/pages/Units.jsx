@@ -6,6 +6,8 @@ import { Box, Button, Container, Flex, Switch } from '@mantine/core'
 import SearchUnits from '../components/units/SearchUnits.jsx'
 import UnitCoverListMode from '../components/units/UnitCoverListMode.jsx'
 import UnitCoverGalleryMode from '../components/units/UnitCoverGalleryMode.jsx'
+import CreateUnitForm from '../components/forms/CreateUnitForm.jsx'
+import { useDisclosure } from '@mantine/hooks'
 
 const Units = () => {
   // units = [{ unit }, {},...]
@@ -14,9 +16,9 @@ const Units = () => {
   const { showUnauthorizedAlert } = useAuthProvider()
   // set in global state
 
+  const [showCreateUnitForm, { openCreateUnitForm, closeCreateUnitForm }] = useDisclosure(false);
 
   // state to trigger show create unit form
-  const [showCreateUnitForm, setShowCreateUnitForm] = useState(false)
   const [listMode, setListMode] = useState(false)
 
   // state for search function
@@ -40,35 +42,25 @@ const Units = () => {
   }, []);
 
   return (
-    <Box sx={{ display: 'flex' }}>
-          <Switch checked={!listMode} onChange={() => setListMode(!listMode)} />
+    <Box>
+      <Flex  justify="space-between" align="center">
+        <Switch checked={!listMode} label="Gallery Mode" onChange={() => setListMode(!listMode)} />
+        <SearchUnits query={query} setQuery={setQuery} />
+        <Button onClick={showUnauthorizedAlert}>{!showCreateUnitForm ? "Create Unit" : "Hide Form"}</Button>
+      </Flex>
 
-          <Flex  justify="space-between" align="center">
-            {/* Search bar */}
-            <SearchUnits query={query} setQuery={setQuery} />
+      {showCreateUnitForm && <CreateUnitForm opened={showCreateUnitForm} close={closeCreateUnitForm}/>}
 
-            <Button onClick={()=>showUnauthorizedAlert()}>
-              {!showCreateUnitForm ? "Create Unit" : "Hide Form"}</Button>
-          </Flex>
-
-          {/*showCreateUnitForm && <CreateUnitForm cancel={()=>setShowCreateUnitForm(false)}/>*/}
-
-
-          {listMode ?
-            <Flex direction="column">
-              {queriedUnits?.map(unit => <UnitCoverListMode key={unit._id} unit={unit} />)}
-            </Flex>
-            :
-            <Flex wrap="wrap" justify="center" gap={6}>
-              {queriedUnits?.map(unit => <UnitCoverGalleryMode key={unit._id} unit={unit} />)}
-            </Flex>
-          }
-
+      {listMode ?
+        <Flex direction="column">
+          {queriedUnits?.map(unit => <UnitCoverListMode key={unit._id} unit={unit} />)}
+        </Flex>
+        :
+        <Flex wrap="wrap" justify="center" gap={6}>
+          {queriedUnits?.map(unit => <UnitCoverGalleryMode key={unit._id} unit={unit} />)}
+        </Flex>
+      }
     </Box>
-
-
-
-
   );
 };
 
