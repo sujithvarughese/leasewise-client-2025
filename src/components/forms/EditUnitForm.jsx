@@ -17,7 +17,7 @@ const EditUnitForm = ({ unit, opened, onClose }) => {
 
 	const handleSubmit = async () => {
 		try {
-			await submitForm({ method: "POST", url: "/units", requestConfig: submittedValues })
+			await submitForm({ method: "PATCH", url: "/units", requestConfig: submittedValues })
 		} catch (e) {
 			console.log(e)
 			console.log(error)

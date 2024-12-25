@@ -44,6 +44,7 @@ const UnitCoverListMode = ({ unit }) => {
 					<UnstyledButton onClick={navigateToUnit}>
 						<Title order={4} whiteSpace="nowrap" overflop="clip" textOverflow="ellipsis">{houseNumber} {street} {apartmentNumber}</Title>
 						<Title order={6}>{city}, {state} {zip}</Title>
+						<Text>Rent: {convertToUSD(tenant?.rent)}</Text>
 					</UnstyledButton>
 				</Grid.Col>
 
@@ -53,7 +54,6 @@ const UnitCoverListMode = ({ unit }) => {
 						<Text>{tenant?.lastName}, {tenant?.firstName} </Text>
 						<Text>{tenant?.email}</Text>
 						<Text>{tenant?.phone}</Text>
-						<Text>Rent: {convertToUSD(tenant?.rent)}</Text>
 					</Grid.Col>
 					}
 			</Grid>

@@ -16,7 +16,7 @@ const Units = () => {
   const { showUnauthorizedAlert } = useAuthProvider()
   // set in global state
 
-  const [showCreateUnitForm, { openCreateUnitForm, closeCreateUnitForm }] = useDisclosure(false);
+  const [showCreateUnitForm, { open: openCreateUnitForm, close: closeCreateUnitForm }] = useDisclosure(false);
 
   // state to trigger show create unit form
   const [listMode, setListMode] = useState(false)
@@ -43,20 +43,19 @@ const Units = () => {
 
   return (
     <Box>
-      <Flex  justify="space-between" align="center">
+      <Flex justify="space-between" align="center" p={24}>
         <Switch checked={!listMode} label="Gallery Mode" onChange={() => setListMode(!listMode)} />
         <SearchUnits query={query} setQuery={setQuery} />
-        <Button onClick={showUnauthorizedAlert}>{!showCreateUnitForm ? "Create Unit" : "Hide Form"}</Button>
+        <Button onClick={openCreateUnitForm}>{!showCreateUnitForm ? "Create Unit" : "Hide Form"}</Button>
       </Flex>
-
-      {showCreateUnitForm && <CreateUnitForm opened={showCreateUnitForm} close={closeCreateUnitForm}/>}
+      <CreateUnitForm opened={showCreateUnitForm} onClose={closeCreateUnitForm}/>
 
       {listMode ?
         <Flex direction="column">
           {queriedUnits?.map(unit => <UnitCoverListMode key={unit._id} unit={unit} />)}
         </Flex>
         :
-        <Flex wrap="wrap" justify="center" gap={6}>
+        <Flex wrap="wrap" gap={6}>
           {queriedUnits?.map(unit => <UnitCoverGalleryMode key={unit._id} unit={unit} />)}
         </Flex>
       }
