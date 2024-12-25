@@ -11,20 +11,20 @@ const UnitTabs = ({
   showCreateExpenseForm,
   showCreateIncomeForm,
   showCreateMortgageForm,
-  toggleShowCreateExpenseForm,
-  toggleShowCreateIncomeForm,
-  toggleShowCreateMortgageForm
+  openCreateExpenseForm,
+  openCreateIncomeForm,
+  openCreateMortgageForm
 }) => {
 
   const [value, setValue] = useState("1")
 
   const forms = {
-    "1": toggleShowCreateIncomeForm,
-    "2": toggleShowCreateExpenseForm,
-    "3": toggleShowCreateMortgageForm
+    "1": openCreateIncomeForm,
+    "2": openCreateExpenseForm,
+    "3": openCreateMortgageForm
   }
 
-  const openForm = () => {forms[value]()}
+  const openForm = () => forms[value]()
 
 
 

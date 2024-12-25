@@ -10,6 +10,7 @@ import UnitTabs from '../components/units/UnitTabs.jsx'
 import EditUnitForm from '../components/forms/EditUnitForm.jsx'
 import { useAuthProvider } from '../context/auth-context.jsx'
 import { Box, Button, Flex, Image, Text, Title } from '@mantine/core'
+import { useDisclosure } from '@mantine/hooks'
 
 const Unit = () => {
 
@@ -21,10 +22,11 @@ const Unit = () => {
   const unitIncomes = incomes?.filter(income => income.unit === unit._id)
   const unitMortgages = mortgages?.filter(mortgage => mortgage.unit === unit._id)
 
-  const [showCreateExpenseForm, setShowCreateExpenseForm] = useState(false)
-  const [showCreateIncomeForm, setShowCreateIncomeForm] = useState(false)
-  const [showCreateMortgageForm, setShowCreateMortgageForm] = useState(false)
-  const [showEditUnitForm, setShowEditUnitForm] = useState(false)
+  const [showCreateIncomeForm, { open: openCreateIncomeForm, close: closeCreateIncomeForm }] = useDisclosure(false);
+  const [showCreateExpenseForm, { open: openCreateExpenseForm, close: closeCreateExpenseForm }] = useDisclosure(false);
+  const [showCreateMortgageForm, { open: openCreateMortgageForm, close: closeCreateMortgageForm }] = useDisclosure(false);
+  const [showEditUnitForm, { open: openEditUnitForm, close: closeEditUnitForm }] = useDisclosure(false);
+
 
 
   return (
@@ -38,8 +40,7 @@ const Unit = () => {
           </Box>
           <Flex justify="space-between" align="center">
             <Title order={6}>{unit?.bedrooms} bd / {unit?.bathrooms}ba</Title>
-            <Button variant="contained" onClick={() => showUnauthorizedAlert()}>Edit Unit</Button>
-            {showEditUnitForm && <EditUnitForm id={unit._id} open={showEditUnitForm} onClose={() => setShowEditUnitForm(false)}/>}
+            <Button onClick={openEditUnitForm}>Edit Unit</Button>
           </Flex>
         </Box>
 
@@ -56,17 +57,18 @@ const Unit = () => {
         unitExpenses={unitExpenses}
         unitMortgages={unitMortgages}
         showCreateIncomeForm={showCreateIncomeForm}
-        toggleShowCreateIncomeForm={() => setShowCreateIncomeForm(true)}
-        showCreateMortgageForm={setShowCreateMortgageForm}
-        toggleShowCreateMortgageForm={() => setShowCreateMortgageForm(true)}
-        showCreateExpenseForm={setShowCreateExpenseForm}
-        toggleShowCreateExpenseForm={() => setShowCreateExpenseForm(true)}
+        openCreateIncomeForm={openCreateIncomeForm}
+        showCreateMortgageForm={showCreateMortgageForm}
+        openCreateMortgageForm={openCreateMortgageForm}
+        showCreateExpenseForm={showCreateExpenseForm}
+        openCreateExpenseForm={openCreateExpenseForm}
       />
 
       <>
-        {showCreateMortgageForm && <CreateMortgageForm id={unit._id} open={showCreateMortgageForm} onClose={() => setShowCreateMortgageForm(false)}/>}
-        {showCreateExpenseForm && <CreateExpenseForm id={unit._id} open={showCreateExpenseForm} onClose={() => setShowCreateExpenseForm(false)}/>}
-        {showCreateIncomeForm && <CreateIncomeForm id={unit._id} open={showCreateIncomeForm} onClose={() => setShowCreateIncomeForm(false)}/>}
+        <EditUnitForm unit={unit} opened={showEditUnitForm} onClose={closeEditUnitForm} />
+        <CreateMortgageForm id={unit._id} opened={showCreateMortgageForm} onClose={closeCreateMortgageForm} />
+        <CreateExpenseForm id={unit._id} opened={showCreateExpenseForm} onClose={closeCreateExpenseForm} />
+        <CreateIncomeForm id={unit._id} opened={showCreateIncomeForm} onClose={closeCreateIncomeForm} />
       </>
     </Flex>
   )

@@ -1,51 +1,54 @@
-import {useState} from "react";
-import {useNavigate} from "react-router-dom";
-import {axiosDB} from "../../utilities/axios.js";
+import { useEffect, useState } from 'react'
 import useSubmit from '../../hooks/useSubmit.js'
-import { Box, Button, Flex, Modal, NativeSelect, TextInput } from '@mantine/core'
+import { Button, Flex, Modal, NativeSelect, TextInput, Title } from '@mantine/core'
+import { useForm } from '@mantine/form'
 
 
 
-const EditUnitForm = ({ id, open, onClose }) => {
+const EditUnitForm = ({ unit, opened, onClose }) => {
 
 	const { response, error, loading, submitForm } = useSubmit()
+	const [submittedValues, setSubmittedValues] = useState(null);
 
-	const handleSubmit = (e) => {
-		e.preventDefault()
-		const formData = new FormData(e.currentTarget)
-		const data = { ...Object.fromEntries(formData), unit: id }
-		submitForm({ method: "PATCH", url: "/units", requestConfig: data })
-		// e.currentTarget.reset()
-		onClose()
+	const form = useForm({
+		mode: 'uncontrolled',
+		initialValues: { houseNumber: unit.houseNumber, street: unit.street, city: unit.city, state: unit.state, zip: unit.zip, image: "" },
+	});
+
+	const handleSubmit = async () => {
+		try {
+			await submitForm({ method: "POST", url: "/units", requestConfig: submittedValues })
+		} catch (e) {
+			console.log(e)
+			console.log(error)
+		} finally {
+			form.reset()
+		}
 	}
 
+	useEffect(() => {
+		if (!submittedValues) return
+		handleSubmit()
+	}, [submittedValues])
 
 	return (
-		<Modal opened={open} onClose={onClose} heading="Edit Unit">
-		<form onSubmit={handleSubmit}>
+		<Modal opened={opened} onClose={onClose} heading="Edit Unit">
+			<form onSubmit={form.onSubmit(setSubmittedValues)}>
+				<Title>Edit Unit</Title>
+				<Flex direction="column" gap={12}>
+					<Flex gap={12}>
+						<TextInput placeholder="Unit" type="text" name="houseNumber"></TextInput>
+						<TextInput placeholder="Street" type="text" name="street"></TextInput>
+					</Flex>
 
-
-			<Box gap={1}>
-				<div>
-					<TextInput label="Unit" type="text" name="unitID"></TextInput>
-					<TextInput label="street" type="text" name="street"></TextInput>
-				</div>
-
-				<div>
-					<TextInput label="City" type="text" name="city"></TextInput>
-					<NativeSelect name="state" data={stateOptions} label="State"></NativeSelect>
-					<TextInput label="zip" type="text" name="zip"></TextInput>
-				</div>
-
-
-			</Box>
-
-			<Flex>
-				<Button type="submit" loading={loading}>Submit</Button>
-				<Button onClick={onClose}>Cancel</Button>
-			</Flex>
-
-		</form>
+					<Flex gap={12}>
+						<TextInput placeholder="City" type="text" name="city"></TextInput>
+						<NativeSelect data={stateOptions}></NativeSelect>
+						<TextInput placeholder="zip" type="text" name="zip"></TextInput>
+					</Flex>
+					<Button type="submit" loading={loading}>Submit</Button>
+				</Flex>
+			</form>
 		</Modal>
 
 	);

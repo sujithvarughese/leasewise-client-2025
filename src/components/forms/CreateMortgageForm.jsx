@@ -1,43 +1,49 @@
 
 import useSubmit from '../../hooks/useSubmit.js'
-import { useEffect } from 'react'
-import { Box, Button, Modal, TextInput } from '@mantine/core'
+import { useEffect, useState } from 'react'
+import { Box, Button, Flex, Modal, TextInput, Title } from '@mantine/core'
+import { hasLength, isEmail, useForm } from '@mantine/form'
 
 
-const CreateMortgageForm = ({ id, open, onClose }) => {
+const CreateMortgageForm = ({ id, opened, onClose }) => {
 
   const { response, error, loading, submitForm } = useSubmit()
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const values = [...formData.values()]
-    const fieldIsEmpty = values.includes("")
-    if (fieldIsEmpty) {
-      console.log("enter all fields")
-      return
+  const [submittedValues, setSubmittedValues] = useState(null);
+
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: { bank: '', purchasePrice: 0, principal: 0, interest: 0, term: 0, numPaymentsMade: 0 },
+  });
+
+  const handleSubmit = async () => {
+    try {
+      await submitForm({ method: "POST", url: "/mortgages", requestConfig: submittedValues })
+    } catch (e) {
+      console.log(e)
+      console.log(error)
+    } finally {
+      form.reset()
     }
-    const data = { ...Object.fromEntries(formData), unit: id }
-    submitForm({ method: "POST", url: "/mortgages", requestConfig: data })
-    // e.currentTarget.reset()
-    onClose()
   }
 
   useEffect(() => {
-    console.log(response)
-  }, [response])
+    if (!submittedValues) return
+    handleSubmit()
+  }, [submittedValues])
 
   return (
-    <Modal opened={open} onClose={onClose} heading="Create Mortgage">
-      <form onSubmit={handleSubmit}>
-        <Box gap={2}>
-          <TextInput id="bank" name="bank" label="Bank" variant="outlined" />
-          <TextInput type="number" id="purchasePrice" name="purchasePrice" label="Purchase Price" variant="outlined" />
-          <TextInput type="number" id="principal" name="principal" label="Principal" variant="outlined" />
-          <TextInput type="number" id="interest" name="interest" label="Interest" variant="outlined" />
-          <TextInput type="number" id="term" name="term" label="Term" variant="outlined" />
-          <TextInput type="number" id="numPaymentsMade" name="numPaymentsMade" label="Payments made" variant="outlined" />
+    <Modal opened={opened} onClose={onClose} heading="Create Mortgage">
+      <form onSubmit={form.onSubmit(setSubmittedValues)}>
+        <Title>Create Mortgage</Title>
+        <Flex direction="column" gap={12}>
+          <TextInput id="bank" name="bank" placeholder="Bank" />
+          <TextInput type="number" id="purchasePrice" name="purchasePrice" placeholder="Purchase Price" />
+          <TextInput type="number" id="principal" name="principal" placeholder="Principal" />
+          <TextInput type="number" id="interest" name="interest" placeholder="Interest" />
+          <TextInput type="number" id="term" name="term" placeholder="Term" />
+          <TextInput type="number" id="numPaymentsMade" name="numPaymentsMade" placeholder="Payments made" />
           <Button type="submit" loading={loading}>Submit</Button>
-        </Box>
+        </Flex>
       </form>
     </Modal>
   )

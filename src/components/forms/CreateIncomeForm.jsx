@@ -1,40 +1,52 @@
 
 import useSubmit from '../../hooks/useSubmit.js'
-import { Box, Button, Modal, NativeSelect, TextInput } from '@mantine/core'
+import { Box, Button, Flex, Modal, NativeSelect, TextInput, Title } from '@mantine/core'
+import { hasLength, isEmail, useForm } from '@mantine/form'
+import { useEffect, useState } from 'react'
 
 
 
-const CreateIncomeForm = ({ id, open, onClose }) => {
+const CreateIncomeForm = ({ id, opened, onClose }) => {
 
   const { response, error, loading, submitForm } = useSubmit()
+  const [submittedValues, setSubmittedValues] = useState(null);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const values = [...formData.values()]
-    const fieldIsEmpty = values.includes("")
-    if (fieldIsEmpty) {
-      console.log("enter all fields")
-      return
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: { category: '', amount: 0, balance: 0, datePaid: "", paymentMethod: "" },
+  });
+
+  const handleSubmit = async () => {
+    try {
+      await submitForm({ method: "POST", url: "/incomes", requestConfig: submittedValues })
+    } catch (e) {
+      console.log(e)
+      console.log(error)
+    } finally {
+      form.reset()
     }
-    const data = { ...Object.fromEntries(formData), unit: id }
-    submitForm({ method: "POST", url: "/incomes", requestConfig: data } )
-    // e.currentTarget.reset()
-    onClose()
   }
+
+  useEffect(() => {
+    if (!submittedValues) return
+    handleSubmit()
+  }, [submittedValues])
 
   return (
 
-    <Modal opened={open} onClose={onClose} heading="Create Income">
-      <form onSubmit={handleSubmit}>
-        <Box gap={2}>
-          <NativeSelect name="category" label="Category" options={categories} minWidth={120}/>
-          <TextInput type="number" id="amount" name="amount" label="Amount" variant="outlined" />
-          <TextInput type="number" id="balance" name="balance" label="Balance" variant="outlined" />
-          <TextInput type="date" id="datePaid" name="datePaid" helperText="Date Paid" variant="outlined" />
-          <TextInput id="paymentMethod" name="paymentMethod" label="Payment Method" variant="outlined" />
+    <Modal opened={opened} onClose={onClose} heading="Create Income">
+      <form onSubmit={form.onSubmit(setSubmittedValues)}>
+        <Title>Create Income</Title>
+        <Flex direction="column" gap={12}>
+          <NativeSelect name="category" data={categories} />
+          <Flex gap={12}>
+            <TextInput type="number" id="amount" name="amount" placeholder="Amount" />
+            <TextInput type="number" id="balance" name="balance" placeholder="Balance" />
+          </Flex>
+          <TextInput type="date" id="datePaid" name="datePaid" label="Date Paid" />
+          <TextInput id="paymentMethod" name="paymentMethod" placeholder="Payment Method" />
           <Button type="submit" loading={loading}>Submit</Button>
-        </Box>
+        </Flex>
       </form>
     </Modal>
 
