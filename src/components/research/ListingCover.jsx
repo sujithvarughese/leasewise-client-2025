@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import ListingDetails from './ListingDetails.jsx'
-import useSubmit from '../../../hooks/useSubmit.js'
+import useSubmit from '../../hooks/useSubmit.js'
 import { Box, Card, Image, Loader, Paper, Text } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 

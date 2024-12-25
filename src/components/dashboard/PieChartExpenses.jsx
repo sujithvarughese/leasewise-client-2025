@@ -49,8 +49,5 @@ const PieChartExpenses = ({ expenses }) => {
 }
 
 const colors = { tax: "indigo.6", insurance: "yellow.6", hoa: "teal.6", maintenance: "gray.6", repairs: "red.6" }
-//const colorsArr = [
-//  { category: "Tax",  color: "indigo.6" },
- // { category: insurance: "yellow.6" }, { hoa: "teal.6" }, { maintenance: "gray.6" }, { repairs: "green.6" }]
 
 export default PieChartExpenses

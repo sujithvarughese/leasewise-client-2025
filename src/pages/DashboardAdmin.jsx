@@ -1,12 +1,12 @@
-import { axiosDB } from '../../utilities/axios.js'
+import { axiosDB } from '../utilities/axios.js'
 import { Box, Flex } from '@mantine/core'
 import { useLoaderData } from 'react-router-dom'
-import NewsSection from '../../components/NewsSection.jsx'
-import Research from '../Research.jsx'
-import PieChartExpenses from '../../components/dashboard/PieChartExpenses.jsx'
+import NewsSection from '../components/NewsSection.jsx'
+import Research from './Research.jsx'
+import PieChartExpenses from '../components/dashboard/PieChartExpenses.jsx'
 import '@mantine/charts/styles.css';
-import Deposits from '../../components/dashboard/Deposits.jsx'
-import RecentExpenses from '../../components/dashboard/RecentExpenses.jsx'
+import Deposits from '../components/dashboard/Deposits.jsx'
+import RecentExpenses from '../components/dashboard/RecentExpenses.jsx'
 const DashboardAdmin = () => {
 
   const { expenses, incomes, mortgages, filteredArticles } = useLoaderData()

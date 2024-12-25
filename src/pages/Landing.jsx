@@ -1,10 +1,12 @@
 import React from 'react'
-import Login from './landing/Login.jsx'
-import Hero from './landing/Hero.jsx'
+import Login from '../components/landing/Login.jsx'
+import Hero from '../components/landing/Hero.jsx'
 import { Box, Flex } from '@mantine/core'
-import Magazines from './landing/Magazines.jsx'
-import Features from './landing/Features.jsx'
-import Footer from './landing/Footer.jsx'
+import Magazines from '../components/landing/Magazines.jsx'
+import Features from '../components/landing/Features.jsx'
+import Footer from '../components/landing/Footer.jsx'
+import features from '../components/landing/features.js'
+import FeatureItem from '../components/landing/FeatureItem.jsx'
 
 const Landing = () => {
   return (
