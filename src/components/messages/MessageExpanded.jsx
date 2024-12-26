@@ -63,7 +63,6 @@ const MessageExpanded = ({
 
 	return (
 		<Box>
-
 			<Flex justify="space-between" align="center" pb={16}>
 				<Flex gap={4}>
 					<Text>Subject:</Text>
