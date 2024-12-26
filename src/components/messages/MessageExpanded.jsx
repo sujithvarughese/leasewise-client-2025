@@ -64,7 +64,7 @@ const MessageExpanded = ({
 	return (
 		<Box>
 
-			<Flex justify="space-between" align="center" p={1}>
+			<Flex justify="space-between" align="center" pb={16}>
 				<Flex gap={4}>
 					<Text>Subject:</Text>
 					<Text style={{ whiteSpace: "nowrap", overflow: "clip", textOverflow: "ellipsis", fontWeight: 600 }}>
@@ -73,12 +73,12 @@ const MessageExpanded = ({
 				</Flex>
 
 				<Flex gap={6}>
-					<ActionIcon onClick={()=>toggleFlag(expandedConversation)} color="yellow">
-						{ expandedConversation.flag ? <TiFlag /> : <TiFlagOutline />}
+					<ActionIcon onClick={()=>toggleFlag(expandedConversation)} color="yellow" size="lg">
+						{ expandedConversation.flag ? <TiFlag size="24px" /> : <TiFlagOutline size="24px" />}
 					</ActionIcon>
 
-					<ActionIcon onClick={()=>showUnauthorizedAlert()} color="red">
-						<IoTrashOutline />
+					<ActionIcon onClick={()=>showUnauthorizedAlert()} color="red" size="lg">
+						<IoTrashOutline size="24px" />
 					</ActionIcon>
 				</Flex>
 			</Flex>

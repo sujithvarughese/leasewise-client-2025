@@ -1,19 +1,14 @@
 import { axiosDB } from "../../utilities/axios.js";
-import { useLoaderData } from "react-router-dom";
 import MessageExpanded from './MessageExpanded.jsx'
 import MessageCollapsed from './MessageCollapsed.jsx'
 import { useEffect, useState } from "react";
-import { BiMessageSquareEdit } from "react-icons/bi"
-import { TfiControlBackward } from "react-icons/tfi"
-
 import { useAuthProvider } from '../../context/auth-context.jsx'
-import { ActionIcon, Box, Button, Container, Drawer, Flex, Grid, Text, Title } from '@mantine/core'
+import { ActionIcon, Drawer, Title } from '@mantine/core'
 import NewMessageForm from './NewMessageForm.jsx'
-import { IoIosArrowBack } from 'react-icons/io'
 import { IoCreateOutline } from "react-icons/io5";
+import BackButton from './BackButton.jsx'
 
 const Messages = ({ opened, onClose }) => {
-  // messages = { inbox, outbox }	// message = { sender: { lastName, firstName, _id }, recipient, subject, body, read, flag, date, previousMessage
   const { user } = useAuthProvider()
 
   const [messageHeadNodes, setMessageHeadNodes] = useState([])
@@ -105,36 +100,49 @@ const Messages = ({ opened, onClose }) => {
       getAdminInfo()
     }
     window.scrollTo(0, 0)
-  }, [user.isAdmin, user.id]);
+  }, []);
+
+  const backButtonFn = () => {
+    if (expandedConversation) {
+      return setExpandedConversation(null)
+    } else if (showCreateMessageForm) {
+      return setShowCreateMessageForm(false)
+    }
+    return onClose()
+  }
 
   return (
     <Drawer opened={opened} onClose={onClose} position="right" withCloseButton={false}>
-      <Title pt={36}>Messages</Title>
+      <Title pt={36} pb={16}>Messages</Title>
 
-      {(expandedConversation || showCreateMessageForm) &&
+      <BackButton fn={backButtonFn}/>
+
+      {!expandedConversation && !showCreateMessageForm &&
         <ActionIcon
-          variant="subtle"
-          onClick={() => {
-          setExpandedConversation(null)
-          setShowCreateMessageForm(false)
-          }}
+          onClick={() => setShowCreateMessageForm(true)}
+          mb={6}
+          size="lg"
           pos="absolute"
-          top={16}
-          left={16}
-          style={{ zIndex: 1000 }}
+          right={16}
+          top={56}
+          style={{ zIndex: 100 }}
         >
-          <IoIosArrowBack size="32px" />
-        </ActionIcon>}
-
-      {!expandedConversation &&
-        <ActionIcon onClick={() => setShowCreateMessageForm(true)} mb={6} size="lg">
           <IoCreateOutline size="24px" />
         </ActionIcon>
       }
 
-      {showCreateMessageForm && <NewMessageForm close={()=>setShowCreateMessageForm(false)} addressBook={addressBook} getMessages={getMessages}/>}
+      {showCreateMessageForm &&
+        <NewMessageForm
+          close={()=>setShowCreateMessageForm(false)}
+          addressBook={addressBook}
+          getMessages={getMessages}
+        />
+      }
 
-      {messageHeadNodes.length > 0 && !expandedConversation && !showCreateMessageForm && messageHeadNodes.map((message, index) =>
+      {messageHeadNodes.length > 0
+        && !expandedConversation
+        && !showCreateMessageForm
+        && messageHeadNodes.map((message, index) =>
         <MessageCollapsed
           key={message._id}
           messageHead={message}

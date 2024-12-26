@@ -9,7 +9,6 @@ const MessageCollapsed = ({
 	messageHead,
 	setExpandedConversation,
 	markMessageRead,
-	showExpanded,
 	userID,
 	closeReply,
 	bg

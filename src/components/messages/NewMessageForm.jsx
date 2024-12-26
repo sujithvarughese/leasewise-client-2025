@@ -1,9 +1,11 @@
 
 import { axiosDB } from '../../utilities/axios.js'
 import { useAuthProvider } from '../../context/auth-context.jsx'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, NativeSelect, TextInput } from '@mantine/core'
+import { Box, Button, Flex, NativeSelect, Textarea, TextInput, Title } from '@mantine/core'
+import useSubmit from '../../hooks/useSubmit.js'
+import { useForm } from '@mantine/form'
 
 const NewMessageForm = ({ close, addressBook, getMessages }) => {
 
@@ -12,66 +14,53 @@ const NewMessageForm = ({ close, addressBook, getMessages }) => {
   // recipient is initially set to first name in address book (user has only one name in address book so default to admin)
   //const [values, setValues] = useState({ ...initialState, recipient: addressBook[0].value })
   const [buttonText, setButtonText] = useState("Send")
-  /*
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  }
-*/
-  const navigate = useNavigate()
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-    const data = { ...Object.fromEntries(formData)}
-    console.log(data)
+  const { response, error, loading, submitForm } = useSubmit()
+  const [submittedValues, setSubmittedValues] = useState(null);
+
+  const form = useForm({
+    mode: 'uncontrolled',
+    initialValues: {
+      sender: user._id,
+      recipient: "",
+      subject: "",
+      body: ""
+    },
+  });
+
+  const handleSubmit = async () => {
     try {
-      // add sender info before passing to server
-      const msg = await createMessage({ ...data, sender: user.userID })
-      // navigate back to messages to update messages display
-      if (msg === 'success') {
-        setButtonText("Sent!")
-      } else {
-        setButtonText("Error")
-      }
+      await submitForm({ method: "POST", url: "/messages", requestConfig: submittedValues })
       await getMessages()
-      setTimeout(() => {
-        navigate("/messages");
-        close()
-      }, 1000)
-    } catch (error) {
-      throw new Error(error)
+    } catch (e) {
+      console.log(e)
+      console.log(error)
+    } finally {
+      form.reset()
     }
   }
 
+  useEffect(() => {
+    if (!submittedValues) return
+    handleSubmit()
+  }, [submittedValues])
+
   return (
     <Box>
-      <form onSubmit={handleSubmit}>
-        <Box>
-          <NativeSelect name="recipient" label="To:" options={addressBook} />
-          <TextInput name="subject" label="Subject" />
-          <TextInput
-            id="body"
+      <form onSubmit={form.onSubmit(setSubmittedValues)}>
+        <Title order={5}>New Message</Title>
+        <Flex direction="column" gap={12}>
+          <NativeSelect name="recipient" data={addressBook} />
+          <TextInput name="subject" placeholder="Subject" />
+          <Textarea
             name="body"
             placeholder="Type new message here..."
-            minRows={15}
-            maxRows={15}
-            sx={{
-              '--Textarea-focusedInset': 'var(--any, )',
-              '--Textarea-focusedThickness': '0.25rem',
-              '--Textarea-focusedHighlight': 'rgba(13,110,253,.25)',
-              '&::before': {
-                transition: 'box-shadow .15s ease-in-out',
-              },
-              '&:focus-within': {
-                borderColor: '#86b7fe',
-              },
-            }}
+            autosize
+            minRows={4}
           />
-          <Box>
-            <Button type="submit">{buttonText}</Button>
-            <Button type="button" onClick={close}>Cancel</Button>
-          </Box>
-        </Box>
+          <Button type="submit">Send</Button>
+
+        </Flex>
       </form>
     </Box>
   )
