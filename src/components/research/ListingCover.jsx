@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react'
 
 import ListingDetails from './ListingDetails.jsx'
 import useSubmit from '../../hooks/useSubmit.js'
-import { Box, Card, Image, Loader, Paper, Text } from '@mantine/core'
+import { Box, Card, Image, Loader, Paper, Text, Title } from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
-
+import { convertToUSD } from '../../utilities/financeCalculations.js'
 
 const ListingCover = ({
   propertyId,
@@ -37,20 +37,22 @@ const ListingCover = ({
 
   return (
     <>
-        <Card onClick={handleClick}>
-          <Card.Section>
-            <Image src={primaryImage} height={100}></Image>
-          </Card.Section>
-          <Card.Section>
-            <Box>
-              <Text height={60}>{address}</Text>
-              <Text>{city}, {state} {zipCode}</Text>
-            </Box>
-            <Text>{bedrooms} bedrooms {bathrooms} bathrooms</Text>
-            <Text>List Price: ${listPrice}</Text>
-            {loading && <Loader />}
-          </Card.Section>
-        </Card>
+      <Card onClick={handleClick} p={36}>
+        <Card.Section>
+          <Image src={primaryImage} h={120} w={200}></Image>
+        </Card.Section>
+        <Card.Section>
+          <Box >
+            <Title order={4}>{address}</Title>
+            <Title order={6}>{city}, {state} {zipCode}</Title>
+          </Box>
+          <Text>{bedrooms} br / {bathrooms} ba</Text>
+
+          <Title order={5} style={{ textAlign: "end", paddingTop: "16px"}}>{ !!listPrice && convertToUSD(listPrice)}</Title>
+
+          <Box style={{  justifySelf: "center" }}>{loading && <Loader />}</Box>
+        </Card.Section>
+      </Card>
 
 
       {showDetails &&

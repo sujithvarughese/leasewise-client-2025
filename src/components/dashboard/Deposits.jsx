@@ -12,17 +12,14 @@ const Deposits = ({ incomes, expenses }) => {
   const [viewBalance, setViewBalance] = useState(false)
 
   return (
-    <Flex direction="column" align={{ base: "flex-start", xs: "flex-end" }}>
+    <Flex direction="column" pb={{ base: 24, xs: "initial" }} align="flex-end">
       <Title>Recent Rental Income</Title>
       <Text>{convertToUSD(incomes[incomes.length - 1].amount)}</Text>
       <Text>on {incomes[incomes.length - 1].datePaid.substring(0, 10)}</Text>
-
-      <Box>
-        {viewBalance && <Text>{convertToUSD(calculateProfit)}</Text>}
-        <Button onClick={() => setViewBalance(!viewBalance)}>
-          { viewBalance ? "Hide" : "View"} balance
-        </Button>
-      </Box>
+      <Button onClick={() => setViewBalance(!viewBalance)}>
+        { viewBalance ? "Hide" : "View"} balance
+      </Button>
+      {viewBalance && <Text>Balance: {convertToUSD(calculateProfit)}</Text>}
     </Flex>
   );
 }

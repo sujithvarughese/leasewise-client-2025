@@ -34,7 +34,7 @@ const Listings = () => {
 
   return (
     <Box>
-      <Title m={12} order={4} style={{ textAlign: "center" }}>Search for Fair Market Rent Values:</Title>
+      <Title m={16} order={4} style={{ textAlign: "center" }}>Search for Fair Market Rent Values:</Title>
       <Flex justify="center" align="center" gap={12}>
         <TextInput
           type="text"
@@ -47,9 +47,9 @@ const Listings = () => {
       </Flex>
 
       {listings &&
-      <Box>
+      <Box py={16}>
         <Title order={3}>Search Results: </Title>
-        <Flex wrap="wrap" gap={6}>
+        <Flex wrap="wrap" gap={6} justify="center">
           {listings?.map((listing, index) =>
             <ListingCover key={index} {...listing}/>)}
         </Flex>

@@ -85,7 +85,7 @@ const Fmr = () => {
 
   return (
     <Box>
-      <Title m={12} order={4} style={{ textAlign: "center" }}>Search for Fair Market Rent Values:</Title>
+      <Title m={16} order={4} style={{ textAlign: "center" }}>Search for Fair Market Rent Values:</Title>
       <Flex direction="column" align="center">
         <Box>
           <NativeSelect
