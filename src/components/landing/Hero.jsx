@@ -10,17 +10,17 @@ const Hero = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Box h={{ base: "100vh", sm: "80vh" }}>
-      <BackgroundImage src={bgImage} h="100%">
+    <Box h={{base: "100vh", md: "98vh"}}>
+      <BackgroundImage src={bgImage} h="100%" radius={{ base: "xs", md: "md"}}>
         <Flex
-          justify={{ base: "space-evenly", md: "space-between" }}
+          justify="space-around"
           align="center"
           h="100%"
           direction={{ base: "column", md: "row" }}
         >
         <Flex direction="column" m="xl" align={{ base: "center", md: "flex-start" }}>
           <Title style={{ color: "white" }}>LeaseWise</Title>
-          <Title order={5} style={{ color: "white" }}>Make managing rentals simple.</Title>
+          <Title order={3} style={{ color: "white" }}>Make managing rentals simple.</Title>
           <Box my={12}>
             <PreviewButton />
           </Box>

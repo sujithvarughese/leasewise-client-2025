@@ -6,6 +6,7 @@ import useSubmit from '../../hooks/useSubmit.js'
 import React, { useEffect, useState } from 'react'
 import { Box, Button, Flex, Modal, NativeSelect, TextInput, Title } from '@mantine/core'
 import { hasLength, isEmail, useForm } from '@mantine/form'
+import { useAuthProvider } from '../../context/auth-context.jsx'
 
 
 
@@ -13,6 +14,7 @@ const CreateExpenseForm = ({ id, opened, onClose }) => {
 
   const { response, error, loading, submitForm } = useSubmit()
   const [submittedValues, setSubmittedValues] = useState(null);
+  const { showUnauthorizedAlert } = useAuthProvider()
 
   const form = useForm({
     mode: 'uncontrolled',
@@ -21,7 +23,8 @@ const CreateExpenseForm = ({ id, opened, onClose }) => {
 
   const handleSubmit = async () => {
     try {
-      await submitForm({ method: "POST", url: "/expenses", requestConfig: submittedValues })
+      // await submitForm({ method: "POST", url: "/expenses", requestConfig: submittedValues })
+      showUnauthorizedAlert()
     } catch (e) {
       console.log(e)
       console.log(error)

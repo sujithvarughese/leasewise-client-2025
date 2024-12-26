@@ -50,7 +50,6 @@ const CreateAccount = ({ opened, close }) => {
 
   return (
     <Modal opened={opened} onClose={close}>
-
       <form onSubmit={form.onSubmit(setSubmittedValues)}>
         <Flex direction="column" gap={12} style={{ textAlign: "center"}}>
           <Title order={3} >Create new Account</Title>

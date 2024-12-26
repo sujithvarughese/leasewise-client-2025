@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import useSubmit from '../../hooks/useSubmit.js'
-import { Button, Flex, Modal, NativeSelect, TextInput, Title } from '@mantine/core'
+import { Button, FileInput, Flex, Modal, NativeSelect, NumberInput, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
+import { FcImageFile } from 'react-icons/fc'
+import { useAuthProvider } from '../../context/auth-context.jsx'
 
 
 
@@ -9,15 +11,17 @@ const EditUnitForm = ({ unit, opened, onClose }) => {
 
 	const { response, error, loading, submitForm } = useSubmit()
 	const [submittedValues, setSubmittedValues] = useState(null);
+	const { showUnauthorizedAlert } = useAuthProvider()
 
 	const form = useForm({
 		mode: 'uncontrolled',
-		initialValues: { houseNumber: unit.houseNumber, street: unit.street, city: unit.city, state: unit.state, zip: unit.zip, image: "" },
+		initialValues: { houseNumber: unit.houseNumber, street: unit.street, apartmentNumber: unit.apartmentNumber, city: unit.city, state: unit.state, zip: unit.zip, image: "" },
 	});
 
 	const handleSubmit = async () => {
 		try {
-			await submitForm({ method: "PATCH", url: "/units", requestConfig: submittedValues })
+			// await submitForm({ method: "PATCH", url: "/units", requestConfig: submittedValues })
+			showUnauthorizedAlert()
 		} catch (e) {
 			console.log(e)
 			console.log(error)
@@ -37,8 +41,9 @@ const EditUnitForm = ({ unit, opened, onClose }) => {
 				<Title>Edit Unit</Title>
 				<Flex direction="column" gap={12}>
 					<Flex gap={12}>
-						<TextInput placeholder="Unit" type="text" name="houseNumber"></TextInput>
+						<TextInput placeholder="House Number" type="text" name="houseNumber"></TextInput>
 						<TextInput placeholder="Street" type="text" name="street"></TextInput>
+						<TextInput placeholder="Apartment Number" type="text" name="apartmentNumber"></TextInput>
 					</Flex>
 
 					<Flex gap={12}>
@@ -46,6 +51,14 @@ const EditUnitForm = ({ unit, opened, onClose }) => {
 						<NativeSelect data={stateOptions}></NativeSelect>
 						<TextInput placeholder="zip" type="text" name="zip"></TextInput>
 					</Flex>
+
+					<Flex>
+						<NumberInput placeholder="Bedrooms" name="bedrooms"/>
+						<NumberInput placeholder="Bathrooms" name="bathrooms" />
+					</Flex>
+
+					<FileInput placeholder="Image" name="image" leftSection={<FcImageFile />}/>
+
 					<Button type="submit" loading={loading}>Submit</Button>
 				</Flex>
 			</form>

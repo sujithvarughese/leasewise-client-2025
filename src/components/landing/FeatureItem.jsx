@@ -3,7 +3,7 @@ import { Box, Flex, Grid, Image, Paper, Text, Title } from '@mantine/core'
 
 const FeatureItem = ({ feature, bg }) => {
   return (
-    <Paper bg={bg} p={{base: 36, sm: 72}}>
+    <Paper bg={bg} radius="md" shadow="lg" p={{base: 36, sm: 72}}>
       <Grid justify="space-around">
         <Grid.Col my={12} span={{ base: 12, sm: 5 }}>
           <Title order={3}>{feature.title}</Title>
