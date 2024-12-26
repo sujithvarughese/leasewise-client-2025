@@ -33,9 +33,9 @@ const Listings = () => {
 
 
   return (
-    <Flex direction="column" align="center">
-
-      <Flex justify="center" align="center" gap={3} p={36}>
+    <Box>
+      <Title m={12} order={4} style={{ textAlign: "center" }}>Search for Fair Market Rent Values:</Title>
+      <Flex justify="center" align="center" gap={12}>
         <TextInput
           type="text"
           name="zipCode"
@@ -43,7 +43,7 @@ const Listings = () => {
           placeholder="Zip Code"
           onChange={(e) => setZipCode(e.currentTarget.value)}
         />
-        <Button loading={loading} onClick={handleSubmit}>Submit</Button>
+        <Button loading={loading} onClick={handleSubmit}>Search</Button>
       </Flex>
 
       {listings &&
@@ -55,7 +55,7 @@ const Listings = () => {
         </Flex>
       </Box>
       }
-    </Flex>
+    </Box>
   )
 }
 

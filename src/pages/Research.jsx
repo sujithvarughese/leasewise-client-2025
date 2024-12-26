@@ -2,23 +2,35 @@
 import Fmr from '../components/research/Fmr.jsx'
 import { convertToUSD } from '../utilities/financeCalculations.js'
 import Listings from '../components/research/Listings.jsx'
-import { Box, Container, Paper, Tabs } from '@mantine/core'
+import { BackgroundImage, Box, Button, Container, Grid, Paper, Tabs, Title } from '@mantine/core'
 import { useState } from 'react'
-
+import bg from "../assets/images/research_bg.jpeg"
 
 const Research = () => {
-  const [activeTab, setActiveTab] = useState("1");
+  const [activeTab, setActiveTab] = useState("0");
 
   return (
     <Box>
-      <Paper shadow="xl" p={24}>
+      <BackgroundImage src={bg} mb={36}>
+        <Box justify="center" align="center" py={102} px={{base: 24, sm: 102 }}>
+          <Title style={{ color: "white" }}>MLS Multiple Listing Service</Title>
+          <Title style={{ color: "white" }}>&</Title>
+          <Title style={{ color: "white" }}>FMR Fair Market Value Rents</Title>
+          <Title order={5} style={{ color: "white" }}>Your trusted Real Estate Source</Title>
+
+          <Box>
+            <Button size="xl" color="lime.7" m={8} onClick={() => setActiveTab("1")}>Search Listings</Button>
+            <Button size="xl" color="lime.7" m={8} onClick={() => setActiveTab("2")}>Search Rents</Button>
+          </Box>
+        </Box>
+      </BackgroundImage>
+
+      <Paper shadow="xl" h="100vh">
         <Tabs value={activeTab} onChange={setActiveTab}>
-
           <Tabs.List aria-label="research tabs" justify="center">
-            <Tabs.Tab value="1">MLS Search</Tabs.Tab>
-            <Tabs.Tab value="2">Fair Market Rents</Tabs.Tab>
+            <Tabs.Tab value="1">Listings</Tabs.Tab>
+            <Tabs.Tab value="2">Rental Rates</Tabs.Tab>
           </Tabs.List>
-
 
           <Tabs.Panel value="1"  sx={{ p: 0 }}>
             <Listings />
@@ -27,9 +39,12 @@ const Research = () => {
           <Tabs.Panel value="2" sx={{ p: 0 }}>
             <Fmr />
           </Tabs.Panel>
-
         </Tabs>
       </Paper>
+
+
+
+
     </Box>
 
 
