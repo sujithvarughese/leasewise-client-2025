@@ -13,7 +13,7 @@ const Deposits = ({ incomes, expenses }) => {
 
   return (
     <Flex direction="column" align={{ base: "flex-start", xs: "flex-end" }}>
-      <Title>Recent Rent Income</Title>
+      <Title>Recent Rental Income</Title>
       <Text>{convertToUSD(incomes[incomes.length - 1].amount)}</Text>
       <Text>on {incomes[incomes.length - 1].datePaid.substring(0, 10)}</Text>
 

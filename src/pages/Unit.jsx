@@ -33,7 +33,7 @@ const Unit = () => {
     <Flex direction="column" align="center">
       <Image src={unit?.image} alt="image" w={480} h={480}/>
 
-        <Box justifyContent="space-around">
+        <Box>
           <Box>
             <Title>{unit?.houseNumber} {unit?.street} {unit?.apartmentNumber}</Title>
             <Title order={4}>{unit?.city}, {unit?.state} {unit?.zip}</Title>
@@ -49,7 +49,7 @@ const Unit = () => {
         <Box>
           <Text>{unit?.tenant?.lastName}, {unit?.tenant?.firstName}</Text>
           <Text>{unit?.tenant?.email}</Text>
-          <Text variant="body2">Rent: ${unit?.tenant?.rent}</Text>
+          <Text>Rent: ${unit?.tenant?.rent}</Text>
         </Box>
 
       <UnitTabs

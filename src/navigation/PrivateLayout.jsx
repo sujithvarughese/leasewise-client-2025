@@ -29,7 +29,7 @@ const PrivateLayout = () => {
     >
 
       <Header opened={opened} toggle={toggle} openMessages={openMessages}/>
-      <Navbar />
+      <Navbar toggle={toggle} />
       <AppShell.Main><Outlet /></AppShell.Main>
       {unauthorizedAlertShown &&  <UnauthorizedAlert /> }
       <Messages opened={messagesOpened} onClose={closeMessages} />

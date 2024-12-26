@@ -6,10 +6,11 @@ import { FaMoneyBillTrendUp, FaGlobe } from "react-icons/fa6";
 import { useEffect, useState } from 'react'
 import { useAuthProvider } from '../context/auth-context.jsx'
 import { useNavigate } from 'react-router-dom'
+import { IoLogOutSharp } from "react-icons/io5";
 
-const Navbar = () => {
+const Navbar = ({ toggle }) => {
 
-  const { role} = useAuthProvider()
+  const { role, logOutUser } = useAuthProvider()
   const [links, setLinks] = useState([])
   const navigate = useNavigate()
   const [active, setActive] = useState(0);
@@ -17,7 +18,14 @@ const Navbar = () => {
   const setActiveAndNavigate = (index) => {
     setActive(index)
     navigate(links[index].url)
+    toggle()
   }
+
+  const logOutAndNavigate = () => {
+    logOutUser()
+    navigate("/")
+  }
+
   useEffect(() => {
     if (role === "management") {
       setLinks(managementLinks)
@@ -28,23 +36,16 @@ const Navbar = () => {
 
   return (
     <AppShellNavbar>
-      <List component="nav">
-
-        <Flex direction="column">
-
-          {links.map((link, index) =>
-          <NavLink
-            key={index}
-            active={index === active}
-            onClick={() => setActiveAndNavigate(index)}
-            label={link.name}
-            leftSection={link.icon}
-          />
-          )}
-
-        </Flex>
-
-      </List>
+      {links.map((link, index) =>
+      <NavLink
+        key={index}
+        active={index === active}
+        onClick={() => setActiveAndNavigate(index)}
+        label={link.name}
+        leftSection={link.icon}
+      />
+      )}
+      <Button m={12} variant="subtle" color="black" onClick={logOutAndNavigate}>Log Out</Button>
     </AppShellNavbar>
   )
 }

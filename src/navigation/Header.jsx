@@ -4,31 +4,27 @@ import { useAuthProvider } from '../context/auth-context.jsx'
 import { TiMessages } from "react-icons/ti";
 
 const Header = ({ opened, toggle, openMessages }) => {
-  const { logOutUser } = useAuthProvider()
 
   return (
     <AppShellHeader>
-      <Flex justify="space-between" align="center">
+      <Flex justify="space-between" align="center" h="100%" mx="12">
         <Burger
           opened={opened}
           onClick={toggle}
           hiddenFrom="sm"
           size="sm"
         />
-        <Box>
-          <Image src={logo} alt="logo" height={50}/>
-        </Box>
+        <Image src={logo} alt="logo" height={50}/>
         <Flex align="center" gap={12}>
           <ActionIcon
             aria-label="Messages action icon"
             size="xl"
-            radius="xl"
+            radius="md"
             variant="gradient"
             gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
             onClick={openMessages}
           ><TiMessages />
           </ActionIcon>
-          <Button onClick={logOutUser}>Logout</Button>
         </Flex>
       </Flex>
 
