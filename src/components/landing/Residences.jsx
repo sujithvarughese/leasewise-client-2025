@@ -8,7 +8,7 @@ import bed from "../../assets/images/landing/residences/bed.png"
 
 const Residences = () => {
   return (
-    <Paper shadow="lg" radius="md" p={36} bg="gray.1">
+    <Paper shadow="lg" radius="md" p={36} bg="gray.1" m={{ base: 0, md: 12}}>
       <Title order={3} style={{ textAlign: "center", color: "slategray" }}>LeaseWise Features</Title>
       <Title order={2} pt={12} pb={56} style={{ textAlign: "center" }}>No matter what type of properties you own or your experience, we've got your back.</Title>
       <Flex gap={42} align="center" justify="space-around" wrap="wrap">

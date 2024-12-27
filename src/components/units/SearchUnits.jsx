@@ -6,7 +6,7 @@ const SearchUnits = ({ query, setQuery }) => {
 		<Input
 			type="text"
 			name="search"
-			placeholder="SEARCH UNITS"
+			placeholder="Search Units"
 			value={query}
 			onChange={(e)=>setQuery(e.target.value)}
 		></Input>

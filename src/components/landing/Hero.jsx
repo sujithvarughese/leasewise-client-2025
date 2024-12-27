@@ -10,7 +10,7 @@ const Hero = () => {
   const [opened, { open, close }] = useDisclosure(false);
 
   return (
-    <Box h={{base: "100vh", md: "98vh"}}>
+    <Box h="100vh">
       <BackgroundImage src={bgImage} h="100%" radius={{ base: "xs", md: "md"}}>
         <Flex
           justify="space-around"

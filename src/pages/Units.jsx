@@ -2,12 +2,13 @@ import {useEffect, useState} from "react";
 import { useLoaderData } from "react-router-dom";
 import { axiosDB } from "../utilities/axios.js";
 import { useAuthProvider } from '../context/auth-context.jsx'
-import { Box, Button, Container, Flex, Switch } from '@mantine/core'
+import { ActionIcon, Box, Button, Container, Flex, Switch } from '@mantine/core'
 import SearchUnits from '../components/units/SearchUnits.jsx'
 import UnitCoverListMode from '../components/units/UnitCoverListMode.jsx'
 import UnitCoverGalleryMode from '../components/units/UnitCoverGalleryMode.jsx'
 import CreateUnitForm from '../components/forms/CreateUnitForm.jsx'
 import { useDisclosure } from '@mantine/hooks'
+import { IoAddOutline } from "react-icons/io5";
 
 const Units = () => {
   // units = [{ unit }, {},...]
@@ -19,7 +20,7 @@ const Units = () => {
   const [showCreateUnitForm, { open: openCreateUnitForm, close: closeCreateUnitForm }] = useDisclosure(false);
 
   // state to trigger show create unit form
-  const [listMode, setListMode] = useState(false)
+  const [listMode, setListMode] = useState(true)
 
   // state for search function
   const [query, setQuery] = useState("")
@@ -43,15 +44,20 @@ const Units = () => {
 
   return (
     <Box>
-      <Flex justify="space-between" align="center" p={24}>
-        <Switch checked={!listMode} label="Gallery Mode" onChange={() => setListMode(!listMode)} />
+      <Switch
+        display={{ base: "none", sm: "initial" }}
+        checked={!listMode} label="Gallery Mode"
+        onChange={() => setListMode(!listMode)}
+      />
+
+      <Flex justify="space-between" align="center" p={24} gap={16}>
         <SearchUnits query={query} setQuery={setQuery} />
-        <Button onClick={openCreateUnitForm}>{!showCreateUnitForm ? "Create Unit" : "Hide Form"}</Button>
+        <ActionIcon onClick={openCreateUnitForm} size="lg"><IoAddOutline size="24px"/></ActionIcon>
       </Flex>
       <CreateUnitForm opened={showCreateUnitForm} onClose={closeCreateUnitForm}/>
 
       {listMode ?
-        <Flex direction="column">
+        <Flex direction="column" gap={6}>
           {queriedUnits?.map(unit => <UnitCoverListMode key={unit._id} unit={unit} />)}
         </Flex>
         :

@@ -42,7 +42,7 @@ const MessageContents = ({
           mb={16}
           p={8}
           w="80%"
-          bg={`${user.id === senderID ? "dodgerblue" : "lightgray"}`}
+          bg={`${user.id === senderID ? "blue.4" : "lightgray"}`}
           style={{ justifySelf: `${user.id === senderID ? "flex-end" : "flex-start"}` }}
         >
           <Text p={2}>{body}</Text>

@@ -30,7 +30,7 @@ const UnitCoverGalleryMode = ({ unit }) => {
     <HoverCard>
       <HoverCard.Target>
         <UnstyledButton onClick={navigateToUnit}>
-          <Image src={image} alt={`${houseNumber} ${street}`} h={200} w={200}/>
+          <Image src={image} alt={`${houseNumber} ${street}`} h={200} w={200} radius="sm"/>
         </UnstyledButton>
       </HoverCard.Target>
       <HoverCard.Dropdown>
