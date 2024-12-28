@@ -7,7 +7,7 @@ import { Box, Button, Flex, NativeSelect, Textarea, TextInput, Title } from '@ma
 import useSubmit from '../../hooks/useSubmit.js'
 import { useForm } from '@mantine/form'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAdminInfo, fetchMessages, fetchUserList } from '../../features/messagesSlice.js'
+import { fetchAdminInfo, fetchUserList } from '../../features/messagesSlice.js'
 
 const NewMessageForm = () => {
 
@@ -71,15 +71,6 @@ const NewMessageForm = () => {
       </form>
     </Box>
   )
-}
-const createMessage = async (message) => {
-  try {
-    const response = await axiosDB.post("/messages", message)
-    const { msg } = response.data
-    return msg
-  } catch (error) {
-    console.log(error);
-  }
 }
 
 export default NewMessageForm

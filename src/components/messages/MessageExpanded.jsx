@@ -2,35 +2,44 @@ import MessageContents from './MessageContents.jsx'
 import ReplyMessageForm from './ReplyMessageForm.jsx'
 import { axiosDB } from "../../utilities/axios.js";
 import {useEffect, useRef, useState} from "react";
-import { ActionIcon, Box, Flex, Grid, Text } from '@mantine/core'
+import { ActionIcon, Box, Button, Flex, Grid, Paper, Text, Textarea } from '@mantine/core'
 import { IoIosArrowBack } from "react-icons/io";
 import { TiFlag, TiFlagOutline } from 'react-icons/ti'
 import { IoTrashOutline } from 'react-icons/io5'
 import { useAuthProvider } from '../../context/auth-context.jsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchMessages, fetchCurrentMessage, toggleFlag } from '../../features/messagesSlice.js'
+import { fetchMessages, fetchCurrentMessage, toggleFlag, setCurrentMessage } from '../../features/messagesSlice.js'
+import useSubmit from '../../hooks/useSubmit.js'
 
 const MessageExpanded = () => {
 
+	const { user, showUnauthorizedAlert } = useAuthProvider()
 	const currentMessage = useSelector(state => state.messages.currentMessage)
 	const dispatch = useDispatch()
 
-	const { user, showUnauthorizedAlert } = useAuthProvider()
-	const [otherUser, setOtherUser] = useState(null)
 
-	const getOtherUser = () => {
-		if (currentMessage[0]?.sender._id === user._id) {
-			setOtherUser(currentMessage[0].recipient)
-		} else {
-			setOtherUser(currentMessage[0].sender)
+	const [value, setValue] = useState("")
+	const { response, error, loading, submitForm } = useSubmit()
+
+	const handleSubmit = async () => {
+		const msg = {
+			sender: user.id,
+			recipient: currentMessage[0]?.sender._id === user._id ? currentMessage[0].recipient : currentMessage[0].sender,
+			subject: currentMessage[0].subject,
+			body: value,
+			previousMessage: currentMessage[0]._id
 		}
+		submitForm({ method: "POST", url: "/messages", requestConfig: msg })
+		setValue("")
 	}
 
 	useEffect(() => {
-		dispatch(fetchMessages())
-		dispatch(fetchCurrentMessage(currentMessage[0]?._id))
-		getOtherUser()
-	}, [currentMessage])
+		if (response) {
+			dispatch(fetchCurrentMessage(response.message._id))
+			dispatch(fetchMessages())
+		}
+	}, [response])
+
 
 
 	return (
@@ -39,12 +48,12 @@ const MessageExpanded = () => {
 				<Flex gap={4}>
 					<Text>Subject:</Text>
 					<Text style={{ whiteSpace: "nowrap", overflow: "clip", textOverflow: "ellipsis", fontWeight: 600 }}>
-						{currentMessage?.subject}
+						{currentMessage[0]?.subject}
 					</Text>
 				</Flex>
 
 				<Flex gap={6}>
-					<ActionIcon onClick={()=>dispatch(toggleFlag(currentMessage))} color="yellow" size="lg">
+					<ActionIcon onClick={()=>dispatch(toggleFlag(currentMessage._id))} color="yellow" size="lg">
 						{ currentMessage?.flag ? <TiFlag size="24px" /> : <TiFlagOutline size="24px" />}
 					</ActionIcon>
 
@@ -69,8 +78,21 @@ const MessageExpanded = () => {
 					/>).reverse()}
 				</Box>
 				}
-				<ReplyMessageForm message={currentMessage[0]} otherUser={otherUser}/>
 
+			<Paper>
+				<Flex direction="column" gap={6}>
+					<Textarea
+						autosize
+						minRows={4}
+						name="body"
+						placeholder="Create Message"
+						value={value}
+						onChange={(e) => setValue(e.currentTarget.value)}
+					/>
+					<Button onClick={handleSubmit} loading={loading} style={{ alignSelf: "flex-end"}}>Send</Button>
+				</Flex>
+
+			</Paper>
 		</Box>
 	);
 };

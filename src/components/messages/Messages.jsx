@@ -1,4 +1,3 @@
-import { axiosDB } from "../../utilities/axios.js";
 import MessageExpanded from './MessageExpanded.jsx'
 import MessageCollapsed from './MessageCollapsed.jsx'
 import { useEffect, useState } from "react";
@@ -30,10 +29,9 @@ const Messages = ({ opened, onClose }) => {
     } else {
       dispatch(fetchAdminInfo())
     }
-    window.scrollTo(0, 0)
-  }, [])
+    }, [])
 
-
+  console.log(currentMessage)
   return (
     <Drawer opened={opened} onClose={onClose} position="right" withCloseButton={false}>
       <Title pt={36} pb={16}>Messages</Title>
@@ -41,14 +39,8 @@ const Messages = ({ opened, onClose }) => {
       <BackButton onClose={onClose}/>
 
       {!currentMessage.length && !showCreateMessageForm &&
-        <ActionIcon
-          onClick={() => dispatch(setShowCreateMessageForm(true))}
-          mb={6}
-          size="lg"
-          pos="absolute"
-          right={16}
-          top={56}
-          style={{ zIndex: 100 }}
+        <ActionIcon mb={6} size="lg" pos="absolute" right={16} top={56} style={{ zIndex: 100 }}
+                    onClick={() => dispatch(setShowCreateMessageForm(true))}
         >
           <IoCreateOutline size="24px" />
         </ActionIcon>
@@ -56,7 +48,7 @@ const Messages = ({ opened, onClose }) => {
 
       {showCreateMessageForm && <NewMessageForm />}
 
-      {!currentMessage.length && messageHeadNodes?.length > 0 && !showCreateMessageForm
+      {!currentMessage.length && messageHeadNodes?.length && !showCreateMessageForm
         && messageHeadNodes.map((message, index) =>
         <MessageCollapsed
           key={message._id}
@@ -65,9 +57,7 @@ const Messages = ({ opened, onClose }) => {
         />)
       }
 
-      {currentMessage.length && !showCreateMessageForm &&
-        <MessageExpanded/>
-      }
+      {currentMessage.length && <MessageExpanded />}
     </Drawer>
 
   );

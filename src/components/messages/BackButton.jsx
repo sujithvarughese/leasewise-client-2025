@@ -10,15 +10,14 @@ const BackButton = ({ onClose }) => {
 
   const dispatch = useDispatch()
 
-  console.log(currentMessage)
-  console.log(showCreateMessageForm)
   const fn = () => {
     if (currentMessage.length) {
-      return dispatch(setCurrentMessage([]))
+      dispatch(setCurrentMessage([]))
     } else if (showCreateMessageForm) {
-      return dispatch(setShowCreateMessageForm(false))
+      dispatch(setShowCreateMessageForm(false))
+    } else {
+      onClose()
     }
-    return onClose()
   }
 
   return (

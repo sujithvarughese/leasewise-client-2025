@@ -1,10 +1,7 @@
 import { TiFlag } from "react-icons/ti"
-import { FcInfo } from "react-icons/fc"
 import { GoDotFill } from "react-icons/go"
-import { RiShareForwardFill } from "react-icons/ri"
-import {useState} from "react";
-import { ActionIcon, Avatar, Box, Button, Flex, Indicator, Text, Title, UnstyledButton } from '@mantine/core'
-import { useDispatch, useSelector } from 'react-redux'
+import { Avatar, Box, Button, Flex, Text, Title } from '@mantine/core'
+import { useDispatch } from 'react-redux'
 import { fetchCurrentMessage, markMessageRead } from '../../features/messagesSlice.js'
 import { useAuthProvider } from '../../context/auth-context.jsx'
 

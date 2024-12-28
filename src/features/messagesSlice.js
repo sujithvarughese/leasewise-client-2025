@@ -67,7 +67,7 @@ const toggleFlag = createAsyncThunk(
   "messages, toggleFlag",
   async (messageHeadId) => {
     try {
-      await axiosDB.patch("/messages/read", messageHeadId)
+      await axiosDB.patch("/messages/flag", messageHeadId)
     } catch (error) {
       throw new Error(error)
     }
@@ -100,9 +100,6 @@ const messagesSlice = createSlice({
   name: "messages",
   initialState,
   reducers: {
-    setMessageHeadNodes: (state, action) => {
-      state.messageHeadNodes = action.payload
-    },
     setCurrentMessage: (state, action) => {
       state.currentMessage = action.payload
     },
@@ -202,7 +199,6 @@ const messagesSlice = createSlice({
 })
 
 export const {
-  setMessageHeadNodes,
   setCurrentMessage,
   setShowCreateMessageForm
 } = messagesSlice.actions

@@ -4,16 +4,16 @@ import { useAuthProvider } from '../../context/auth-context.jsx'
 import useSubmit from '../../hooks/useSubmit.js'
 import { Button, Flex, Paper, Textarea } from '@mantine/core'
 import { fetchCurrentMessage, setCurrentMessage, fetchMessages } from '../../features/messagesSlice.js'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const ReplyMessageForm = ({ message, otherUser, }) => {
 
 	const { user } = useAuthProvider()
 	const [value, setValue] = useState("")
 	const { response, error, loading, submitForm } = useSubmit()
-	const dispatch = useDispatch()
-	const currentMessage = dispatch(fetchCurrentMessage(message._id))
 
+	const dispatch = useDispatch()
+	const currentMessage = useSelector(state => state.messages.currentMessage)
 	const handleSubmit = async () => {
 		const msg = {
 			sender: user.id,
@@ -30,7 +30,6 @@ const ReplyMessageForm = ({ message, otherUser, }) => {
 		if (response) {
 			const updatedConversation = [response.message, ...currentMessage]
 			dispatch(setCurrentMessage(updatedConversation))
-			dispatch(fetchMessages())
 		}
 	}, [response])
 

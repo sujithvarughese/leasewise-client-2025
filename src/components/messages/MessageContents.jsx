@@ -1,18 +1,7 @@
 import { useAuthProvider } from '../../context/auth-context.jsx'
-import { useState } from 'react'
-import { Avatar, Box, Button, Flex, Paper, Text } from '@mantine/core'
+import { Avatar, Box, Paper, Text } from '@mantine/core'
 
-
-const MessageContents = ({
-  senderID,
-  lastName,
-  firstName,
-  otherUser,
-  date,
-  subject,
-  body,
-  headNode,
-}) => {
+const MessageContents = ({ senderID, lastName, firstName, date, body }) => {
 
     const { showUnauthorizedAlert } = useAuthProvider()
 
@@ -21,19 +10,11 @@ const MessageContents = ({
     const time = currentDate.toLocaleTimeString("en-US")
     const { user } = useAuthProvider()
 
-    const [isHovering, setIsHovering] = useState(false)
-
-    const handleDeleteMessage = () => {
-      showUnauthorizedAlert()
-    }
-
     return (
       <Box pos="relative">
         <Text size="xs" inline style={{ textAlign: "center" }}>{dateStr} {time}</Text>
         <Paper
           shadow="lg"
-          onMouseEnter={() => setIsHovering(true)}
-          onMouseLeave={() => setIsHovering(false)}
           radius="md"
           mx={16}
           mt={4}
@@ -50,8 +31,8 @@ const MessageContents = ({
           color="initials"
           size="sm"
           pos="absolute"
-          left={user.id !== senderID && -12}
-          right={user.id === senderID && -12}
+          left={user._id !== senderID && -12}
+          right={user._id === senderID && -12}
           bottom={-16}
         />
       </Box>
