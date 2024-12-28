@@ -11,7 +11,6 @@ import { Button, Card, Flex, Paper, Textarea, TextInput } from '@mantine/core'
 const ReplyMessageForm = ({
 	message,
 	otherUser,
-	closeReply,
 	getMessages,
 	setCurrentConversation,
 	currentConversation,

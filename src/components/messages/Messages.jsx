@@ -7,46 +7,34 @@ import { ActionIcon, Drawer, Title } from '@mantine/core'
 import NewMessageForm from './NewMessageForm.jsx'
 import { IoCreateOutline } from "react-icons/io5";
 import BackButton from './BackButton.jsx'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  setMessageHeadNodes,
+  fetchMessages,
+  fetchUserList,
+  fetchAdminInfo
+} from '../../features/messagesSlice.js'
 
 const Messages = ({ opened, onClose }) => {
   const { user } = useAuthProvider()
 
-  const [messageHeadNodes, setMessageHeadNodes] = useState([])
-  const [showCreateMessageForm, setShowCreateMessageForm] = useState(false)
-  const [addressBook, setAddressBook] = useState([])
-  const [expandedConversation, setExpandedConversation] = useState(null)
-  const [showCreateReply, setShowCreateReply] = useState(false)
+  const messageHeadNodes = useSelector(state => state.messages.messageHeadNodes)
+  const addressBook = useSelector(state => state.messages.addressBook)
+  const dispatch = useDispatch()
 
-  const getMessages = async () => {
-    try {
-      // retrieve all messages where sender or recipient matches using req.user info that is stored at login
-      const response = await axiosDB("/messages")
-      const { messages } = response.data
-      setMessageHeadNodes(messages)
-    } catch (error) {
-      throw new Error(error)
+  useEffect(() => {
+    dispatch(fetchMessages())
+    if (user.role === "management") {
+      dispatch(fetchUserList())
+    } else {
+      dispatch(fetchAdminInfo())
     }
-  }
-  // fetch address book for admin
-  const getUserList = async () => {
-    try {
-      const response = await axiosDB("/auth/getUserList")
-      const { userList } = response.data
-      setAddressBook(userList)
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  // fetch admin info so user can send messages
-  const getAdminInfo = async () => {
-    try {
-      const response = await axiosDB("/auth/getAdminInfo")
-      const { adminInfo } = response.data
-      setAddressBook(adminInfo)
-    } catch (error) {
-      console.log(error);
-    }
-  }
+    window.scrollTo(0, 0)
+  }, [])
+
+
+  const [showCreateMessageForm, setShowCreateMessageForm] = useState(false)
+  const [expandedConversation, setExpandedConversation] = useState(null)
 
   const toggleFlag = async (message) => {
     try {
@@ -90,18 +78,6 @@ const Messages = ({ opened, onClose }) => {
     }
   }
 
-  useEffect(() => {
-    // determine which address book to get based on role (we don't want to give tenant access to other user data)
-    // addr book returned from backend as array of objects { text: "lastName, firstName", value: user._id }
-    getMessages()
-    if (user.role === "management") {
-      getUserList()
-    } else {
-      getAdminInfo()
-    }
-    window.scrollTo(0, 0)
-  }, []);
-
   const backButtonFn = () => {
     if (expandedConversation) {
       return setExpandedConversation(null)
@@ -135,11 +111,10 @@ const Messages = ({ opened, onClose }) => {
         <NewMessageForm
           close={()=>setShowCreateMessageForm(false)}
           addressBook={addressBook}
-          getMessages={getMessages}
         />
       }
 
-      {messageHeadNodes.length > 0
+      {messageHeadNodes?.length > 0
         && !expandedConversation
         && !showCreateMessageForm
         && messageHeadNodes.map((message, index) =>
@@ -150,7 +125,6 @@ const Messages = ({ opened, onClose }) => {
           markMessageRead={markMessageRead}
           toggleFlag={toggleFlag}
           userID={user.id}
-          closeReply={()=>setShowCreateReply(false)}
           bg={index % 2 === 0 ? "gray.3" : ""}
         />)
       }
@@ -158,15 +132,10 @@ const Messages = ({ opened, onClose }) => {
       {expandedConversation && !showCreateMessageForm &&
         <MessageExpanded
           expandedConversation={expandedConversation}
-          messages={messageHeadNodes}
           toggleFlag={toggleFlag}
           userID={user.id}
           markMessageUnread={markMessageUnread}
-          showCreateReply={showCreateReply}
-          setShowCreateReply={setShowCreateReply}
-          getMessages={getMessages}
           setExpandedMessage={setExpandedConversation}
-          closeExpanded={() => setExpandedConversation(null)}
         />
       }
 

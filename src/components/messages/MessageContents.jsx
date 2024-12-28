@@ -12,7 +12,6 @@ const MessageContents = ({
   subject,
   body,
   headNode,
-  deleteMessage
 }) => {
 
     const { showUnauthorizedAlert } = useAuthProvider()
@@ -26,7 +25,6 @@ const MessageContents = ({
 
     const handleDeleteMessage = () => {
       showUnauthorizedAlert()
-    //  deleteMessage()
     }
 
     return (

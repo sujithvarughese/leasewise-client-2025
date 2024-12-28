@@ -7,55 +7,37 @@ import { IoIosArrowBack } from "react-icons/io";
 import { TiFlag, TiFlagOutline } from 'react-icons/ti'
 import { IoTrashOutline } from 'react-icons/io5'
 import { useAuthProvider } from '../../context/auth-context.jsx'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchMessages, fetchCurrentMessage, toggleFlag } from '../../features/messagesSlice.js'
 
 const MessageExpanded = ({
 	expandedConversation,
-	toggleFlag,
 	userID,
-	setShowCreateReply,
 	setExpandedMessage,
 	getMessages,
-	closeExpanded
 }) => {
+
+	const currentMessage = useSelector(state => state.messages.currentMessage)
+	const dispatch = useDispatch()
 
 	const { user, showUnauthorizedAlert } = useAuthProvider()
 	const [currentConversation, setCurrentConversation] = useState([])
 	const [otherUser, setOtherUser] = useState(null)
 
-	useEffect(() => {
-		getMessages()
-	}, [currentConversation])
-
-	const fetchCurrentConversation = async (messageID) => {
-		try {
-			const response = await axiosDB(`/messages/previous/${messageID}`)
-			const { previousMessages } = response.data
-			setCurrentConversation(previousMessages)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
+	console.log(expandedConversation)
 
 	const getOtherUser = () => {
-		if (expandedConversation.sender._id === userID) {
-			setOtherUser(expandedConversation.recipient)
+		if (currentMessage[0]?.sender._id === userID) {
+			setOtherUser(currentMessage[0].recipient)
 		} else {
-			setOtherUser(expandedConversation.sender)
+			setOtherUser(currentMessage[0].sender)
 		}
 	}
 
-	const deleteMessage = async () => {
-		try {
-			await axiosDB.delete(`/messages/${expandedConversation._id}`)
-			const updatedConversation = currentConversation.filter(item => item._id !== expandedConversation._id)
-			setCurrentConversation(updatedConversation)
-		} catch (error) {
-			throw new Error(error)
-		}
-	}
 
 	useEffect(() => {
-		fetchCurrentConversation(expandedConversation._id)
+		dispatch(fetchMessages())
+		dispatch(fetchCurrentMessage(expandedConversation._id))
 		getOtherUser()
 		return () => setCurrentConversation([])
 	}, [expandedConversation])
@@ -67,13 +49,13 @@ const MessageExpanded = ({
 				<Flex gap={4}>
 					<Text>Subject:</Text>
 					<Text style={{ whiteSpace: "nowrap", overflow: "clip", textOverflow: "ellipsis", fontWeight: 600 }}>
-						{expandedConversation.subject}
+						{currentMessage?.subject}
 					</Text>
 				</Flex>
 
 				<Flex gap={6}>
-					<ActionIcon onClick={()=>toggleFlag(expandedConversation)} color="yellow" size="lg">
-						{ expandedConversation.flag ? <TiFlag size="24px" /> : <TiFlagOutline size="24px" />}
+					<ActionIcon onClick={()=>dispatch(toggleFlag(currentMessage))} color="yellow" size="lg">
+						{ currentMessage?.flag ? <TiFlag size="24px" /> : <TiFlagOutline size="24px" />}
 					</ActionIcon>
 
 					<ActionIcon onClick={()=>showUnauthorizedAlert()} color="red" size="lg">
@@ -82,9 +64,9 @@ const MessageExpanded = ({
 				</Flex>
 			</Flex>
 
-				{currentConversation?.length > 0 &&
+				{currentMessage?.length > 0 &&
 				<Box>
-					{currentConversation?.map(message =>
+					{currentMessage?.map(message =>
 					<MessageContents
 						key={message._id}
 						lastName={message.sender.lastName}
@@ -94,15 +76,12 @@ const MessageExpanded = ({
 						subject={message.subject}
 						body={message.body}
 						headNode={message.headNode}
-						otherUser={otherUser}
-						deleteMessage={deleteMessage}
 					/>).reverse()}
 				</Box>
 				}
 				<ReplyMessageForm
 					message={expandedConversation}
 					otherUser={otherUser}
-					closeReply={()=>setShowCreateReply(false)}
 					getMessages={getMessages}
 					setCurrentConversation={setCurrentConversation}
 					currentConversation={currentConversation}

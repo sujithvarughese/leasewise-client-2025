@@ -6,12 +6,16 @@ import '@mantine/core/styles.css';
 import { MantineProvider } from '@mantine/core';
 import { AuthProvider } from './context/auth-context.jsx'
 import theme from './theme.js'
+import { store } from './store.js'
+import { Provider } from 'react-redux'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <MantineProvider theme={theme}>
       <AuthProvider>
-        <App />
+        <Provider store={store}>
+          <App />
+        </Provider>
       </AuthProvider>
     </MantineProvider>
   </StrictMode>,

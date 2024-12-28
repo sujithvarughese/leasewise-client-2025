@@ -33,8 +33,8 @@ const PieChartExpenses = ({ expenses }) => {
             tooltipDataSource="segment"
             data={data}/>
           <Box>
-            {data.map(category =>
-              <Flex key={category.category} align="center" gap={6}>
+            {data.map((category, index) =>
+              <Flex key={index} align="center" gap={6}>
                 <Box style={{ height: "16px", width: "16px" }} bg={category.color}></Box>
                 <Text>{category.name}</Text>
               </Flex>
