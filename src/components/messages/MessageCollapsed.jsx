@@ -25,12 +25,12 @@ const MessageCollapsed = ({ messageHead, bg }) => {
 		<Button variant="default" bg={bg} radius="xs" onClick={selectMessage} h={100} w="100%" p={0} justify="space-between">
 			{/* icons dynamically render to show flag and read status */}
 			<Box direction="column">
-				{recipient._id === user._id && !read && <Avatar variant="transparent" color="blue" size={64} pos="absolute" left={-16} top={0}><GoDotFill /></Avatar>}
+				{recipient._id === user.id && !read && <Avatar variant="transparent" color="blue" size={64} pos="absolute" left={-16} top={0}><GoDotFill /></Avatar>}
 				{flag && <Avatar variant="transparent" color="orange" pos="absolute" left={-16} bottom={0} size={64}><TiFlag /></Avatar>}
 			</Box>
 
 			<Flex direction="column" justify="flex-start" align="flex-start" w="70%" pl={32}>
-				{user._id === recipient._id ? <Title order={4}>{sender.lastName}, {sender.firstName}</Title> : <Title order={4}>{recipient.lastName}, {recipient.firstName}</Title>}
+				{user.id === recipient._id ? <Title order={4}>{sender.lastName}, {sender.firstName}</Title> : <Title order={4}>{recipient.lastName}, {recipient.firstName}</Title>}
 				<Title order={6}>{subject}</Title>
 				<Text maw="100%" truncate>{body}</Text>
 			</Flex>

@@ -31,8 +31,8 @@ const MessageContents = ({ senderID, lastName, firstName, date, body }) => {
           color="initials"
           size="sm"
           pos="absolute"
-          left={user._id !== senderID && -12}
-          right={user._id === senderID && -12}
+          left={user.id !== senderID && -12}
+          right={user.id === senderID && -12}
           bottom={-16}
         />
       </Box>

@@ -31,7 +31,6 @@ const Messages = ({ opened, onClose }) => {
     }
     }, [])
 
-  console.log(currentMessage)
   return (
     <Drawer opened={opened} onClose={onClose} position="right" withCloseButton={false}>
       <Title pt={36} pb={16}>Messages</Title>

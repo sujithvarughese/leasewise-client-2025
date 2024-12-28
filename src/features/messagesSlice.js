@@ -161,7 +161,7 @@ const messagesSlice = createSlice({
         state.isLoading = true
       })
       .addCase(toggleFlag.fulfilled, (state) => {
-        state.message = { ...state.message, flag: !state.message.flag }
+        state.currentMessage[0].flag = !state.currentMessage[0].flag
         state.isLoading = false
       })
       .addCase(toggleFlag.rejected, (state, action) => {

@@ -16,7 +16,7 @@ const MessageExpanded = () => {
 	const { user, showUnauthorizedAlert } = useAuthProvider()
 	const currentMessage = useSelector(state => state.messages.currentMessage)
 	const dispatch = useDispatch()
-
+	console.log(currentMessage)
 
 	const [value, setValue] = useState("")
 	const { response, error, loading, submitForm } = useSubmit()
@@ -24,7 +24,7 @@ const MessageExpanded = () => {
 	const handleSubmit = async () => {
 		const msg = {
 			sender: user.id,
-			recipient: currentMessage[0]?.sender._id === user._id ? currentMessage[0].recipient : currentMessage[0].sender,
+			recipient: currentMessage[0]?.sender._id === user.id ? currentMessage[0].recipient : currentMessage[0].sender,
 			subject: currentMessage[0].subject,
 			body: value,
 			previousMessage: currentMessage[0]._id
@@ -53,7 +53,7 @@ const MessageExpanded = () => {
 				</Flex>
 
 				<Flex gap={6}>
-					<ActionIcon onClick={()=>dispatch(toggleFlag(currentMessage._id))} color="yellow" size="lg">
+					<ActionIcon onClick={()=>dispatch(toggleFlag(currentMessage[0]))} color="yellow" size="lg">
 						{ currentMessage?.flag ? <TiFlag size="24px" /> : <TiFlagOutline size="24px" />}
 					</ActionIcon>
 
