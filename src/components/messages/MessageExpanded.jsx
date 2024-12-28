@@ -10,37 +10,27 @@ import { useAuthProvider } from '../../context/auth-context.jsx'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMessages, fetchCurrentMessage, toggleFlag } from '../../features/messagesSlice.js'
 
-const MessageExpanded = ({
-	expandedConversation,
-	userID,
-	setExpandedMessage,
-	getMessages,
-}) => {
+const MessageExpanded = () => {
 
 	const currentMessage = useSelector(state => state.messages.currentMessage)
 	const dispatch = useDispatch()
 
 	const { user, showUnauthorizedAlert } = useAuthProvider()
-	const [currentConversation, setCurrentConversation] = useState([])
 	const [otherUser, setOtherUser] = useState(null)
 
-	console.log(expandedConversation)
-
 	const getOtherUser = () => {
-		if (currentMessage[0]?.sender._id === userID) {
+		if (currentMessage[0]?.sender._id === user._id) {
 			setOtherUser(currentMessage[0].recipient)
 		} else {
 			setOtherUser(currentMessage[0].sender)
 		}
 	}
 
-
 	useEffect(() => {
 		dispatch(fetchMessages())
-		dispatch(fetchCurrentMessage(expandedConversation._id))
+		dispatch(fetchCurrentMessage(currentMessage[0]?._id))
 		getOtherUser()
-		return () => setCurrentConversation([])
-	}, [expandedConversation])
+	}, [currentMessage])
 
 
 	return (
@@ -79,14 +69,7 @@ const MessageExpanded = ({
 					/>).reverse()}
 				</Box>
 				}
-				<ReplyMessageForm
-					message={expandedConversation}
-					otherUser={otherUser}
-					getMessages={getMessages}
-					setCurrentConversation={setCurrentConversation}
-					currentConversation={currentConversation}
-					setExpandedMessage={setExpandedMessage}
-				/>
+				<ReplyMessageForm message={currentMessage[0]} otherUser={otherUser}/>
 
 		</Box>
 	);

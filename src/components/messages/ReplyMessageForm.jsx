@@ -1,28 +1,18 @@
 
-import React, { useEffect, useState } from 'react'
-import { useNavigate } from "react-router-dom";
-import { axiosDB } from "../../utilities/axios.js";
-import { TfiClose } from "react-icons/tfi";
+import { useEffect, useState } from 'react'
 import { useAuthProvider } from '../../context/auth-context.jsx'
 import useSubmit from '../../hooks/useSubmit.js'
+import { Button, Flex, Paper, Textarea } from '@mantine/core'
+import { fetchCurrentMessage, setCurrentMessage, fetchMessages } from '../../features/messagesSlice.js'
+import { useDispatch } from 'react-redux'
 
-import { Button, Card, Flex, Paper, Textarea, TextInput } from '@mantine/core'
+const ReplyMessageForm = ({ message, otherUser, }) => {
 
-const ReplyMessageForm = ({
-	message,
-	otherUser,
-	getMessages,
-	setCurrentConversation,
-	currentConversation,
-	setExpandedMessage
-}) => {
-
-	const { date } = message
-	const { user, account } = useAuthProvider()
+	const { user } = useAuthProvider()
 	const [value, setValue] = useState("")
 	const { response, error, loading, submitForm } = useSubmit()
-
-	const navigate = useNavigate()
+	const dispatch = useDispatch()
+	const currentMessage = dispatch(fetchCurrentMessage(message._id))
 
 	const handleSubmit = async () => {
 		const msg = {
@@ -38,10 +28,9 @@ const ReplyMessageForm = ({
 
 	useEffect(() => {
 		if (response) {
-			const updatedConversation = [response.message, ...currentConversation]
-			setExpandedMessage(response.message)
-			setCurrentConversation(updatedConversation)
-			getMessages()
+			const updatedConversation = [response.message, ...currentMessage]
+			dispatch(setCurrentMessage(updatedConversation))
+			dispatch(fetchMessages())
 		}
 	}, [response])
 
@@ -56,7 +45,7 @@ const ReplyMessageForm = ({
 						value={value}
 						onChange={(e) => setValue(e.currentTarget.value)}
 					/>
-					<Button onClick={handleSubmit} style={{ alignSelf: "flex-end"}}>Send</Button>
+					<Button onClick={handleSubmit} loading={loading} style={{ alignSelf: "flex-end"}}>Send</Button>
 				</Flex>
 
 			</Paper>

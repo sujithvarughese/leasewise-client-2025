@@ -3,9 +3,10 @@ import { axiosDB } from '../utilities/axios.js'
 
 const initialState = {
   messageHeadNodes: [],
-  addressBook: [],
   currentMessage: [],
+  addressBook: [],
   newMessages: 0,
+  showCreateMessageForm: false,
   isLoading: false,
 }
 
@@ -25,9 +26,9 @@ const fetchMessages = createAsyncThunk(
 
 const fetchCurrentMessage = createAsyncThunk(
   "messages/fetchCurrentMessage",
-  async (messageID) => {
+  async (messageHeadId) => {
     try {
-      const response = await axiosDB(`/messages/previous/${messageID}`)
+      const response = await axiosDB(`/messages/previous/${messageHeadId}`)
       const { previousMessages } = response.data
       return previousMessages
     } catch (error) {
@@ -64,9 +65,9 @@ const fetchAdminInfo = createAsyncThunk(
 
 const toggleFlag = createAsyncThunk(
   "messages, toggleFlag",
-  async (message) => {
+  async (messageHeadId) => {
     try {
-      await axiosDB.patch("/messages/read", message)
+      await axiosDB.patch("/messages/read", messageHeadId)
     } catch (error) {
       throw new Error(error)
     }
@@ -75,9 +76,9 @@ const toggleFlag = createAsyncThunk(
 
 const markMessageRead = createAsyncThunk(
   "messages/markMessageRead",
-  async (message) => {
+  async (messageHeadId) => {
     try {
-      await axiosDB.patch("/messages/read", message)
+      await axiosDB.patch("/messages/read", messageHeadId)
     } catch (error) {
       throw new Error(error)
     }
@@ -86,9 +87,9 @@ const markMessageRead = createAsyncThunk(
 
 const markMessageUnread = createAsyncThunk(
   "messages/markMessageUnread",
-  async (message) => {
+  async (messageHeadId) => {
     try {
-      await axiosDB.patch("/messages/unread", message)
+      await axiosDB.patch("/messages/unread", messageHeadId)
     } catch (error) {
       throw new Error(error)
     }
@@ -100,10 +101,13 @@ const messagesSlice = createSlice({
   initialState,
   reducers: {
     setMessageHeadNodes: (state, action) => {
-      state.messageHeadNodes = action
+      state.messageHeadNodes = action.payload
     },
     setCurrentMessage: (state, action) => {
-      state.currentMessage = action
+      state.currentMessage = action.payload
+    },
+    setShowCreateMessageForm: (state, action) => {
+      state.showCreateMessageForm = action.payload
     }
   },
   extraReducers: (builder => {
@@ -172,7 +176,7 @@ const messagesSlice = createSlice({
         state.isLoading = true
       })
       .addCase(markMessageRead.fulfilled, (state) => {
-        state.message = { ...state.message, flag: !state.message.flag }
+        state.message = { ...state.message, read: true }
         state.isLoading = false
       })
       .addCase(markMessageRead.rejected, (state, action) => {
@@ -184,7 +188,7 @@ const messagesSlice = createSlice({
         state.isLoading = true
       })
       .addCase(markMessageUnread.fulfilled, (state) => {
-        state.message = { ...state.message, flag: !state.message.flag }
+        state.message = { ...state.message, read: false }
         state.isLoading = false
       })
       .addCase(markMessageUnread.rejected, (state, action) => {
@@ -197,6 +201,18 @@ const messagesSlice = createSlice({
   })
 })
 
-export const { setMessageHeadNodes, setCurrentMessage } = messagesSlice.actions
+export const {
+  setMessageHeadNodes,
+  setCurrentMessage,
+  setShowCreateMessageForm
+} = messagesSlice.actions
 export default messagesSlice.reducer
-export { fetchMessages, fetchCurrentMessage, toggleFlag, fetchUserList, fetchAdminInfo }
+export {
+  fetchMessages,
+  fetchCurrentMessage,
+  toggleFlag,
+  fetchUserList,
+  fetchAdminInfo,
+  markMessageRead,
+  markMessageUnread
+}

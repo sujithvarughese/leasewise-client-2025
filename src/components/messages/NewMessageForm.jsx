@@ -6,14 +6,14 @@ import { useNavigate } from 'react-router-dom'
 import { Box, Button, Flex, NativeSelect, Textarea, TextInput, Title } from '@mantine/core'
 import useSubmit from '../../hooks/useSubmit.js'
 import { useForm } from '@mantine/form'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchAdminInfo, fetchMessages, fetchUserList } from '../../features/messagesSlice.js'
 
-const NewMessageForm = ({ close, addressBook, getMessages }) => {
+const NewMessageForm = () => {
 
   const { user } = useAuthProvider()
-
-  // recipient is initially set to first name in address book (user has only one name in address book so default to admin)
-  //const [values, setValues] = useState({ ...initialState, recipient: addressBook[0].value })
-  const [buttonText, setButtonText] = useState("Send")
+  const addressBook = useSelector(state => state.messages.addressBook)
+  const dispatch = useDispatch()
 
   const { response, error, loading, submitForm } = useSubmit()
   const [submittedValues, setSubmittedValues] = useState(null);
@@ -28,10 +28,17 @@ const NewMessageForm = ({ close, addressBook, getMessages }) => {
     },
   });
 
+  useEffect(() => {
+    if (user.role === "management") {
+      dispatch(fetchUserList())
+    } else {
+      dispatch(fetchAdminInfo())
+    }
+  }, [])
+
   const handleSubmit = async () => {
     try {
       await submitForm({ method: "POST", url: "/messages", requestConfig: submittedValues })
-      await getMessages()
     } catch (e) {
       console.log(e)
       console.log(error)

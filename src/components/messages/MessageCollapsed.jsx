@@ -4,26 +4,23 @@ import { GoDotFill } from "react-icons/go"
 import { RiShareForwardFill } from "react-icons/ri"
 import {useState} from "react";
 import { ActionIcon, Avatar, Box, Button, Flex, Indicator, Text, Title, UnstyledButton } from '@mantine/core'
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchCurrentMessage, markMessageRead } from '../../features/messagesSlice.js'
+import { useAuthProvider } from '../../context/auth-context.jsx'
 
-const MessageCollapsed = ({
-	messageHead,
-	setExpandedConversation,
-	markMessageRead,
-	userID,
-	closeReply,
-	bg
-}) => {
+const MessageCollapsed = ({ messageHead, bg }) => {
+	const dispatch = useDispatch()
 
-	const { sender, recipient, subject, body, read, flag } = messageHead
-
+	const { _id, sender, recipient, subject, body, read, flag } = messageHead
+	const { user } = useAuthProvider()
 	const currentDate = new Date(messageHead.date)
 	const date = currentDate.toLocaleString('en-US',{ year:'numeric', month:'short', day:'numeric', timeZone: 'UTC' })
 	const time = currentDate.toLocaleTimeString("en-US")
 
-	const selectMessage = async () => {
-		setExpandedConversation(messageHead)
-		markMessageRead(messageHead)
-		closeReply()
+
+	const selectMessage = () => {
+		dispatch(fetchCurrentMessage(_id))
+		dispatch(markMessageRead(_id))
 	}
 
 	return (
@@ -31,12 +28,12 @@ const MessageCollapsed = ({
 		<Button variant="default" bg={bg} radius="xs" onClick={selectMessage} h={100} w="100%" p={0} justify="space-between">
 			{/* icons dynamically render to show flag and read status */}
 			<Box direction="column">
-				{recipient._id === userID && !read && <Avatar variant="transparent" color="blue" size={64} pos="absolute" left={-16} top={0}><GoDotFill /></Avatar>}
+				{recipient._id === user._id && !read && <Avatar variant="transparent" color="blue" size={64} pos="absolute" left={-16} top={0}><GoDotFill /></Avatar>}
 				{flag && <Avatar variant="transparent" color="orange" pos="absolute" left={-16} bottom={0} size={64}><TiFlag /></Avatar>}
 			</Box>
 
 			<Flex direction="column" justify="flex-start" align="flex-start" w="70%" pl={32}>
-				{userID === recipient._id ? <Title order={4}>{sender.lastName}, {sender.firstName}</Title> : <Title order={4}>{recipient.lastName}, {recipient.firstName}</Title>}
+				{user._id === recipient._id ? <Title order={4}>{sender.lastName}, {sender.firstName}</Title> : <Title order={4}>{recipient.lastName}, {recipient.firstName}</Title>}
 				<Title order={6}>{subject}</Title>
 				<Text maw="100%" truncate>{body}</Text>
 			</Flex>
