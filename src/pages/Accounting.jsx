@@ -96,9 +96,9 @@ const Accounting = () => {
             </Table.Tbody>
           </Table>
 
-          <Box p={3}>
-            <Text>Total Profit: {convertToUSD(totalProfit(unitFinances, selectedTerm))}</Text>
-          </Box>
+
+          <Text style={{ textAlign: "end", fontWeight: 600 }} m={16}>Total Profit: {convertToUSD(totalProfit(unitFinances, selectedTerm))}</Text>
+
         </Container>
       </Box>
     </Box>

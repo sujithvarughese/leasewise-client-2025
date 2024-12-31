@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import useSubmit from '../../hooks/useSubmit.js'
-import { Button, FileInput, Flex, Modal, NativeSelect, NumberInput, TextInput, Title } from '@mantine/core'
+import { Button, FileInput, Flex, Grid, Modal, NativeSelect, NumberInput, TextInput, Title } from '@mantine/core'
 import { useForm } from '@mantine/form'
 import { FcImageFile } from 'react-icons/fc'
 import { useAuthProvider } from '../../context/auth-context.jsx'
@@ -40,24 +40,23 @@ const EditUnitForm = ({ unit, opened, onClose }) => {
 			<form onSubmit={form.onSubmit(setSubmittedValues)}>
 				<Title>Edit Unit</Title>
 				<Flex direction="column" gap={12}>
-					<Flex gap={12}>
-						<TextInput placeholder="House Number" type="text" name="houseNumber"></TextInput>
-						<TextInput placeholder="Street" type="text" name="street"></TextInput>
-						<TextInput placeholder="Apartment Number" type="text" name="apartmentNumber"></TextInput>
-					</Flex>
+					<Grid gap={12}>
+						<Grid.Col span={4}><TextInput placeholder="House Number" type="text" name="houseNumber"></TextInput></Grid.Col>
+						<Grid.Col span={6}><TextInput placeholder="Street" type="text" name="street"></TextInput></Grid.Col>
+						<Grid.Col span={2}><TextInput placeholder="Apartment Number" type="text" name="apartmentNumber"></TextInput></Grid.Col>
+					</Grid>
 
-					<Flex gap={12}>
-						<TextInput placeholder="City" type="text" name="city"></TextInput>
-						<NativeSelect data={stateOptions}></NativeSelect>
-						<TextInput placeholder="zip" type="text" name="zip"></TextInput>
-					</Flex>
+					<Grid gap={12}>
+						<Grid.Col span={5}><TextInput placeholder="City" type="text" name="city"></TextInput></Grid.Col>
+						<Grid.Col span={3}><NativeSelect data={stateOptions}></NativeSelect></Grid.Col>
+						<Grid.Col span={4}><TextInput placeholder="zip" type="text" name="zip"></TextInput></Grid.Col>
+					</Grid>
 
-					<Flex>
+					<Flex  gap={12} justify="space-around">
 						<NumberInput placeholder="Bedrooms" name="bedrooms"/>
 						<NumberInput placeholder="Bathrooms" name="bathrooms" />
+						<FileInput placeholder="Image" name="image" leftSection={<FcImageFile />}/>
 					</Flex>
-
-					<FileInput placeholder="Image" name="image" leftSection={<FcImageFile />}/>
 
 					<Button type="submit" loading={loading}>Submit</Button>
 				</Flex>
