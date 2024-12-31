@@ -23,7 +23,7 @@ const Messages = ({ opened, onClose }) => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(fetchMessages())
+    dispatch(fetchMessages(user.id))
     if (user.role === "management") {
       dispatch(fetchUserList())
     } else {
@@ -55,8 +55,7 @@ const Messages = ({ opened, onClose }) => {
           bg={index % 2 === 0 ? "gray.3" : ""}
         />)
       }
-
-      {currentMessage.length && <MessageExpanded />}
+      {!!currentMessage.length && <MessageExpanded />}
     </Drawer>
 
   );

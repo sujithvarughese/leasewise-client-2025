@@ -2,8 +2,9 @@ import { TiFlag } from "react-icons/ti"
 import { GoDotFill } from "react-icons/go"
 import { Avatar, Box, Button, Flex, Text, Title } from '@mantine/core'
 import { useDispatch } from 'react-redux'
-import { fetchCurrentMessage, markMessageRead } from '../../features/messagesSlice.js'
+import { fetchCurrentMessage, fetchMessages, markMessageRead } from '../../features/messagesSlice.js'
 import { useAuthProvider } from '../../context/auth-context.jsx'
+import { useEffect } from 'react'
 
 const MessageCollapsed = ({ messageHead, bg }) => {
 	const dispatch = useDispatch()

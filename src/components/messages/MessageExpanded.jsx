@@ -36,11 +36,8 @@ const MessageExpanded = () => {
 	useEffect(() => {
 		if (response) {
 			dispatch(fetchCurrentMessage(response.message._id))
-			dispatch(fetchMessages())
 		}
 	}, [response])
-
-
 
 	return (
 		<Box>

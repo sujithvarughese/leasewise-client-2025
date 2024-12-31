@@ -12,12 +12,13 @@ const initialState = {
 
 const fetchMessages = createAsyncThunk(
   "messages/fetchMessages",
-  async () => {
+  async (userID) => {
     try {
       // retrieve all messages where sender or recipient matches using req.user info that is stored at login
       const response = await axiosDB("/messages")
       const { messages } = response.data
-      return messages
+      const unread = messages.reduce((acc, message) => (message.read === false && message.recipient._id === userID) ? acc + 1 : acc + 0, 0)
+      return { messages, unread }
     } catch (error) {
       throw new Error(error)
     }
@@ -68,6 +69,7 @@ const toggleFlag = createAsyncThunk(
   async (messageHeadId) => {
     try {
       await axiosDB.patch("/messages/flag", messageHeadId)
+      await fetchCurrentMessage(messageHeadId)
     } catch (error) {
       throw new Error(error)
     }
@@ -78,7 +80,8 @@ const markMessageRead = createAsyncThunk(
   "messages/markMessageRead",
   async (messageHeadId) => {
     try {
-      await axiosDB.patch("/messages/read", messageHeadId)
+      await axiosDB.patch("/messages/read", { _id: messageHeadId })
+      await fetchCurrentMessage(messageHeadId)
     } catch (error) {
       throw new Error(error)
     }
@@ -89,7 +92,8 @@ const markMessageUnread = createAsyncThunk(
   "messages/markMessageUnread",
   async (messageHeadId) => {
     try {
-      await axiosDB.patch("/messages/unread", messageHeadId)
+      await axiosDB.patch("/messages/unread", { _id: messageHeadId })
+      await fetchCurrentMessage(messageHeadId)
     } catch (error) {
       throw new Error(error)
     }
@@ -113,7 +117,8 @@ const messagesSlice = createSlice({
         state.isLoading = true
       })
       .addCase(fetchMessages.fulfilled, (state, action) => {
-        state.messageHeadNodes = action.payload
+        state.messageHeadNodes = action.payload.messages
+        state.unread = action.payload.unread
         state.isLoading = false
       })
       .addCase(fetchMessages.rejected, (state, action) => {
