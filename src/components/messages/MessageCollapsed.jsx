@@ -2,9 +2,8 @@ import { TiFlag } from "react-icons/ti"
 import { GoDotFill } from "react-icons/go"
 import { Avatar, Box, Button, Flex, Text, Title } from '@mantine/core'
 import { useDispatch } from 'react-redux'
-import { fetchCurrentMessage, fetchMessages, markMessageRead } from '../../features/messagesSlice.js'
+import { fetchCurrentMessage, markMessageRead } from '../../features/messagesSlice.js'
 import { useAuthProvider } from '../../context/auth-context.jsx'
-import { useEffect } from 'react'
 
 const MessageCollapsed = ({ messageHead, bg }) => {
 	const dispatch = useDispatch()
@@ -18,7 +17,9 @@ const MessageCollapsed = ({ messageHead, bg }) => {
 
 	const selectMessage = () => {
 		dispatch(fetchCurrentMessage(_id))
-		dispatch(markMessageRead(_id))
+		if (recipient._id === user.id) {
+			dispatch(markMessageRead(_id))
+		}
 	}
 
 	return (

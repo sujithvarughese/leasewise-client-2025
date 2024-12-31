@@ -1,5 +1,4 @@
-import React from 'react'
-import { Box, Flex, Grid, Image, Paper, Text, Title } from '@mantine/core'
+import { Grid, Image, Paper, Text, Title } from '@mantine/core'
 
 const FeatureItem = ({ feature, bg }) => {
   return (

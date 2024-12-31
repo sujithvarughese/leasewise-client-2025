@@ -1,7 +1,6 @@
 
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Card, HoverCard, Image, Text, Title, UnstyledButton } from '@mantine/core'
+import { HoverCard, Image, Text, Title, UnstyledButton } from '@mantine/core'
 
 const UnitCoverGalleryMode = ({ unit }) => {
 

@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useAuthProvider } from '../../context/auth-context.jsx'
 import useSubmit from '../../hooks/useSubmit.js'
-import { useNavigate } from 'react-router-dom'
 import { Button } from '@mantine/core'
 
 const credentials = {

@@ -1,14 +1,11 @@
 import MessageContents from './MessageContents.jsx'
-import ReplyMessageForm from './ReplyMessageForm.jsx'
-import { axiosDB } from "../../utilities/axios.js";
-import {useEffect, useRef, useState} from "react";
-import { ActionIcon, Box, Button, Flex, Grid, Paper, Text, Textarea } from '@mantine/core'
-import { IoIosArrowBack } from "react-icons/io";
+import {useEffect, useState} from "react";
+import { ActionIcon, Box, Button, Flex, Paper, Text, Textarea } from '@mantine/core'
 import { TiFlag, TiFlagOutline } from 'react-icons/ti'
 import { IoTrashOutline } from 'react-icons/io5'
 import { useAuthProvider } from '../../context/auth-context.jsx'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchMessages, fetchCurrentMessage, toggleFlag, setCurrentMessage } from '../../features/messagesSlice.js'
+import { fetchCurrentMessage, toggleFlag } from '../../features/messagesSlice.js'
 import useSubmit from '../../hooks/useSubmit.js'
 
 const MessageExpanded = () => {

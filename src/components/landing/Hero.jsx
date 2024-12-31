@@ -1,4 +1,4 @@
-import { BackgroundImage, Box, Container, Flex, Image, Title } from '@mantine/core'
+import { BackgroundImage, Box, Flex, Title } from '@mantine/core'
 import Login from './Login.jsx'
 import bgImage from "../../assets/images/landing/leasewise-landing-bg.png"
 import { useDisclosure } from '@mantine/hooks'

@@ -1,6 +1,5 @@
-import { ActionIcon, AppShellHeader, Box, Burger, Button, Flex, Image, Indicator } from '@mantine/core'
+import { ActionIcon, AppShellHeader, Burger, Flex, Image, Indicator } from '@mantine/core'
 import logo from "../assets/images/logos/lease-wise-logo.png"
-import { useAuthProvider } from '../context/auth-context.jsx'
 import { TiMessages } from "react-icons/ti";
 import { useSelector } from 'react-redux'
 

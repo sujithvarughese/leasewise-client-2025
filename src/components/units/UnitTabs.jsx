@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { convertToUSD } from '../../utilities/financeCalculations.js'
 import { ActionIcon, Box, Table, Tabs } from '@mantine/core'
 import { IoMdAdd } from "react-icons/io";

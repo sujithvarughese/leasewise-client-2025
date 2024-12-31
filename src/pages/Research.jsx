@@ -1,8 +1,6 @@
-
 import Fmr from '../components/research/Fmr.jsx'
-import { convertToUSD } from '../utilities/financeCalculations.js'
 import Listings from '../components/research/Listings.jsx'
-import { BackgroundImage, Box, Button, Container, Grid, Paper, Tabs, Title } from '@mantine/core'
+import { BackgroundImage, Box, Button, Paper, Tabs, Title } from '@mantine/core'
 import { useState } from 'react'
 import bg from "../assets/images/research_bg.jpeg"
 

@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react'
-import useSubmit from '../../hooks/useSubmit.js'
 import { convertToUSD } from '../../utilities/financeCalculations.js'
 import { Anchor, Box, Container, Flex, Image, List, Modal, Text, Title } from '@mantine/core'
 

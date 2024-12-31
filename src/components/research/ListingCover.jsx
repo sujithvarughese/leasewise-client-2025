@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import ListingDetails from './ListingDetails.jsx'
 import useSubmit from '../../hooks/useSubmit.js'

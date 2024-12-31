@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import { useLoaderData } from "react-router-dom";
 import { axiosDB } from "../utilities/axios.js";
 import { useAuthProvider } from '../context/auth-context.jsx'
-import { ActionIcon, Box, Button, Container, Flex, Switch } from '@mantine/core'
+import { ActionIcon, Box, Flex, Switch } from '@mantine/core'
 import SearchUnits from '../components/units/SearchUnits.jsx'
 import UnitCoverListMode from '../components/units/UnitCoverListMode.jsx'
 import UnitCoverGalleryMode from '../components/units/UnitCoverGalleryMode.jsx'

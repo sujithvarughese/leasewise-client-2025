@@ -1,8 +1,5 @@
-
-import { axiosDB } from '../../utilities/axios.js'
 import { useAuthProvider } from '../../context/auth-context.jsx'
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { Box, Button, Flex, NativeSelect, Textarea, TextInput, Title } from '@mantine/core'
 import useSubmit from '../../hooks/useSubmit.js'
 import { useForm } from '@mantine/form'

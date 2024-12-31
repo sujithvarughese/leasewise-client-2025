@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useAuthProvider } from '../../context/auth-context.jsx'
 import useSubmit from '../../hooks/useSubmit.js'
 import { Button, Flex, Paper, Textarea } from '@mantine/core'
-import { fetchCurrentMessage, setCurrentMessage, fetchMessages } from '../../features/messagesSlice.js'
+import { setCurrentMessage } from '../../features/messagesSlice.js'
 import { useDispatch, useSelector } from 'react-redux'
 
 const ReplyMessageForm = ({ message, otherUser, }) => {

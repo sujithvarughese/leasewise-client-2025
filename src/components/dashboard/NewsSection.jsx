@@ -1,6 +1,5 @@
-import  { useState, useEffect } from 'react'
 import NewsTile from './NewsTile.jsx'
-import { Box, Paper, Title } from '@mantine/core'
+import { Box, Title } from '@mantine/core'
 import { Carousel } from '@mantine/carousel'
 import '@mantine/core/styles.css';
 import '@mantine/carousel/styles.css';
@@ -9,7 +8,7 @@ const NewsSection = ({ articles }) => {
 
   return (
     <Box>
-      <Title order={2}>Latest Real Estate News</Title>
+      <Title>Latest Real Estate News</Title>
       <Carousel slideSize={{ base: "33%", md: "20%" }} align="start" loop>
         {articles.map((article, index) =>
           <Carousel.Slide key={index}>

@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useAuthProvider } from '../context/auth-context.jsx'
 import Header from './Header.jsx'
 import Navbar from './Navbar.jsx'
 import { useDisclosure } from '@mantine/hooks'
-import { AppShell, Drawer } from '@mantine/core'
+import { AppShell } from '@mantine/core'
 import UnauthorizedAlert from '../components/UnauthorizedAlert.jsx'
 import Messages from '../components/messages/Messages.jsx'
 
 const PrivateLayout = () => {
 
-  const { user, role, unauthorizedAlertShown } = useAuthProvider()
+  const { user, unauthorizedAlertShown } = useAuthProvider()
   const [opened, { toggle }] = useDisclosure();
   const [messagesOpened, { open: openMessages, close: closeMessages }] = useDisclosure(false);
 

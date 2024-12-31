@@ -1,7 +1,5 @@
-
 import { useEffect, useState } from 'react'
 import useSubmit from '../../hooks/useSubmit.js'
-import { MdExpandMore, MdExpandLess } from "react-icons/md";
 import ListingCover from './ListingCover.jsx'
 
 import { useNavigate } from 'react-router-dom'

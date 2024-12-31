@@ -1,5 +1,4 @@
-import React from 'react'
-import { Avatar, Box, Flex, Image, Paper, Title } from '@mantine/core'
+import { Avatar, Flex, Image, Paper, Title } from '@mantine/core'
 import home from "../../assets/images/landing/residences/home.png"
 import apartment from "../../assets/images/landing/residences/apartment.png"
 import commercial from "../../assets/images/landing/residences/commercial.png"

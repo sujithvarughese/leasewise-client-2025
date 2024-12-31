@@ -1,11 +1,6 @@
-
-import { useState } from "react";
 import { useNavigate } from 'react-router-dom'
 import { convertToUSD } from "../../utilities/financeCalculations.js";
-import { BiMessageSquareEdit } from "react-icons/bi"
-import { ImUserPlus } from "react-icons/im";
-import { MdOutgoingMail } from "react-icons/md";
-import { Anchor, Box, Button, Card, Flex, Grid, Group, Image, Text, Title, UnstyledButton } from '@mantine/core'
+import { Box, Button, Card, Flex, Grid, Image, Text, Title, UnstyledButton } from '@mantine/core'
 
 const UnitCoverListMode = ({ unit }) => {
 
