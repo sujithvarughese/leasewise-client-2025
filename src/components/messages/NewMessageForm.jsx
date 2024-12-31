@@ -11,7 +11,7 @@ import { fetchAdminInfo, fetchUserList } from '../../features/messagesSlice.js'
 
 const NewMessageForm = () => {
 
-  const { user } = useAuthProvider()
+  const { user, role } = useAuthProvider()
   const addressBook = useSelector(state => state.messages.addressBook)
   const dispatch = useDispatch()
 
@@ -29,7 +29,7 @@ const NewMessageForm = () => {
   });
 
   useEffect(() => {
-    if (user.role === "management") {
+    if (role === "management") {
       dispatch(fetchUserList())
     } else {
       dispatch(fetchAdminInfo())

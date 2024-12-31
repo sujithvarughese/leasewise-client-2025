@@ -44,7 +44,8 @@ const fetchUserList = createAsyncThunk(
     try {
       const response = await axiosDB("/auth/getUserList")
       const { userList } = response.data
-      return userList
+      console.log(userList)
+      return userList.reverse()
     } catch (error) {
       console.log(error);
     }

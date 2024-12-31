@@ -34,7 +34,9 @@ const Units = () => {
       unit.apartmentNumber?.toLowerCase().includes(query.toLowerCase()) ||
       unit.city.toLowerCase().includes(query.toLowerCase()) ||
       unit.state.toLowerCase().includes(query.toLowerCase()) ||
-      unit.zip.toLowerCase().includes(query.toLowerCase())
+      unit.zip.toLowerCase().includes(query.toLowerCase()) ||
+      unit.tenant?.firstName.toLowerCase().includes(query.toLowerCase()) ||
+      unit.tenant?.lastName.toLowerCase().includes(query.toLowerCase())
     )
   })
   // scroll to top on load
