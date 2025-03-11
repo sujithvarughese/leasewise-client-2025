@@ -11,7 +11,7 @@ const logos = [forbesLogo, realtorComLogo, wsjLogo, realtyTimesLogo, businessIns
 const Magazines = () => {
 
   return (
-    <Box>
+    <Flex direction="column" mih={400} justify="center" align="center">
       <Title order={4} align="center">
         As Seen In
       </Title>
@@ -30,7 +30,7 @@ const Magazines = () => {
           />
         ))}
       </Flex>
-    </Box>
+    </Flex>
   );
 };
 

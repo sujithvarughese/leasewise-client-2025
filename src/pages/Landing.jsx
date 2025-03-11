@@ -7,7 +7,7 @@ import Residences from '../components/landing/Residences.jsx'
 
 const Landing = () => {
   return (
-    <Flex direction="column" m="auto" gap={12} maw="1920px">
+    <Flex direction="column" m="auto" gap={36} maw="1920px">
       <Hero />
       <Magazines />
       <Residences />

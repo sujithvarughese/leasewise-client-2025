@@ -8,7 +8,7 @@ const credentials = {
   password: import.meta.env.VITE_ADMIN_PASSWORD
 }
 
-const PreviewButton = () => {
+const PreviewButton = ({ variant = "gradient", color = "blue", gradient = ["blue", "cyan"], size = "lg" }) => {
 
   const { logInUser } = useAuthProvider()
   const { response, error, loading, submitForm } = useSubmit()
@@ -34,9 +34,10 @@ const PreviewButton = () => {
 
   return (
     <Button
-      variant="gradient"
-      gradient={{ from: 'blue', to: 'cyan', deg: 90 }}
-      size="lg"
+      variant={variant}
+      color={color}
+      gradient={{ from: gradient[0], to: gradient[1], deg: 90 }}
+      size={size}
       onClick={handleSubmit}
       loading={loading}
     >

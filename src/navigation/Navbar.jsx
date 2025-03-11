@@ -7,31 +7,7 @@ import { useEffect, useState } from 'react'
 import { useAuthProvider } from '../context/auth-context.jsx'
 import { useNavigate } from 'react-router-dom'
 
-const Navbar = ({ toggle }) => {
-
-  const { role, logOutUser } = useAuthProvider()
-  const [links, setLinks] = useState([])
-  const navigate = useNavigate()
-  const [active, setActive] = useState(0);
-
-  const setActiveAndNavigate = (index) => {
-    setActive(index)
-    navigate(links[index].url)
-    toggle()
-  }
-
-  const logOutAndNavigate = () => {
-    logOutUser()
-    navigate("/")
-  }
-
-  useEffect(() => {
-    if (role === "management") {
-      setLinks(managementLinks)
-    } else {
-      setLinks(tenantLinks)
-    }
-  }, [role])
+const Navbar = ({ links, active, onClick, logout }) => {
 
   return (
     <AppShellNavbar>
@@ -39,45 +15,16 @@ const Navbar = ({ toggle }) => {
       <NavLink
         key={index}
         active={index === active}
-        onClick={() => setActiveAndNavigate(index)}
+        onClick={() => onClick(index)}
         label={link.name}
         leftSection={link.icon}
       />
       )}
-      <Button m={12} variant="subtle" color="black" onClick={logOutAndNavigate}>Log Out</Button>
+      <Button m={12} variant="subtle" color="black" onClick={logout}>Log Out</Button>
     </AppShellNavbar>
   )
 }
 
-const managementLinks = [
-  {
-    name: "Dashboard",
-    icon: <RiDashboardFill />,
-    url: "/"
-  },
-  {
-    name: "Research",
-    icon: <FaGlobe />,
-    url: "/research"
-  },
-  {
-    name: "Units",
-    icon: <PiBuildingApartmentFill />,
-    url: "/units"
-  },
-  {
-    name: "Accounting",
-    icon: <FaMoneyBillTrendUp />,
-    url: "/accounting"
-  },
-]
 
-const tenantLinks = [
-  {
-    name: "Dashboard",
-    icon: <RiDashboardFill />,
-    url: "/"
-  },
-]
 
 export default Navbar

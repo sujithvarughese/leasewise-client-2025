@@ -1,11 +1,11 @@
-import {Divider, Flex, Modal, Paper} from '@mantine/core'
+import {Divider, Flex, Modal, Paper, Text} from '@mantine/core'
 import { useEffect, useState } from 'react'
 import { Button, TextInput } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
 import useSubmit from '../../hooks/useSubmit.js'
 import { useAuthProvider } from '../../context/auth-context.jsx'
 
-const Login = ({ createAccountOpen, opened, close }) => {
+const Login = ({ createAccountOpen }) => {
 
   const { logInUser } = useAuthProvider()
   const { response, error, loading, submitForm } = useSubmit()
@@ -47,39 +47,44 @@ const Login = ({ createAccountOpen, opened, close }) => {
   }, [response])
 
   return (
-    <Modal opened={opened} onClose={close}>
-      <Flex direction="column" align="center" justify="center">
+
         <form onSubmit={form.onSubmit(setSubmittedValues)}>
-          <Flex direction="column" gap={12}>
-            <TextInput
-              {...form.getInputProps('email')}
-              key={form.key('email')}
-              placeholder="Email"
-              size="lg"
-              radius="md"
-            />
-            <TextInput
-              {...form.getInputProps('password')}
-              key={form.key('password')}
-              type="password"
-              placeholder="Password"
-              size="lg"
-              radius="md"
-            />
-            <Button type="submit" size="md" loading={loading}>
-              Log In
-            </Button>
+          <Flex align="center" justify="center" gap={4}>
+
+            <Flex direction="column" align="center" gap={8}>
+              <TextInput
+                {...form.getInputProps('email')}
+                key={form.key('email')}
+                placeholder="Email"
+                size="xs"
+                m={0}
+              />
+              <TextInput
+                {...form.getInputProps('password')}
+                key={form.key('password')}
+                type="password"
+                placeholder="Password"
+                size="xs"
+                m={0}
+              />
+            </Flex>
+
+
+            <Flex direction="column" align="center" gap={4}>
+              <Button variant="subtle" onClick={createAccountOpen} size="sm" color="green.6" m={0} p={0}>
+                <Flex direction="column">
+                  <Text size="xs">Don't have an account?</Text>
+                  Register
+                </Flex>
+              </Button>
+
+              <Button type="submit" size="sm" loading={loading} m={0}>
+                Log In
+              </Button>
+            </Flex>
           </Flex>
         </form>
-        <Divider my="sm"/>
-        <Flex justify="center">
-          <Button onClick={() => {close();createAccountOpen()}} size="md" color="green.6">
-            Create new Account
-          </Button>
-        </Flex>
-      </Flex>
 
-    </Modal>
   )
 }
 
