@@ -1,7 +1,7 @@
 
 const prod = {
   url: {
-    API_URL: "https://leasewise-03f522c112c8.herokuapp.com/"
+    API_URL: "https://leasewise-03f522c112c8.herokuapp.com/api/v1"
   }
 }
 
