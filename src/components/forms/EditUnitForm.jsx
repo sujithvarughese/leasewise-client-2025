@@ -19,8 +19,9 @@ const EditUnitForm = ({ unit, opened, onClose }) => {
 	});
 
 	const handleSubmit = async () => {
+		console.log(submittedValues)
 		try {
-			// await submitForm({ method: "PATCH", url: "/units", requestConfig: submittedValues })
+			await submitForm({ method: "PATCH", url: "/units", requestConfig: submittedValues })
 			showUnauthorizedAlert()
 		} catch (e) {
 			console.log(e)
