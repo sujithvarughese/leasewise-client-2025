@@ -21,7 +21,6 @@ axiosHUD.interceptors.response.use(
 
 const axiosDB = axios.create({
 	baseURL: config.url.API_URL,
-	withCredentials: true
 });
 // response
 axiosDB.interceptors.response.use(
