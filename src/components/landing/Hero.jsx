@@ -16,7 +16,12 @@ const Hero = () => {
   return (
     <Box>
 
-        <Flex display={{ base: "none", md: "flex"}}  direction="row" m="md" justify="space-between" align="center">
+        <Flex
+          component={motion.div}
+          initial={{ y: "-20%", opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1, ease: "easeInOut" }}
+          display={{ base: "none", md: "flex"}}  direction="row" m="md" justify="space-between" align="center">
           <Flex direction="column" align={{ base: "center", sm: "flex-start" }}>
             <Text style={{ fontWeight: 600 }} fz={{ base: "md", md: 48 }} >LeaseWise</Text>
             <Text style={{ fontWeight: 600 }} fz={{ base: "sm", md: 24 }} c="gray">Streamlined Property Management.</Text>
@@ -65,7 +70,7 @@ const Hero = () => {
           >
             <Flex
               component={motion.div}
-              initial={{ y: "200%" }}
+              initial={{ y: "30%" }}
               animate={{ y: 0 }}
               transition={{ duration: 1, ease: "easeInOut" }}
               direction="column" justify="center" h="100%" gap={24}
@@ -77,7 +82,7 @@ const Hero = () => {
               </Text>
 
               <Text pl={{ base: "initial", md: 120 }} c="white" style={{ fontSize: 24, fontWeight: 400, lineHeight: 1.1 }}>
-                Enhance Your Reach with Our Comprehensive Digital Marketing and SEO Services.
+                Enhance Your Reach with Our Comprehensive Digital Organization Tools and Financial Tracking Data.
               </Text>
 
               <Flex pl={{ base: "initial", md: 120 }} justify={{ base: "center", md: "flex-start" }}>
