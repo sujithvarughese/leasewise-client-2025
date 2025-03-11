@@ -23,6 +23,7 @@ const Research = () => {
         </Box>
       </BackgroundImage>
 
+      {activeTab !== "0" &&
       <Paper shadow="xl" h="100vh">
         <Tabs value={activeTab} onChange={setActiveTab}>
           <Tabs.List aria-label="research tabs" justify="center">
@@ -39,6 +40,8 @@ const Research = () => {
           </Tabs.Panel>
         </Tabs>
       </Paper>
+      }
+
 
 
 
