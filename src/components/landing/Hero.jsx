@@ -49,7 +49,7 @@ const Hero = () => {
             component={motion.div}
             display={{ base: "none", md: "flex" }}
             initial={{ x: "-100%" }}
-            animate={{ x: "10%" }}
+            animate={{ x: "15%" }}
             transition={{ duration: 1, ease: "easeInOut" }}
             w="50%"
             style={{ border: "5px solid white", borderRadius: 5}}
