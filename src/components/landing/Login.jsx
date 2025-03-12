@@ -1,4 +1,4 @@
-import {Divider, Flex, Modal, Paper} from '@mantine/core'
+import {Divider, Flex, Modal, Paper, Text} from '@mantine/core'
 import { useEffect, useState } from 'react'
 import { Button, TextInput } from '@mantine/core';
 import { hasLength, isEmail, useForm } from '@mantine/form';
@@ -50,6 +50,7 @@ const Login = ({ createAccountOpen, opened, close }) => {
     <Modal opened={opened} onClose={close}>
       <Flex direction="column" align="center" justify="center">
         <form onSubmit={form.onSubmit(setSubmittedValues)}>
+          <Text fz={36} ta="center" pb={16}>Login</Text>
           <Flex direction="column" gap={12}>
             <TextInput
               {...form.getInputProps('email')}
@@ -72,7 +73,8 @@ const Login = ({ createAccountOpen, opened, close }) => {
           </Flex>
         </form>
         <Divider my="sm"/>
-        <Flex justify="center">
+        <Flex justify="center" direction="column" gap={4} style={{ textAlign: "center"}}>
+          <Text>Not yet registered?</Text>
           <Button onClick={() => {close();createAccountOpen()}} size="md" color="green.6">
             Create new Account
           </Button>

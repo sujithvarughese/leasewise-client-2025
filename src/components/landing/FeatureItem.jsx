@@ -10,7 +10,7 @@ const FeatureItem = ({ feature, bg }) => {
           <Text>{feature.description}</Text>
         </Grid.Col>
         <Grid.Col span={{ base: 12, sm: 4 }}>
-          <Image src={feature.image} alt="feature" h={320} w={320} m="auto"/>
+          <Image src={feature.image} alt="feature" h={320} w={320} m="auto" radius="sm"/>
         </Grid.Col>
 
       </Grid>

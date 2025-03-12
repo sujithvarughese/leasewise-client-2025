@@ -15,7 +15,6 @@ const Hero = () => {
   const [loginOpened, { open: loginOpen, close: loginClose }] = useDisclosure(false);
   return (
     <Box>
-
         <Flex
           component={motion.div}
           initial={{ y: "-20%", opacity: 0 }}
@@ -24,7 +23,7 @@ const Hero = () => {
           display={{ base: "none", md: "flex"}}  direction="row" m="md" justify="space-between" align="center">
           <Flex direction="column" align={{ base: "center", sm: "flex-start" }}>
             <Text style={{ fontWeight: 600 }} fz={{ base: "md", md: 48 }} >LeaseWise</Text>
-            <Text style={{ fontWeight: 600 }} fz={{ base: "sm", md: 24 }} c="gray">Streamlined Property Management.</Text>
+            <Text style={{ fontWeight: 600 }} fz={{ base: "sm", md: 24 }} lh={1} c="gray">Streamlined Property Management.</Text>
           </Flex>
           <Flex justify="center" align="center" gap={16}>
             <UnstyledButton onClick={loginOpen} fw={600}>Login</UnstyledButton>
@@ -104,7 +103,7 @@ const Hero = () => {
         <Login createAccountOpen={createAccountOpen} opened={loginOpened} close={loginClose} />
 
 
-      <CreateAccount opened={createAccountOpened} close={createAccountClose}/>
+      <CreateAccount loginOpen={loginOpen} opened={createAccountOpened} close={createAccountClose}/>
     </Box>
   )
 }
