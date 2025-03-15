@@ -17,7 +17,7 @@ const Magazines = () => {
       initial={{ scale: "70%" }}
       animate={{ scale: "100%" }}
       transition={{ duration: 1, ease: "easeInOut" }}
-      direction="column" mih={400} justify="center" align="center">
+      direction="column" mih={360} justify="center" align="center">
       <Title order={4} align="center">
         As Seen In
       </Title>

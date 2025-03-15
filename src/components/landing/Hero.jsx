@@ -25,6 +25,7 @@ const Hero = () => {
             <Text style={{ fontWeight: 600 }} fz={{ base: "md", md: 48 }} >LeaseWise</Text>
             <Text style={{ fontWeight: 600 }} fz={{ base: "sm", md: 24 }} lh={1} c="gray">Streamlined Property Management.</Text>
           </Flex>
+          <Image src={logo} alt="logo" w={60}/>
           <Flex justify="center" align="center" gap={16}>
             <UnstyledButton onClick={loginOpen} fw={600}>Login</UnstyledButton>
             <UnstyledButton onClick={createAccountOpen} fw={600}>Register</UnstyledButton>
