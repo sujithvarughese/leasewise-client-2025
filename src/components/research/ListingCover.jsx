@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 
 import ListingDetails from './ListingDetails.jsx'
 import useSubmit from '../../hooks/useSubmit.js'
-import { Box, Card, Image, Loader, Paper, Text, Title } from '@mantine/core'
+import {Box, Card, Flex, Image, Loader, Paper, Text, Title} from '@mantine/core'
 import { useDisclosure } from '@mantine/hooks'
 import { convertToUSD } from '../../utilities/financeCalculations.js'
 
@@ -37,20 +37,23 @@ const ListingCover = ({
 
   return (
     <>
-      <Card onClick={handleClick} p={36}>
+      <Card onClick={handleClick} p={24} withBorder shadow="xl" radius="sm" style={{ cursor: "pointer" }}>
+
         <Card.Section>
-          <Image src={primaryImage} h={120} w={200}></Image>
+          {loading ?  <Flex justify="center" align="center" h="100%">{loading && <Loader type="dots" ta="center" h={120} />}</Flex> :
+          <Image src={primaryImage} h={120} radius="sm"></Image>
+          }
         </Card.Section>
+
         <Card.Section>
           <Box >
-            <Title order={4}>{address}</Title>
-            <Title order={6}>{city}, {state} {zipCode}</Title>
+            <Text fz={18} fw={900} order={4} >{address}</Text>
+            <Text fz={14} fw={700} order={4} lh={1.2}>{city}, {state} {zipCode}</Text>
           </Box>
-          <Text>{bedrooms} br / {bathrooms} ba</Text>
+          <Text fz={14}>{bedrooms} br / {bathrooms} ba</Text>
 
-          <Title order={5} style={{ textAlign: "end", paddingTop: "16px"}}>{ !!listPrice && convertToUSD(listPrice)}</Title>
+          <Title order={5} style={{ textAlign: "end", paddingTop: "12px"}}>{ !!listPrice && convertToUSD(listPrice)}</Title>
 
-          <Box style={{  justifySelf: "center" }}>{loading && <Loader />}</Box>
         </Card.Section>
       </Card>
 

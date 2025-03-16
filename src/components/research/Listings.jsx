@@ -32,7 +32,7 @@ const Listings = () => {
 
   return (
     <Box>
-      <Title m={16} order={4} style={{ textAlign: "center" }}>Search for Fair Market Rent Values:</Title>
+      <Title m={16} order={4} style={{ textAlign: "center" }}>Search for Listings by Zip Code:</Title>
       <Flex justify="center" align="center" gap={12}>
         <TextInput
           type="text"
