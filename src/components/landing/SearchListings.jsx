@@ -1,4 +1,4 @@
-import {BackgroundImage, Button, Flex, TextInput, Title} from "@mantine/core";
+import {BackgroundImage, Button, Flex, Text, TextInput, Title} from "@mantine/core";
 import {useEffect, useState} from "react";
 import useSubmit from "../../hooks/useSubmit.js";
 import {useDisclosure} from "@mantine/hooks";
@@ -34,8 +34,8 @@ const SearchListings = () => {
   }, [response])
 
   return (
-    <BackgroundImage w="90%" maw={600} src={bg} radius={5} shadow="lg" p={{base: 36, sm: 72}}  withBorder>
-      <Title m={16} order={4} c="white" style={{ textAlign: "center" }}>Search for Listings by Zip Code:</Title>
+    <BackgroundImage w="100%" maw={600} src={bg} radius={5} shadow="lg" p={{base: 36, sm: 72}}>
+      <Text mb={16} c="white" fw={600} fz={18} style={{ textAlign: "center" }}>Search for Listings by Zip Code:</Text>
       <form onSubmit={form.onSubmit(values => handleSubmit(values.zipCode))}>
         <Flex justify="center" align="center" gap={12}>
           <TextInput

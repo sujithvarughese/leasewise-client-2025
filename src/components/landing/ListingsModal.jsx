@@ -6,7 +6,7 @@ const ListingsModal = ({ opened, close, listings, zipCode }) => {
     <Modal opened={opened} onClose={close} size="xl">
       <Box py={16}>
         <Text size="xl" fw={600}>Search Results for {zipCode}:</Text>
-        {!listings.length && <Text size="lg">No listings found for zip code: {zipCode}</Text>}
+        {!listings?.length && <Text size="lg">No listings found for zip code: {zipCode}</Text>}
         <Flex wrap="wrap" gap={12} justify="center">
           {listings?.map((listing, index) =>
             <ListingCover key={index} {...listing}/>)}

@@ -23,7 +23,7 @@ const Hero = () => {
         transition={{ duration: 1, ease: "easeInOut" }}
         display={{ base: "none", md: "flex"}}  direction="row" m="md" justify="space-between" align="center">
         <Flex direction="column" align={{ base: "center", sm: "flex-start" }}>
-          <Text style={{ fontWeight: 600 }} fz={{ base: "md", md: 48 }} >LeaseWise</Text>
+          <Text style={{ fontWeight: 600 }} fz={{ base: "md", md: 48 }} lh={1.2} >LeaseWise</Text>
           <Text style={{ fontWeight: 600 }} fz={{ base: "sm", md: 24 }} lh={1} c="gray">Streamlined Property Management.</Text>
         </Flex>
         <Image src={logo} alt="logo" w={60}/>
@@ -42,7 +42,7 @@ const Hero = () => {
       <Flex
         w="100%"
         direction={{ base: "column-reverse", md: "row" }}
-        px="xl"
+        px="sm"
         py="xs"
         pos="relative"
         align="center"
@@ -57,7 +57,7 @@ const Hero = () => {
           w="50%"
           style={{ border: "5px solid white", borderRadius: 5}}
         >
-          <Image src={previewImage} alt="preview" h="100%" mah={500}/>
+          <Image src={previewImage} alt="preview" h="100%"/>
         </Box>
 
         <Flex
