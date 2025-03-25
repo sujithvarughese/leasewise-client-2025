@@ -37,22 +37,22 @@ const ListingCover = ({
 
   return (
     <>
-      <Card onClick={handleClick} p={24} withBorder shadow="xl" radius="sm" style={{ cursor: "pointer" }}>
+      <Card onClick={handleClick} withBorder shadow="xl" radius="sm" style={{ cursor: "pointer" }} w={200}>
 
         <Card.Section>
           {loading ?  <Flex justify="center" align="center" h="100%">{loading && <Loader type="dots" ta="center" h={120} />}</Flex> :
-          <Image src={primaryImage} h={120} radius="sm"></Image>
+          <Image src={primaryImage}  radius="sm"></Image>
           }
         </Card.Section>
 
-        <Card.Section>
+        <Card.Section p={8} pb={24}>
           <Box >
-            <Text fz={18} fw={900} order={4} >{address}</Text>
-            <Text fz={14} fw={700} order={4} lh={1.2}>{city}, {state} {zipCode}</Text>
+            <Text fz={16} fw={900} order={4} lh={1.2}>{address}</Text>
+            <Text fz={14} fw={700} order={4} >{city}, {state} {zipCode}</Text>
           </Box>
           <Text fz={14}>{bedrooms} br / {bathrooms} ba</Text>
 
-          <Title order={5} style={{ textAlign: "end", paddingTop: "12px"}}>{ !!listPrice && convertToUSD(listPrice)}</Title>
+          <Title order={5} style={{ textAlign: "end", paddingTop: "12px"}} pos="absolute" bottom={0} right={6}>{ !!listPrice && convertToUSD(listPrice)}</Title>
 
         </Card.Section>
       </Card>

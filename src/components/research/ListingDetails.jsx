@@ -52,7 +52,7 @@ const ListingDetails = ({
       <Anchor href={link} target="_blank" rel="noreferrer">More Information</Anchor>
       <Flex wrap="wrap" justify="center" gap={6}>
         {photos?.map((item, index) => (
-          <Image key={index} src={item} alt="photo" h={{ base: 104, xs: 152, md: 160}}/>
+          <Image key={index} src={item} alt="photo" />
         ))}
       </Flex>
 
