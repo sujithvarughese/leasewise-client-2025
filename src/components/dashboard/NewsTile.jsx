@@ -17,7 +17,7 @@ const NewsTile = ({ source, title, url, urlToImage, date }) => {
         <Text style={{ fontWeight: 500, whiteSpace: "nowrap",  overflow: "clip",  textOverflow: "ellipsis" }}>{source}</Text>
         <Text color="gray">{monthString[month - 1]} {day}</Text>
         <Anchor href={url} target="_blank" rel="noreferrer" textAlign="left">
-          <Text lineClamp={3}
+          <Text lineClamp={2}
           >{title}</Text>
         </Anchor>
 
