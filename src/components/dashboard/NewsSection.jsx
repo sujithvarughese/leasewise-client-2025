@@ -7,7 +7,7 @@ import '@mantine/carousel/styles.css';
 const NewsSection = ({ articles }) => {
 
   return (
-    <Box>
+    <Box bg="white" p={24}>
       <Title>Latest Real Estate News</Title>
       <Carousel slideSize={{ base: "33%", md: "20%" }} align="start" loop>
         {articles.map((article, index) =>

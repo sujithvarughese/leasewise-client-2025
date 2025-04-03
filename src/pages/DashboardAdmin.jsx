@@ -13,7 +13,7 @@ const DashboardAdmin = () => {
   return (
     <Flex direction="column" gap={24}>
       <NewsSection articles={filteredArticles}/>
-      <Flex direction={{ base: "column-reverse", xs: "row" }} justify="space-around" align={ "flex-start" } w="100%">
+      <Flex direction={{ base: "column-reverse", sm: "row" }} justify="space-around" align={ "flex-start" } w="100%" gap={24}>
         <PieChartExpenses expenses={expenses}/>
         <Deposits incomes={incomes} expenses={expenses}/>
       </Flex>

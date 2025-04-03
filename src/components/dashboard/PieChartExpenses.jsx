@@ -22,12 +22,13 @@ const PieChartExpenses = ({ expenses }) => {
   const [data, setData] = useState(createData())
 
   return (
-    <Box w="100%">
+    <Box w="100%" bg="white" p={24} rounded="md" shadow="md">
       <Title>Expenses</Title>
       {data &&
         <Flex>
           <PieChart
             labelsType="percent"
+            size={240}
             withLabels
             withTooltip
             tooltipDataSource="segment"

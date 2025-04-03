@@ -6,7 +6,7 @@ import { Box, Table, Title } from '@mantine/core'
 const RecentExpenses = ({ expenses }) => {
 
   return (
-    <Box>
+    <Box bg="white" p={24} sx={{ borderRadius: 10 }}>
       <Title>Payments</Title>
       <Table>
         <Table.Thead>

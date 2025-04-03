@@ -12,7 +12,7 @@ const Deposits = ({ incomes, expenses }) => {
   const [viewBalance, setViewBalance] = useState(false)
 
   return (
-    <Flex direction="column" pb={{ base: 24, xs: "initial" }} align="flex-end">
+    <Flex direction="column" pb={{ base: 24, xs: "initial" }} align={{ base: "flex-start", sm: "flex-end" }} bg="white" p={24} rounded="md" shadow="md" w={{ base: "100%", sm: "50%"}}>
       <Title>Recent Rental Income</Title>
       <Text>{convertToUSD(incomes[incomes.length - 1].amount)}</Text>
       <Text>on {incomes[incomes.length - 1].datePaid.substring(0, 10)}</Text>

@@ -26,7 +26,7 @@ const UnitCoverListMode = ({ unit }) => {
 	}
 	return (
 		<>
-			<Grid align="center" display={{ base: "none", sm: "initial"}}>
+			<Grid align="center" display={{ base: "none", sm: "initial"}} bg="white" p={16} radius="md" shadow="lg" style={{ borderRadius: "10px" }}>
 				{/* clicking image or address navigates to FinancesUnit */}
 				<Grid.Col span={2}>
 					<UnstyledButton onClick={navigateToUnit}>
@@ -52,7 +52,7 @@ const UnitCoverListMode = ({ unit }) => {
 			</Grid>
 
 
-			<UnstyledButton display={{ sm: "none" }} my={16}>
+			<UnstyledButton display={{ sm: "none" }} my={16} bg="white" p={16} radius="md" shadow="lg" style={{ borderRadius: "10px" }}>
 				<Card shadow="lg" radius="md" p="lg">
 					<Card.Section>
 						<Image src={image} alt={`${houseNumber} ${street}`}/>

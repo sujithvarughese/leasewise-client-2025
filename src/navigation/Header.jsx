@@ -7,7 +7,6 @@ const Header = ({ opened, toggle, openMessages, links, active, onClick, logout }
 
   const unread = useSelector(state => state.messages.unread)
 
-  console.log(unread)
   return (
     <AppShellHeader>
       <Flex justify="space-between" align="center" h="100%" mx="12">

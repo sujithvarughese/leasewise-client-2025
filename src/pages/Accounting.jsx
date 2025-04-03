@@ -55,7 +55,7 @@ const Accounting = () => {
           overflow: 'auto',
         }}
       >
-        <Container sx={{ mt: 4, mb: 4 }}>
+        <Container sx={{ mt: 4, mb: 4 }} bg="white" p={24} style={{ borderRadius: 10 }}>
           <Box>
             <NativeSelect
               name="term"

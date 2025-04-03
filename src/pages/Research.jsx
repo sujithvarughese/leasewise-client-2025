@@ -5,7 +5,7 @@ import { useState } from 'react'
 import bg from "../assets/images/research_bg.jpeg"
 
 const Research = () => {
-  const [activeTab, setActiveTab] = useState("0");
+  const [activeTab, setActiveTab] = useState("1");
 
   return (
     <Box>
@@ -23,7 +23,7 @@ const Research = () => {
         </Box>
       </BackgroundImage>
 
-      {activeTab !== "0" &&
+
       <Paper shadow="xl" h="100vh">
         <Tabs value={activeTab} onChange={setActiveTab}>
           <Tabs.List aria-label="research tabs" justify="center">
@@ -40,7 +40,7 @@ const Research = () => {
           </Tabs.Panel>
         </Tabs>
       </Paper>
-      }
+
 
 
 
